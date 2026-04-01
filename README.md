@@ -1847,6 +1847,484 @@ game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Ca1r"):Fi
 
 local Section = Tab:AddSection({"Car Trolls"})
 
+Tab:AddButton({
+    Name = "Remove All Cars",
+    Callback = function()
+        local ofnawufn = false
+
+if ofnawufn == true then
+    return
+end
+ofnawufn = true
+
+local cawwfer = "MilitaryBoatFree" -- Changed to MilitaryBoatFree
+local oldcfffff = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1754, -2, 58) -- Updated coordinates
+wait(0.3)
+
+local args = {
+    [1] = "PickingBoat", -- Changed to PickingBoat
+    [2] = cawwfer
+}
+
+game:GetService("ReplicatedStorage").RE:FindFirstChild("1Ca1r"):FireServer(unpack(args))
+wait(1)
+
+local wrinfjn
+for _, errb in pairs(game.workspace.Vehicles[game.Players.LocalPlayer.Name.."Car"]:GetDescendants()) do
+    if errb:IsA("VehicleSeat") then
+        wrinfjn = errb
+    end
+end
+
+repeat
+    if game.Players.LocalPlayer.Character.Humanoid.Health == 0 then return end
+    if game.Players.LocalPlayer.Character.Humanoid.Sit == true then
+        if not game.Players.LocalPlayer.Character.Humanoid.SeatPart == wrinfjn then
+            game.Players.LocalPlayer.Character.Humanoid.Sit = false
+        end
+    end
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = wrinfjn.CFrame
+    task.wait()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = wrinfjn.CFrame + Vector3.new(0,1,0)
+    task.wait()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = wrinfjn.CFrame + Vector3.new(0,-1,0)
+    task.wait()
+until game.Players.LocalPlayer.Character.Humanoid.SeatPart == wrinfjn
+
+for _, wifn in pairs(game.workspace.Vehicles[game.Players.LocalPlayer.Name.."Car"]:GetDescendants()) do
+    if wifn.Name == "PhysicalWheel" then
+        wifn:Destroy()
+    end
+end
+
+local FLINGED = Instance.new("BodyThrust", game.workspace.Vehicles[game.Players.LocalPlayer.Name.."Car"].Chassis.Mass) 
+FLINGED.Force = Vector3.new(50000, 0, 50000) 
+FLINGED.Name = "Catholic Hub Flinged"
+FLINGED.Location = game.workspace.Vehicles[game.Players.LocalPlayer.Name.."Car"].Chassis.Mass.Position
+
+for _, wvwvwasc in pairs(game.workspace.Vehicles:GetChildren()) do
+    for _, ascegr in pairs(wvwvwasc:GetDescendants()) do
+        if ascegr.Name == "VehicleSeat" then
+            local targetcar = ascegr
+            local tet = Instance.new("BodyVelocity", game.workspace.Vehicles[game.Players.LocalPlayer.Name.."Car"].Chassis.Mass)
+            tet.MaxForce = Vector3.new(math.huge,math.huge,math.huge)
+            tet.P = 1250
+            tet.Velocity = Vector3.new(0,0,0)
+            tet.Name = "#mOVOOEPF$#@F$#GERE..>V<<<<EW<V<<W"
+            for m=1,25 do
+                local pos = {x=0, y=0, z=0}
+                pos.x = targetcar.Position.X
+                pos.y = targetcar.Position.Y
+                pos.z = targetcar.Position.Z
+                pos.x = pos.x + targetcar.Velocity.X / 2
+                pos.y = pos.y + targetcar.Velocity.Y / 2
+                pos.z = pos.z + targetcar.Velocity.Z / 2
+                if pos.y <= -200 then
+                    game.workspace.Vehicles[game.Players.LocalPlayer.Name.."Car"].Chassis.Mass.CFrame = CFrame.new(0,1000,0)
+                else
+                    game.workspace.Vehicles[game.Players.LocalPlayer.Name.."Car"].Chassis.Mass.CFrame = CFrame.new(Vector3.new(pos.x,pos.y,pos.z))
+                    task.wait()
+                    game.workspace.Vehicles[game.Players.LocalPlayer.Name.."Car"].Chassis.Mass.CFrame = CFrame.new(Vector3.new(pos.x,pos.y,pos.z)) + Vector3.new(0,-2,0)
+                    task.wait()
+                    game.workspace.Vehicles[game.Players.LocalPlayer.Name.."Car"].Chassis.Mass.CFrame = CFrame.new(Vector3.new(pos.x,pos.y,pos.z)) * CFrame.new(0,0,2)
+                    task.wait()
+                    game.workspace.Vehicles[
+game.Players.LocalPlayer.Name.."Car"].Chassis.Mass.CFrame = CFrame.new(Vector3.new(pos.x,pos.y,pos.z)) * CFrame.new(2,0,0)
+                    task.wait()
+                end
+                task.wait()
+            end
+        end
+    end
+end
+
+task.wait()
+local args = {
+    [1] = "DeleteAllVehicles"
+}
+
+game:GetService("ReplicatedStorage").RE:FindFirstChild("1Ca1r"):FireServer(unpack(args))
+game.Players.LocalPlayer.Character.Humanoid.Sit = false
+wait()
+local tet = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
+tet.MaxForce = Vector3.new(math.huge,math.huge,math.huge)
+tet.P = 1250
+tet.Velocity = Vector3.new(0,0,0)
+tet.Name = "#mOVOOEPF$#@F$#GERE..>V<<<<EW<V<<W"
+wait(0.1)
+for m=1,2 do 
+    task.wait()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldcfffff
+end
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldcfffff
+wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("#mOVOOEPF$#@F$#GERE..>V<<<<EW<V<<W"):Destroy()
+wait(0.2)
+ofnawufn = false
+    end
+})
+
+Tab:AddButton({
+    Name = "Bring All Cars",
+    Callback = function()
+        for _, v in next, workspace.Vehicles:GetChildren() do
+            v:SetPrimaryPartCFrame(game.Players.LocalPlayer.Character:GetPrimaryPartCFrame())
+        end
+    end
+})
+
+
+local DropdownCar = Tab:AddDropdown({
+    Name = "Select Car",
+    Description = "Select Car of troll",
+    Default = nil,
+    Options = TeleportCarro:AtualizarListaCarros(),
+    Callback = function(selected)
+        _G.SelectedVehicle = selected
+    end
+})
+
+
+Workspace:WaitForChild("Vehicles").ChildAdded:Connect(function()
+    DropdownCar:Set(TeleportCarro:AtualizarListaCarros())
+end)
+
+Workspace:WaitForChild("Vehicles").ChildRemoved:Connect(function()
+    DropdownCar:Set(TeleportCarro:AtualizarListaCarros())
+end)
+
+Tab:AddToggle({
+    Name = "View Car",
+    Description = "viewing Car",
+    Default = false,
+    Callback = function(state)
+        if state then
+            if not _G.SelectedVehicle or _G.SelectedVehicle == "" then
+                TeleportCarro:MostrarNotificacao("Nenhum carro selecionado!")
+                return
+            end
+
+            local vehicles = Workspace:FindFirstChild("Vehicles")
+            if not vehicles then
+                TeleportCarro:MostrarNotificacao("Pasta Vehicles não encontrada!")
+                return
+            end
+
+            local vehicle = vehicles:FindFirstChild(_G.SelectedVehicle)
+            if not vehicle then
+                TeleportCarro:MostrarNotificacao("Carro não encontrado")
+                return
+            end
+
+            local seat = vehicle:FindFirstChildWhichIsA("VehicleSeat", true)
+            if not seat then
+                TeleportCarro:MostrarNotificacao("Assento não encontrado!")
+                return
+            end
+
+            
+            TeleportCarro.OriginalCameraSubject = Camera.CameraSubject
+            TeleportCarro.OriginalCameraType = Camera.CameraType
+
+            
+            Camera.CameraSubject = seat
+            Camera.CameraType = Enum.CameraType.Follow
+            TeleportCarro:MostrarNotificacao("Câmera no carro " .. _G.SelectedVehicle .. "!")
+        else
+            
+            if TeleportCarro.OriginalCameraSubject then
+                Camera.CameraSubject = TeleportCarro.OriginalCameraSubject
+                Camera.CameraType = TeleportCarro.OriginalCameraType or Enum.CameraType.Custom
+                TeleportCarro:MostrarNotificacao("Câmera restaurada!")
+                TeleportCarro.OriginalCameraSubject = nil
+                TeleportCarro.OriginalCameraType = nil
+            end
+        end
+    end
+})
+
+Tab:AddButton({
+    Name = "Teleporte Car",
+    Callback = function()
+        -- 1. Verifica se tem algo selecionado no Dropdown
+        if _G.SelectedVehicle == nil or _G.SelectedVehicle == "" then
+            warn("Selecione um carro no dropdown primeiro!")
+            return
+        end
+
+        -- 2. Tenta achar o carro na pasta de veículos
+        local targetVehicle = workspace.Vehicles:FindFirstChild(_G.SelectedVehicle)
+
+        if targetVehicle then
+            local player = game.Players.LocalPlayer
+            local character = player.Character
+            
+            if character and character:FindFirstChild("HumanoidRootPart") then
+                -- 3. Teleporta você para a posição do carro
+                -- Adicionamos +3 no eixo Y para você cair em cima do carro e não dentro do chão
+                character.HumanoidRootPart.CFrame = targetVehicle:GetPrimaryPartCFrame() + Vector3.new(0, 3, 0)
+                
+                print("Teleportado para o carro de: " .. _G.SelectedVehicle)
+            end
+        else
+            print("Erro: O carro selecionado não existe ou foi deletado.")
+        end
+    end
+})
+
+Tab:AddButton({
+    Name = "Teleporte Car (Bring Back)",
+    Callback = function()
+        
+        if _G.SelectedVehicle == nil or _G.SelectedVehicle == "" then
+            warn("Selecione um carro no dropdown primeiro!")
+            return
+        end
+
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        if not character or not character:FindFirstChild("HumanoidRootPart") then return end
+
+        
+        local originalPos = character.HumanoidRootPart.CFrame
+        
+
+        local targetVehicle = workspace.Vehicles:FindFirstChild(_G.SelectedVehicle)
+
+        if targetVehicle then
+            
+            
+            character.HumanoidRootPart.CFrame = targetVehicle:GetPrimaryPartCFrame() + Vector3.new(0, 3, 0)
+            
+   
+            task.wait(0.3)
+            
+            
+            targetVehicle:SetPrimaryPartCFrame(originalPos)
+            
+
+            character.HumanoidRootPart.CFrame = originalPos + Vector3.new(0, 2, 0)
+            
+            print("Carro " .. _G.SelectedVehicle .. " trazido com sucesso!")
+        else
+            print("Erro: O carro selecionado não foi encontrado.")
+        end
+    end
+})
+
+Tab:AddButton({
+    Name = "Kill Car",
+    Callback = function()
+        -- Verifica se tem algum carro selecionado
+        if _G.SelectedVehicle == nil or _G.SelectedVehicle == "" then
+            warn("Selecione um carro no dropdown primeiro!")
+            return
+        end
+
+        local ofnawufn = false
+        if ofnawufn == true then return end
+        ofnawufn = true
+
+        local cawwfer = "MilitaryBoatFree"
+        local oldcfffff = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        
+        -- 1. Spawnar o barco de ataque
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1754, -2, 58)
+        wait(0.3)
+        game:GetService("ReplicatedStorage").RE:FindFirstChild("1Ca1r"):FireServer("PickingBoat", cawwfer)
+        wait(1)
+
+        -- 2. Entrar no assento do seu barco
+        local myCarName = game.Players.LocalPlayer.Name.."Car"
+        local wrinfjn
+        for _, errb in pairs(game.workspace.Vehicles[myCarName]:GetDescendants()) do
+            if errb:IsA("VehicleSeat") then wrinfjn = errb end
+        end
+
+        repeat
+            if game.Players.LocalPlayer.Character.Humanoid.Health == 0 then return end
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = wrinfjn.CFrame
+            task.wait()
+        until game.Players.LocalPlayer.Character.Humanoid.SeatPart == wrinfjn
+
+
+        for _, wifn in pairs(game.workspace.Vehicles[myCarName]:GetDescendants()) do
+            if wifn.Name == "PhysicalWheel" then wifn:Destroy() end
+        end
+
+        local mass = game.workspace.Vehicles[myCarName].Chassis.Mass
+        local FLINGED = Instance.new("BodyThrust", mass) 
+        FLINGED.Force = Vector3.new(50000, 0, 50000) 
+        FLINGED.Location = mass.Position
+
+
+        local targetVehicle = game.workspace.Vehicles:FindFirstChild(_G.SelectedVehicle)
+
+        if targetVehicle then
+            local targetSeat = targetVehicle:FindFirstChildWhichIsA("VehicleSeat", true)
+            if targetSeat then
+                local tet = Instance.new("BodyVelocity", mass)
+                tet.MaxForce = Vector3.new(math.huge,math.huge,math.huge)
+                tet.Velocity = Vector3.new(0,0,0)
+
+         
+                for m=1, 25 do
+                    if not targetVehicle.Parent then break end -- Se o carro sumir, para o loop
+                    
+                    local pos = targetSeat.Position + (targetSeat.Velocity / 2)
+                    
+
+                    mass.CFrame = CFrame.new(pos)
+                    task.wait()
+                    mass.CFrame = CFrame.new(pos) + Vector3.new(0,-2,0)
+                    task.wait()
+                    mass.CFrame = CFrame.new(pos) * CFrame.new(0,0,2)
+                    task.wait()
+                    mass.CFrame = CFrame.new(pos) * CFrame.new(2,0,0)
+                    task.wait()
+                end
+            end
+        else
+            print("Carro selecionado não encontrado no mapa!")
+        end
+
+        
+        game:GetService("ReplicatedStorage").RE:FindFirstChild("1Ca1r"):FireServer("DeleteAllVehicles")
+        game.Players.LocalPlayer.Character.Humanoid.Sit = false
+        
+
+        local antiFall = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
+        antiFall.MaxForce = Vector3.new(math.huge,math.huge,math.huge)
+        antiFall.Velocity = Vector3.new(0,0,0)
+        
+        wait(0.1)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldcfffff
+        wait(0.5)
+        antiFall:Destroy()
+        ofnawufn = false
+    end
+})
+
+Tab:AddButton({
+    Name = "Fling Car",
+    Callback = function()
+        
+        if _G.SelectedVehicle == nil or _G.SelectedVehicle == "" then
+            warn("Selecione um carro no dropdown primeiro!")
+            return
+        end
+
+        local ofnawufn = false
+        if ofnawufn == true then return end
+        ofnawufn = true
+
+        local cawwfer = "MilitaryBoatFree"
+        local oldcfffff = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        
+        
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1754, -2, 58)
+        wait(0.3)
+        game:GetService("ReplicatedStorage").RE:FindFirstChild("1Ca1r"):FireServer("PickingBoat", cawwfer)
+        wait(1)
+
+  
+        local myCarName = game.Players.LocalPlayer.Name.."Car"
+        local wrinfjn
+        for _, errb in pairs(game.workspace.Vehicles[myCarName]:GetDescendants()) do
+            if errb:IsA("VehicleSeat") then wrinfjn = errb end
+        end
+
+        repeat
+            if game.Players.LocalPlayer.Character.Humanoid.Health == 0 then return end
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = wrinfjn.CFrame
+            task.wait()
+        until game.Players.LocalPlayer.Character.Humanoid.SeatPart == wrinfjn
+
+
+        for _, wifn in pairs(game.workspace.Vehicles[myCarName]:GetDescendants()) do
+            if wifn.Name == "PhysicalWheel" then wifn:Destroy() end
+        end
+
+        local mass = game.workspace.Vehicles[myCarName].Chassis.Mass
+        local FLINGED = Instance.new("BodyThrust", mass) 
+        FLINGED.Force = Vector3.new(50000, 0, 50000) 
+        FLINGED.Location = mass.Position
+
+
+        local targetVehicle = game.workspace.Vehicles:FindFirstChild(_G.SelectedVehicle)
+
+        if targetVehicle then
+            local targetSeat = targetVehicle:FindFirstChildWhichIsA("VehicleSeat", true)
+            if targetSeat then
+                local tet = Instance.new("BodyVelocity", mass)
+                tet.MaxForce = Vector3.new(math.huge,math.huge,math.huge)
+                tet.Velocity = Vector3.new(0,0,0)
+
+         
+                for m=1, 25 do
+                    if not targetVehicle.Parent then break end -- Se o carro sumir, para o loop
+                    
+                    local pos = targetSeat.Position + (targetSeat.Velocity / 2)
+                    
+
+                    mass.CFrame = CFrame.new(pos)
+                    task.wait()
+                    mass.CFrame = CFrame.new(pos) + Vector3.new(0,-2,0)
+                    task.wait()
+                    mass.CFrame = CFrame.new(pos) * CFrame.new(0,0,2)
+                    task.wait()
+                    mass.CFrame = CFrame.new(pos) * CFrame.new(2,0,0)
+                    task.wait()
+                end
+            end
+        else
+            print("Carro selecionado não encontrado no mapa!")
+        end
+
+        
+        game:GetService("ReplicatedStorage").RE:FindFirstChild("1Ca1r"):FireServer("DeleteAllVehicles")
+        game.Players.LocalPlayer.Character.Humanoid.Sit = false
+        
+
+        local antiFall = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
+        antiFall.MaxForce = Vector3.new(math.huge,math.huge,math.huge)
+        antiFall.Velocity = Vector3.new(0,0,0)
+        
+        wait(0.1)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldcfffff
+        wait(0.5)
+        antiFall:Destroy()
+        ofnawufn = false
+    end
+})
+
+
+Tab:AddButton({
+    Name = "Bring Car",
+    Callback = function()
+
+        if _G.SelectedVehicle == nil or _G.SelectedVehicle == "" then
+            warn("Selecione um carro no dropdown primeiro!")
+            return
+        end
+
+        
+        local targetVehicle = workspace.Vehicles:FindFirstChild(_G.SelectedVehicle)
+
+        if targetVehicle then
+            -- Teleporta o carro para a sua posição atual
+            local myPos = game.Players.LocalPlayer.Character:GetPrimaryPartCFrame()
+            targetVehicle:SetPrimaryPartCFrame(myPos)
+            print("Trouxe o carro: " .. _G.SelectedVehicle)
+        else
+            
+            print("Erro: O carro selecionado não existe mais no mapa.")
+        end
+    end
+})
+
 ---------------------------------------------------------------------------------------------------------------------------------
                                           -- === Tab: Musica === --
 ---------------------------------------------------------------------------------------------------------------------------------
