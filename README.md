@@ -2177,144 +2177,6 @@ Tab:AddButton({
 local Tab = Window:MakeTab({"Protections", "Shield"})
 local Section = Tab:AddSection({"Advanced Protections"})
 
-repeat task.wait() until game:IsLoaded()
-
-local Services = {
-    Players = game:GetService("Players")
-}
-
-local LocalPlayer = Services.Players.LocalPlayer
-
-getgenv().AntiToolSingleActive = false
-getgenv().AntiToolAllActive = false
-
-local singleConnections = {}
-local allConnections = {}
-
-local function removeTool(tool)
-    pcall(function()
-        if tool and tool:IsA("Tool") then
-            tool.Parent = nil -- remove visualmente
-        end
-    end)
-end
-
-local function scanCharacter(player, char, mode)
-    for _, v in ipairs(char:GetChildren()) do
-        if v:IsA("Tool") then
-            removeTool(v)
-        end
-    end
-
-    local conn = char.ChildAdded:Connect(function(child)
-        if child:IsA("Tool") then
-            if mode == "single" and getgenv().AntiToolSingleActive then
-                removeTool(child)
-            elseif mode == "all" and getgenv().AntiToolAllActive then
-                removeTool(child)
-            end
-        end
-    end)
-
-    return conn
-end
-
-local function startSingle(player)
-    if not player or player == LocalPlayer then return end
-
-    if player.Character then
-        table.insert(singleConnections, scanCharacter(player, player.Character, "single"))
-    end
-
-    table.insert(singleConnections,
-        player.CharacterAdded:Connect(function(char)
-            table.insert(singleConnections, scanCharacter(player, char, "single"))
-        end)
-    )
-
-    table.insert(singleConnections, task.spawn(function()
-        while getgenv().AntiToolSingleActive and player.Parent do
-            if player.Character then
-                for _, v in ipairs(player.Character:GetChildren()) do
-                    if v:IsA("Tool") then
-                        removeTool(v)
-                    end
-                end
-            end
-            task.wait(0.3)
-        end
-    end))
-end
-
-local function stopSingle()
-    for _, c in ipairs(singleConnections) do
-        if typeof(c) == "RBXScriptConnection" then
-            c:Disconnect()
-        elseif typeof(c) == "thread" then
-            task.cancel(c)
-        end
-    end
-    table.clear(singleConnections)
-end
-
-local function startAll()
-    for _, player in ipairs(Services.Players:GetPlayers()) do
-        if player ~= LocalPlayer then
-            startSingle(player)
-        end
-    end
-
-    table.insert(allConnections,
-        Services.Players.PlayerAdded:Connect(function(player)
-            if getgenv().AntiToolAllActive then
-                startSingle(player)
-            end
-        end)
-    )
-end
-
-local function stopAll()
-    stopSingle()
-
-    for _, c in ipairs(allConnections) do
-        if typeof(c) == "RBXScriptConnection" then
-            c:Disconnect()
-        end
-    end
-    table.clear(allConnections)
-end
-
-Tab:AddToggle({
-    Name = "Ant Tool (local)",
-    Default = false,
-    Callback = function(state)
-        getgenv().AntiToolSingleActive = state
-
-        if state then
-            local player = Services.Players:FindFirstChild(selectedPlayerNameFlings)
-            if player then
-                startSingle(player)
-            end
-        else
-            stopSingle()
-        end
-    end
-})
-
-Tab:AddToggle({
-    Name = "Ant Tool (all)",
-    Default = false,
-    Callback = function(state)
-        getgenv().AntiToolAllActive = state
-
-        if state then
-            startAll()
-        else
-            stopAll()
-        end
-    end
-})
-
 local CatholicPlayer = game:GetService("Players").LocalPlayer
 local CatholicWorkspace = game:GetService("Workspace")
 local CatholicRunService = game:GetService("RunService")
@@ -2870,6 +2732,205 @@ local function vDisableAntiGlitch()
         vConnection = vNilValue
     end
 end
+
+local RemoteEvent = Services.ReplicatedStorage:WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t")
+local ClearToolsEvent = Services.ReplicatedStorage:WaitForChild("RE"):WaitForChild("1Clea1rTool1s")
+
+getgenv().AntiToolAllActive = false
+getgenv().AntiToolSingleActive = false
+
+local singlePlayerConnection = nil
+local allPlayersConnections = {}
+
+local function fastRemote(tool, targetPlayer)
+    pcall(function()
+        if not tool or not tool:IsA("Tool") or not targetPlayer then return end
+        
+        for i = 1, 3 do
+            task.spawn(function()
+                RemoteEvent:FireServer("AcceptedToolToServer", tool.Name, targetPlayer)
+            end)
+        end
+        
+        task.spawn(function()
+            ClearToolsEvent:FireServer("ClearAllTools")
+        end)
+    end)
+end
+
+local function scanTools(player, char)
+    pcall(function()
+        if not char then return end
+        for _, child in ipairs(char:GetChildren()) do
+            if child:IsA("Tool") then
+                task.spawn(fastRemote, child, player)
+            end
+        end
+    end)
+end
+
+local function monitorSinglePlayer(player)
+    pcall(function()
+        if player == LocalPlayer then return end
+        
+        local connections = {}
+        
+        if player.Character then
+            scanTools(player, player.Character)
+            table.insert(connections, player.Character.ChildAdded:Connect(function(tool)
+                if tool:IsA("Tool") and getgenv().AntiToolSingleActive then
+                    task.spawn(fastRemote, tool, player)
+                end
+            end))
+        end
+        
+        table.insert(connections, player.CharacterAdded:Connect(function(char)
+            scanTools(player, char)
+            table.insert(connections, char.ChildAdded:Connect(function(tool)
+                if tool:IsA("Tool") and getgenv().AntiToolSingleActive then
+                    task.spawn(fastRemote, tool, player)
+                end
+            end))
+        end))
+        
+        table.insert(connections, task.spawn(function()
+            while getgenv().AntiToolSingleActive and player.Parent == Services.Players do
+                if player.Character then
+                    scanTools(player, player.Character)
+                end
+                task.wait(0.2)
+            end
+        end))
+        
+        return connections
+    end)
+    return {}
+end
+
+local function disconnectSinglePlayer()
+    pcall(function()
+        if singlePlayerConnection then
+            for _, conn in ipairs(singlePlayerConnection) do
+                if typeof(conn) == "RBXScriptConnection" and conn.Connected then 
+                    conn:Disconnect() 
+                elseif typeof(conn) == "thread" then
+                    task.cancel(conn)
+                end
+            end
+            singlePlayerConnection = nil
+        end
+    end)
+end
+
+local function monitorAllPlayers(player)
+    pcall(function()
+        if player == LocalPlayer then return end
+        if allPlayersConnections[player] then return end
+        
+        local connections = {}
+        allPlayersConnections[player] = connections
+        
+        if player.Character then
+            scanTools(player, player.Character)
+            table.insert(connections, player.Character.ChildAdded:Connect(function(tool)
+                if tool:IsA("Tool") and getgenv().AntiToolAllActive then
+                    task.spawn(fastRemote, tool, player)
+                end
+            end))
+        end
+        
+        table.insert(connections, player.CharacterAdded:Connect(function(char)
+            scanTools(player, char)
+            table.insert(connections, char.ChildAdded:Connect(function(tool)
+                if tool:IsA("Tool") and getgenv().AntiToolAllActive then
+                    task.spawn(fastRemote, tool, player)
+                end
+            end))
+        end))
+        
+        table.insert(connections, task.spawn(function()
+            while getgenv().AntiToolAllActive and player.Parent == Services.Players do
+                if player.Character then
+                    scanTools(player, player.Character)
+                end
+                task.wait(0.2)
+            end
+        end))
+    end)
+end
+
+local function disconnectAllPlayers()
+    pcall(function()
+        for _, conns in pairs(allPlayersConnections) do
+            for _, conn in ipairs(conns) do
+                if typeof(conn) == "RBXScriptConnection" and conn.Connected then 
+                    conn:Disconnect() 
+                elseif typeof(conn) == "thread" then
+                    task.cancel(conn)
+                end
+            end
+        end
+        table.clear(allPlayersConnections)
+    end)
+end
+
+Tab:AddToggle({
+    Name = "Ant Tool (local)",
+    Default = false,
+    Callback = function(state)
+        pcall(function()
+            getgenv().AntiToolSingleActive = state
+            
+            if state then
+                if not selectedPlayerNameFlings or selectedPlayerNameFlings == "" then
+                    getgenv().AntiToolSingleActive = false
+                    return
+                end
+                
+                local targetPlayer = Services.Players:FindFirstChild(selectedPlayerNameFlings)
+                
+                if not targetPlayer then
+                    getgenv().AntiToolSingleActive = false
+                    return
+                end
+                
+                singlePlayerConnection = monitorSinglePlayer(targetPlayer)
+            else
+                disconnectSinglePlayer()
+            end
+        end)
+    end
+})
+
+Tab:AddToggle({
+    Name = "Ant Tool (all)",
+    Default = false,
+    Callback = function(state)
+        pcall(function()
+            getgenv().AntiToolAllActive = state
+            
+            if state then
+                for _, player in ipairs(Services.Players:GetPlayers()) do
+                    if player ~= LocalPlayer then
+                        monitorAllPlayers(player)
+                    end
+                end
+                
+                if not allPlayersConnections["_listener"] then
+                    allPlayersConnections["_listener"] = {
+                        Services.Players.PlayerAdded:Connect(function(player)
+                            if getgenv().AntiToolAllActive then
+                                monitorAllPlayers(player)
+                            end
+                        end)
+                    }
+                end
+            else
+                disconnectAllPlayers()
+            end
+        end)
+    end
+})
 
 ---------------------------------------------------------------------------------------------------------------------------------
                                                    -- === Tab: Troll === --
