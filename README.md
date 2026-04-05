@@ -1,4 +1,4 @@
-
+me
 game.StarterGui:SetCore("SendNotification", {
     Title = "Welcome to Catholic Hub!",
     Text = "Look at the credits in the first tab!",
@@ -3689,5 +3689,101 @@ Tab:AddButton({
     Description = " ",
     Callback = function()
         PixelPlayer()
+    end
+})
+
+local function executeBringCouch()
+    if not IsValidPlayer() then
+        warn("No player selected!")
+        return
+    end
+    
+    local target = Players:FindFirstChild(SelectedPlayer)
+    if not target or not target.Character then return end
+
+    local myChar = LocalPlayer.Character
+    if not myChar then return end
+    
+    local humanoid = myChar:FindFirstChildOfClass("Humanoid")
+    local rootPart = myChar:FindFirstChild("HumanoidRootPart")
+    local targetRoot = target.Character:FindFirstChild("HumanoidRootPart")
+    
+    if not humanoid or not rootPart or not targetRoot then return end
+
+    pcall(function()
+        ReplicatedStorage.RE["1Clea1rTool1s"]:FireServer("ClearAllTools")
+    end)
+    
+    task.wait(0.2)
+    
+    pcall(function()
+        ReplicatedStorage.RE["1Too1l"]:InvokeServer("PickingTools", "Couch")
+    end)
+    
+    task.wait(0.3)
+
+    local couchTool = LocalPlayer.Backpack:FindFirstChild("Couch")
+    if couchTool then
+        couchTool.Parent = myChar
+    end
+    
+    task.wait(0.1)
+    
+    pcall(function()
+        VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.F, false, game)
+    end)
+    
+    task.wait(0.2)
+
+    humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+    humanoid.PlatformStand = false
+
+    if target.Character:FindFirstChild("Head") then
+        cam.CameraSubject = target.Character.Head
+    end
+
+    local bodyPos = Instance.new("BodyPosition")
+    bodyPos.MaxForce = Vector3.new(5000, 5000, 5000)
+    bodyPos.Parent = targetRoot
+
+    task.spawn(function()
+        local timeStart = tick()
+
+        while tick() - timeStart < 5 do
+            if not target.Character or not target.Character:FindFirstChild("HumanoidRootPart") then
+                break
+            end
+
+            -- puxa o player pra sua frente
+            local bringPos = rootPart.Position + (rootPart.CFrame.LookVector * 3)
+            bodyPos.Position = bringPos
+
+            -- você fica grudado nele
+            rootPart.CFrame = CFrame.new(targetRoot.Position + Vector3.new(0,2,0))
+
+            task.wait()
+        end
+
+        if bodyPos then
+            bodyPos:Destroy()
+        end
+
+        humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+        cam.CameraSubject = humanoid
+
+        for _, p in pairs(myChar:GetDescendants()) do
+            if p:IsA("BasePart") then
+                p.Velocity = Vector3.zero
+                p.RotVelocity = Vector3.zero
+            end
+        end
+    end)
+end
+
+Tab:AddButton({
+    Name = "Bring Target (Couch)",
+    Description = " ",
+    Callback = function()
+        executeBringCouch()
     end
 })
