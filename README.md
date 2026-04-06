@@ -1,4 +1,4 @@
-me
+
 game.StarterGui:SetCore("SendNotification", {
     Title = "Welcome to Catholic Hub!",
     Text = "Look at the credits in the first tab!",
