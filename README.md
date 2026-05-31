@@ -197,20 +197,6 @@ Tab:AddSlider({
     end
 })
  
-Tab:AddButton({  
-    Name = "Reset (Speed / Gravity / Jump)",  
-    Callback = function()  
-
-        local player = game.Players.LocalPlayer  
-        local character = player.Character or player.CharacterAdded:Wait()  
-        local humanoid = character:FindFirstChildOfClass("Humanoid")  
-        if humanoid then  
-            humanoid.WalkSpeed = 16   
-            humanoid.JumpPower = 50   
-        end  
-          
-        game.Workspace.Gravity = 196.2   
-          
 ---------------------------------------------------------------------------------------------------------------------------------
                                           -- === Tab: Utilities Player === --
 ---------------------------------------------------------------------------------------------------------------------------------
