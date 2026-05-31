@@ -197,17 +197,6 @@ Tab:AddSlider({
     end
 })
  
-local InfiniteJumpEnabled = false
- 
- game:GetService("UserInputService").JumpRequest:Connect(function()
-    if InfiniteJumpEnabled then
-       local character = game.Players.LocalPlayer.Character
-       if character and character:FindFirstChild("Humanoid") then
-          character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-       end
-    end
-end)
-
 Tab:AddButton({  
     Name = "Reset (Speed / Gravity / Jump)",  
     Callback = function()  
@@ -222,15 +211,6 @@ Tab:AddButton({
           
         game.Workspace.Gravity = 196.2   
           
- 
-Tab:AddToggle({
-    Name = "Infinite Jump",
-    Default = false,
-    Callback = function(Value)
-       InfiniteJumpEnabled = Value
-    end
-})
-
 ---------------------------------------------------------------------------------------------------------------------------------
                                           -- === Tab: Utilities Player === --
 ---------------------------------------------------------------------------------------------------------------------------------
