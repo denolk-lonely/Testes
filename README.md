@@ -1,1785 +1,1184 @@
--- ================================================================
--- CONFIGURAÇÃO REDZ LIBRARY V5
--- Gerado por: redz Library Configurator
--- ================================================================
-local CONFIG = {
-	-- Imagem de Fundo / Background Image
-	BackgroundImageId = "rbxassetid://86590580698440",
-	MainFrameTransparency = 0.03,
+local redzlib =loadstring(game:HttpGet("https://pastefy.app/q1Cquciw/raw"))()
 
-	-- Opacidade das Caixas / Box Opacity
-	TabsTransparency = 0,
-	BoxesTransparency = 0,
-	DropdownTransparency = 0.1,
-	SliderTransparency = 0,
-
-	-- Sombra / Drop Shadow
-	DropShadowEnabled = false,
-	DropShadowThickness = 3,
-	DropShadowTransparency = 0.5,
-
-	-- Borda do Menu / Menu Border
-	MenuBorderEnabled = true,
-	MenuBorderThickness = 1,
-	MenuBorderGradientEnabled = true,
-	MenuBorderGradientColor1 = Color3.fromRGB(255, 255, 255),
-	MenuBorderGradientColor2 = Color3.fromRGB(124, 0, 255),
-	MenuBorderGradientColor3 = Color3.fromRGB(0, 0, 0),
-	MenuBorderGradientRotation = 45,
-
-	-- Bordas de Tabs e Caixas / Tab & Box Borders
-	TabBordersEnabled = true,
-	TabBorderThickness = 1,
-	BoxBordersEnabled = true,
-	BoxBorderThickness = 1,
-
-	-- Tradução / Translation
-	TranslationEnabled = true,
-	DefaultLanguage = "EN",
-}
--- ================================================================
-
-local MarketplaceService = game:GetService("MarketplaceService")
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
-local HttpService = game:GetService("HttpService")
-local RunService = game:GetService("RunService")
-local CoreGui = game:GetService("CoreGui")
-local Players = game:GetService("Players")
-local Player = Players.LocalPlayer
-local PlayerMouse = Player:GetMouse()
-
-local MyLibrary = {
-	Themes = {
-		Main = {
-			-- Tema Preto & Roxo
-			["Color Hub 1"] = ColorSequence.new({
-				ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 0, 0)),
-				ColorSequenceKeypoint.new(0.50, Color3.fromRGB(255, 255, 255)),
-				ColorSequenceKeypoint.new(1.00, Color3.fromRGB(0, 0, 0))
-			}),
-			["Color Hub 2"] = Color3.fromRGB(0, 0, 0),
-			["Color Stroke"] = Color3.fromRGB(255, 255, 255),
-			["Color Theme"] = Color3.fromRGB(0, 0, 0),
-			["Color Text"] = Color3.fromRGB(255, 255, 255),
-			["Color Dark Text"] = Color3.fromRGB(255, 255, 255)
-		},
-	},
-	Info = { Version = "1.1.0" },
-	Save = { UISize = {550, 380}, TabSize = 160, Theme = "Main" },
-	Settings = {},
-	Connection = {},
-	Instances = {},
-	Elements = {},
-	Options = {},
-	Flags = {},
-	Tabs = {},
-	Icons = (function()
-		return {
-			["accessibility"] = "rbxassetid://10709751939",
-			["activity"] = "rbxassetid://10709752035",
-			["airplay"] = "rbxassetid://10709752254",
-			["alarm"] = "rbxassetid://10709752630",
-			["anchor"] = "rbxassetid://10709761530",
-			["archive"] = "rbxassetid://10709762233",
-			["arrowdown"] = "rbxassetid://10709767827",
-			["arrowleft"] = "rbxassetid://10709768114",
-			["arrowright"] = "rbxassetid://10709768347",
-			["arrowup"] = "rbxassetid://10709768939",
-			["award"] = "rbxassetid://10709769406",
-			["battery"] = "rbxassetid://10709774640",
-			["bell"] = "rbxassetid://10709775704",
-			["bluetooth"] = "rbxassetid://10709776655",
-			["bookmark"] = "rbxassetid://10709782154",
-			["box"] = "rbxassetid://10709782497",
-			["bug"] = "rbxassetid://10709782845",
-			["calendar"] = "rbxassetid://10709789505",
-			["camera"] = "rbxassetid://10709789686",
-			["check"] = "rbxassetid://10709790644",
-			["checkcircle"] = "rbxassetid://10709790387",
-			["chevrondown"] = "rbxassetid://10709790948",
-			["chevronleft"] = "rbxassetid://10709791281",
-			["chevronright"] = "rbxassetid://10709791437",
-			["chevronup"] = "rbxassetid://10709791523",
-			["clock"] = "rbxassetid://10709805144",
-			["cloud"] = "rbxassetid://10709806740",
-			["code"] = "rbxassetid://10709810463",
-			["cog"] = "rbxassetid://10709810948",
-			["copy"] = "rbxassetid://10709812159",
-			["database"] = "rbxassetid://10709818996",
-			["download"] = "rbxassetid://10723344270",
-			["edit"] = "rbxassetid://10734883598",
-			["eye"] = "rbxassetid://10723346959",
-			["file"] = "rbxassetid://10723374641",
-			["filter"] = "rbxassetid://10723375128",
-			["flag"] = "rbxassetid://10723375890",
-			["folder"] = "rbxassetid://10723387563",
-			["globe"] = "rbxassetid://10723404337",
-			["grid"] = "rbxassetid://10723404936",
-			["heart"] = "rbxassetid://10723406885",
-			["home"] = "rbxassetid://10723407389",
-			["image"] = "rbxassetid://10723415040",
-			["info"] = "rbxassetid://10723415903",
-			["key"] = "rbxassetid://10723416652",
-			["languages"] = "rbxassetid://10723417703",
-			["layers"] = "rbxassetid://10723424505",
-			["layout"] = "rbxassetid://10723425376",
-			["link"] = "rbxassetid://10723426722",
-			["list"] = "rbxassetid://10723433811",
-			["lock"] = "rbxassetid://10723434711",
-			["mail"] = "rbxassetid://10734885430",
-			["map"] = "rbxassetid://10734886202",
-			["maximize"] = "rbxassetid://10734886735",
-			["menu"] = "rbxassetid://10734887784",
-			["message"] = "rbxassetid://10734888000",
-			["mic"] = "rbxassetid://10734888864",
-			["minus"] = "rbxassetid://10734896206",
-			["monitor"] = "rbxassetid://10734896881",
-			["moon"] = "rbxassetid://10734897102",
-			["move"] = "rbxassetid://10734900011",
-			["music"] = "rbxassetid://10734905958",
-			["package"] = "rbxassetid://10734909540",
-			["pencil"] = "rbxassetid://10734919691",
-			["phone"] = "rbxassetid://10734921524",
-			["pin"] = "rbxassetid://10734922324",
-			["play"] = "rbxassetid://10734923549",
-			["plus"] = "rbxassetid://10734924532",
-			["power"] = "rbxassetid://10734930466",
-			["radio"] = "rbxassetid://10734931596",
-			["refresh"] = "rbxassetid://10734933222",
-			["rocket"] = "rbxassetid://10734934585",
-			["save"] = "rbxassetid://10734941499",
-			["search"] = "rbxassetid://10734943674",
-			["send"] = "rbxassetid://10734943902",
-			["settings"] = "rbxassetid://10734950309",
-			["share"] = "rbxassetid://10734950813",
-			["shield"] = "rbxassetid://10734951847",
-			["sidebar"] = "rbxassetid://10734954301",
-			["signal"] = "rbxassetid://10734961133",
-			["slider"] = "rbxassetid://10734963400",
-			["smile"] = "rbxassetid://10734964441",
-			["star"] = "rbxassetid://10734966248",
-			["sun"] = "rbxassetid://10734974297",
-			["table"] = "rbxassetid://10734976230",
-			["tag"] = "rbxassetid://10734976528",
-			["target"] = "rbxassetid://10734977012",
-			["terminal"] = "rbxassetid://10734982144",
-			["thumbsup"] = "rbxassetid://10734983629",
-			["timer"] = "rbxassetid://10734984606",
-			["toggle"] = "rbxassetid://10734985040",
-			["trash"] = "rbxassetid://10747362393",
-			["trendingup"] = "rbxassetid://10747363465",
-			["trophy"] = "rbxassetid://10747363809",
-			["upload"] = "rbxassetid://10747366434",
-			["user"] = "rbxassetid://10747373176",
-			["users"] = "rbxassetid://10747373426",
-			["video"] = "rbxassetid://10747374938",
-			["volume"] = "rbxassetid://10747376008",
-			["wallet"] = "rbxassetid://10747376205",
-			["wifi"] = "rbxassetid://10747382504",
-			["x"] = "rbxassetid://10747384394",
-			["zoomin"] = "rbxassetid://10747384552",
-			["zoomout"] = "rbxassetid://10747384679"
-		}
-	end)()
-}
-
-local ViewportSize = workspace.CurrentCamera.ViewportSize
-local UIScale = ViewportSize.Y / 450
-local Settings = MyLibrary.Settings
-local Flags = MyLibrary.Flags
-local SetProps, SetChildren, InsertTheme, Create do
-	InsertTheme = function(Instance, Type)
-		table.insert(MyLibrary.Instances, { Instance = Instance, Type = Type })
-		return Instance
-	end
-	SetChildren = function(Instance, Children)
-		if Children then
-			table.foreach(Children, function(_,Child) Child.Parent = Instance end)
-		end
-		return Instance
-	end
-	SetProps = function(Instance, Props)
-		if Props then
-			table.foreach(Props, function(prop, value) Instance[prop] = value end)
-		end
-		return Instance
-	end
-	Create = function(...)
-		local args = {...}
-		if type(args) ~= "table" then return end
-		local new = Instance.new(args[1])
-		local Children = {}
-		if type(args[2]) == "table" then
-			SetProps(new, args[2])
-			SetChildren(new, args[3])
-			Children = args[3] or {}
-		elseif typeof(args[2]) == "Instance" then
-			new.Parent = args[2]
-			SetProps(new, args[3])
-			SetChildren(new, args[4])
-			Children = args[4] or {}
-		end
-		return new
-	end
-	local function Save(file)
-		if readfile and isfile and isfile(file) then
-			local decode = HttpService:JSONDecode(readfile(file))
-			if type(decode) == "table" then
-				if rawget(decode, "UISize") then MyLibrary.Save["UISize"] = decode["UISize"] end
-				if rawget(decode, "TabSize") then MyLibrary.Save["TabSize"] = decode["TabSize"] end
-				if rawget(decode, "Theme") and VerifyTheme(decode["Theme"]) then MyLibrary.Save["Theme"] = decode["Theme"] end
-			end
-		end
-	end
-	pcall(Save, "redz library V5.json")
-end
-
-local Funcs = {} do
-	function Funcs:InsertCallback(tab, func)
-		if type(func) == "function" then table.insert(tab, func) end
-		return func
-	end
-	function Funcs:FireCallback(tab, ...)
-		for _,v in ipairs(tab) do
-			if type(v) == "function" then task.spawn(v, ...) end
-		end
-	end
-	function Funcs:ToggleVisible(Obj, Bool)
-		Obj.Visible = Bool ~= nil and Bool or Obj.Visible
-	end
-	function Funcs:ToggleParent(Obj, Parent)
-		if Bool ~= nil then
-			Obj.Parent = Bool
-		else
-			Obj.Parent = not Obj.Parent and Parent
-		end
-	end
-	function Funcs:GetConnectionFunctions(ConnectedFuncs, func)
-		local Connected = { Function = func, Connected = true }
-		function Connected:Disconnect()
-			if self.Connected then
-				table.remove(ConnectedFuncs, table.find(ConnectedFuncs, self.Function))
-				self.Connected = false
-			end
-		end
-		function Connected:Fire(...)
-			if self.Connected then task.spawn(self.Function, ...) end
-		end
-		return Connected
-	end
-	function Funcs:GetCallback(Configs, index)
-		local func = Configs[index] or Configs.Callback or function()end
-		if type(func) == "table" then
-			return ({function(Value) func[1][func[2]] = Value end})
-		end
-		return {func}
-	end
-end
-
-local Connections, Connection = {}, MyLibrary.Connection do
-	local function NewConnectionList(List)
-		if type(List) ~= "table" then return end
-		for _,CoName in ipairs(List) do
-			local ConnectedFuncs, Connect = {}, {}
-			Connection[CoName] = Connect
-			Connections[CoName] = ConnectedFuncs
-			Connect.Name = CoName
-			function Connect:Connect(func)
-				if type(func) == "function" then
-					table.insert(ConnectedFuncs, func)
-					return Funcs:GetConnectionFunctions(ConnectedFuncs, func)
-				end
-			end
-			function Connect:Once(func)
-				if type(func) == "function" then
-					local Connected;
-					local _NFunc;_NFunc = function(...)
-						task.spawn(func, ...)
-						Connected:Disconnect()
-					end
-					Connected = Funcs:GetConnectionFunctions(ConnectedFuncs, _NFunc)
-					return Connected
-				end
-			end
-		end
-	end
-	function Connection:FireConnection(CoName, ...)
-		local Conn = type(CoName) == "string" and Connections[CoName] or Connections[CoName.Name]
-		for _,Func in pairs(Conn) do task.spawn(Func, ...) end
-	end
-	NewConnectionList({"FlagsChanged", "ThemeChanged", "FileSaved", "ThemeChanging", "OptionAdded", "LanguageChanged"})
-end
-
-local GetFlag, SetFlag, CheckFlag do
-	CheckFlag = function(Name) return type(Name) == "string" and Flags[Name] ~= nil end
-	GetFlag = function(Name) return type(Name) == "string" and Flags[Name] end
-	SetFlag = function(Flag, Value)
-		if Flag and (Value ~= Flags[Flag] or type(Value) == "table") then
-			Flags[Flag] = Value
-			Connection:FireConnection("FlagsChanged", Flag, Value)
-		end
-	end
-	local db
-	Connection.FlagsChanged:Connect(function(Flag, Value)
-		local ScriptFile = Settings.ScriptFile
-		if not db and ScriptFile and writefile then
-			db=true;task.wait(0.1);db=false
-			local Success, Encoded = pcall(function()
-				return HttpService:JSONEncode(Flags)
-			end)
-			if Success then
-				local Succ = pcall(writefile, ScriptFile, Encoded)
-				if Succ then
-					Connection:FireConnection("FileSaved", "Script-Flags", ScriptFile, Encoded)
-				end
-			end
-		end
-	end)
-end
-
-local ScreenGui = Create("ScreenGui", CoreGui, {
-	Name = "redz Library V5",
-}, {
-	Create("UIScale", { Scale = UIScale, Name = "Scale" })
+local Window = redzlib:MakeWindow({
+    Title = " Spectra Hub | Blox Fruits",
+    SubTitle = "炎  by Denolk | Version Hub 1.0.0",
+    Logo = "rbxassetid://15464429993",
+    TitleSize = 18.5,
+    SaveFolder = "Spectra hub"
 })
 
-local ScreenFind = CoreGui:FindFirstChild(ScreenGui.Name)
-if ScreenFind and ScreenFind ~= ScreenGui then ScreenFind:Destroy() end
+local MinimizeBtn = Window:AddMinimizeButton({
+    Button = {
+        Image = "rbxassetid://126286543557523",
+        BackgroundTransparency = 0,
+        Size = UDim2.new(0, 40, 0, 40),
+        ScaleType = Enum.ScaleType.Fit
+    },
+    Corner = { CornerRadius = UDim.new(35, 1) },
+})
 
-local function GetStr(val)
-	if type(val) == "function" then return val() end
-	return val
+--------------------------------------------------------------------------------------------------------------------------------
+                                                   -- === Tabs === --
+---------------------------------------------------------------------------------------------------------------------------------
+local TabInfo = Window:MakeTab({"Info", "info"})
+local TabFarm = Window:MakeTab({"Farming", "home"})
+local TabFish = Window:MakeTab({"Auto Fishing", "fish"})
+local TabItem = Window:MakeTab({"Quest | Items", "swords"})
+local TabSea = Window:MakeTab({"Sea Events", "sea"})
+local TabAuto = Window:MakeTab({"Auto Stats", "line-chart"})
+local TabRaid = Window:MakeTab({"Raids | Fruits", "apple"})
+local TabTele = Window:MakeTab({"Teleport", "locate"})
+local TabPvp = Window:MakeTab({"PvP | Player", "user"})
+local TabEsp = Window:MakeTab({"Esp General", "
+eyes"})
+local TabShop = Window:MakeTab({"Shop", "shoppingCart"})
+local TabGrap = Window:MakeTab({"Graphics", "bar-chart"})
+local TabSett = Window:MakeTab({"Settings", "settings"})
+
+spawn(function()
+	repeat
+		task.wait();
+	until game:IsLoaded();
+	local ChatService = game:GetService("Chat");
+	wait(1);
+	((require(game.ReplicatedStorage.Notification)).new("<Color=Purple>[ Welcome " .. game.Players.LocalPlayer.DisplayName .. " ]<Color=/>")):Display();
+	wait(1);
+	((require(game.ReplicatedStorage.Notification)).new("<Color=Yellow>[Spectra Hub | Blox Fruits]<Color=/>")):Display();
+	wait(1);
+	((require(game.ReplicatedStorage.Notification)).new("<Color=Red>[Developed by Denolk]<Color=/>")):Display();
+end);
+
+-----------------------------------------------------------------------------------------------------------------------------Function
+
+_G.AutoFarm = false
+_G.Weapon = "Melee" -- Padrão
+_G.Distance = 100
+local Speed = 300
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
+local player = Players.LocalPlayer
+
+local function Stabilize()
+    if not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then return end
+    local hrp = player.Character.HumanoidRootPart
+    if not hrp:FindFirstChild("VelocityControl") then
+        local bv = Instance.new("BodyVelocity")
+        bv.Name = "VelocityControl"
+        bv.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+        bv.Velocity = Vector3.new(0, 0, 0)
+        bv.Parent = hrp
+    end
 end
 
-local function ConnectSave(Instance, func)
-	Instance.InputBegan:Connect(function(Input)
-		if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
-			while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do task.wait() end
-		end
-		func()
-	end)
+local function Unstabilize()
+    if player.Character and player.Character.HumanoidRootPart:FindFirstChild("VelocityControl") then
+        player.Character.HumanoidRootPart.VelocityControl:Destroy()
+    end
 end
 
-local function CreateTween(Configs)
-	local Instance = Configs[1] or Configs.Instance
-	local Prop = Configs[2] or Configs.Prop
-	local NewVal = Configs[3] or Configs.NewVal
-	local Time = Configs[4] or Configs.Time or 0.5
-	local TweenWait = Configs[5] or Configs.wait or false
-	local TInfo = TweenInfo.new(Time, Enum.EasingStyle.Quint)
-	local Tween = TweenService:Create(Instance, TInfo, {[Prop] = NewVal})
-	Tween:Play()
-	if TweenWait then Tween.Completed:Wait() end
-	return Tween
+function topos(Pos)
+    local character = player.Character
+    if not character or not character:FindFirstChild("HumanoidRootPart") then return end
+    
+    Stabilize() -- Ativa estabilizador ao mover
+    local dist = (Pos.Position - character.HumanoidRootPart.Position).Magnitude
+    local tween = TweenService:Create(character.HumanoidRootPart, TweenInfo.new(dist/Speed, Enum.EasingStyle.Linear), {CFrame = Pos})
+    
+
+    for _, v in pairs(character:GetChildren()) do
+        if v:IsA("BasePart") then v.CanCollide = false end
+    end
+    
+    tween:Play()
+    return tween
 end
 
-local function MakeDrag(Instance)
-	task.spawn(function()
-		SetProps(Instance, { Active = true, AutoButtonColor = false })
-		local DragStart, StartPos, InputOn
-		local function Update(Input)
-			local delta = Input.Position - DragStart
-			local Position = UDim2.new(StartPos.X.Scale, StartPos.X.Offset + delta.X / UIScale, StartPos.Y.Scale, StartPos.Y.Offset + delta.Y / UIScale)
-			CreateTween({Instance, "Position", Position, 0.35})
-		end
-		Instance.MouseButton1Down:Connect(function() InputOn = true end)
-		Instance.InputBegan:Connect(function(Input)
-			if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
-				StartPos = Instance.Position
-				DragStart = Input.Position
-				while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do RunService.Heartbeat:Wait()
-					if InputOn then Update(Input) end
-				end
-				InputOn = false
-			end
-		end)
-	end)
-	return Instance
+function EquipWeapon()
+    local inventory = player.Backpack
+    local character = player.Character
+    if not character then return end
+    
+    for _, tool in pairs(inventory:GetChildren()) do
+        if tool:IsA("Tool") and tool.ToolTip == _G.Weapon then
+            character.Humanoid:EquipTool(tool)
+        end
+    end
 end
 
-local function VerifyTheme(Theme)
-	for name,_ in pairs(MyLibrary.Themes) do
-		if name == Theme then return true end
-	end
+--- Sea 1 Missions
+
+function CheckQuest()
+    local MyLevel = player.Data.Level.Value
+    if MyLevel >= 1 and MyLevel <= 9 then
+        return "Bandit", "BanditQuest1", 1, CFrame.new(1059, 15, 1550)
+    elseif MyLevel >= 10 and MyLevel <= 14 then
+        return "Monkey", "JungleQuest", 1, CFrame.new(-1598, 35, 153)
+        elseif MyLevel >= 15 and MyLevel <= 29 then
+        return "Gorilla", "JungleQuest", 2, CFrame.new(-1598, 35, 153)
+    elseif MyLevel >= 30 and MyLevel <= 39 then
+        return "Pirate", "BuggyQuest1", 1, CFrame.new(-1141.07483, 4.10001802, 3831.5498)
+    elseif MyLevel >= 40 and MyLevel <= 59 then
+        return "Brute", "BuggyQuest1", 2, CFrame.new(-1141.07483, 4.10001802, 3831.5498)
+    elseif MyLevel >= 60 and MyLevel <= 74 then
+        return "Desert Bandit", "DesertQuest", 1, CFrame.new(894.488647, 5.14000702, 4392.43359)
+    elseif MyLevel >= 75 and MyLevel <= 89 then
+        return "Desert Officer", "DesertQuest", 2, CFrame.new(894.488647, 5.14000702, 4392.43359)
+    elseif MyLevel >= 90 and MyLevel <= 99 then
+        return "Snow Bandit", "SnowQuest", 1, CFrame.new(1389.74451, 88.1519318, -1298.90796)
+    elseif MyLevel >= 100 and MyLevel <= 119 then
+        return "Snowman", "SnowQuest", 2, CFrame.new(1389.74451, 88.1519318, -1298.90796)
+    elseif MyLevel >= 120 and MyLevel <= 149 then
+        return "Chief Petty Officer", "MarineQuest2", 1, CFrame.new(-5039.58643, 27.3500385, 4324.68018)
+    elseif MyLevel >= 150 and MyLevel <= 174 then
+        return "Sky Bandit", "SkyQuest", 1, CFrame.new(-4839.53027, 716.368591, -2619.44165)
+    elseif MyLevel >= 175 and MyLevel <= 189 then
+        return "Dark Master", "SkyQuest", 2, CFrame.new(-4839.53027, 716.368591, -2619.44165)
+    elseif MyLevel >= 190 and MyLevel <= 209 then
+        return "Prisoner", "PrisonerQuest", 1, CFrame.new(5308.93115, 1.65517521, 475.120514)
+    elseif MyLevel >= 210 and MyLevel <= 249 then
+        return "Dangerous Prisoner", "PrisonerQuest", 2, CFrame.new(5308.93115, 1.65517521, 475.120514)
+    elseif MyLevel >= 250 and MyLevel <= 274 then
+        return "Toga Warrior", "ColosseumQuest", 1, CFrame.new(-1580.04663, 6.35000277, -2986.47534)
+    elseif MyLevel >= 275 and MyLevel <= 299 then
+        return "Gladiator", "ColosseumQuest", 2, CFrame.new(-1580.04663, 6.35000277, -2986.47534)
+    elseif MyLevel >= 300 and MyLevel <= 324 then
+        return "Military Soldier", "MagmaQuest", 1, CFrame.new(-5313.37012, 10.9500084, 8515.29395)
+    elseif MyLevel >= 325 and MyLevel <= 374 then
+        return "Military Spy", "MagmaQuest", 2, CFrame.new(-5313.37012, 10.9500084, 8515.29395)
+    elseif MyLevel >= 375 and MyLevel <= 399 then
+        return "Fishman Warrior", "FishmanQuest", 1, CFrame.new(61122.6523, 18.4974422, 1569.39978)
+    elseif MyLevel >= 400 and MyLevel <= 449 then
+        return "Fishman Commando", "FishmanQuest", 2, CFrame.new(61122.6523, 18.4974422, 1569.39978)
+    elseif MyLevel >= 450 and MyLevel <= 474 then
+        return "God's Guard", "SkyExp1Quest", 1, CFrame.new(-4721.88867, 843.874695, -1949.96643)
+    elseif MyLevel >= 475 and MyLevel <= 524 then
+        return "Shanda", "SkyExp1Quest", 2, CFrame.new(-7859.09814, 5544.19043, -381.476196)
+    elseif MyLevel >= 525 and MyLevel <= 549 then
+        return "Royal Squad", "SkyExp2Quest", 1, CFrame.new(-7906.81592, 5634.6626, -1411.99194)
+    elseif MyLevel >= 550 and MyLevel <= 624 then
+        return "Royal Soldier", "SkyExp2Quest", 2, CFrame.new(-7906.81592, 5634.6626, -1411.99194)
+    elseif MyLevel >= 625 and MyLevel <= 649 then
+        return "Galley Pirate", "FountainQuest", 1, CFrame.new(5259.81982, 37.3500175, 4050.0293)
+    elseif MyLevel >= 650 and MyLevel < 700 then
+        return "Galley Captain", "FountainQuest", 2, CFrame.new(5259.81982, 37.3500175, 4050.0293)
+
+--- Sea 2 Missions
+
+    elseif MyLevel >= 700 and MyLevel <= 724 then
+        return "Raider", "Area1Quest", 1, CFrame.new(-429.543518, 71.7699966, 1836.18188)
+    elseif MyLevel >= 725 and MyLevel <= 774 then
+        return "Mercenary", "Area1Quest", 2, CFrame.new(-429.543518, 71.7699966, 1836.18188)
+    elseif MyLevel >= 775 and MyLevel <= 799 then
+        return "Swan Pirate", "Area2Quest", 1, CFrame.new(638.43811, 71.769989, 918.282898)
+    elseif MyLevel >= 800 and MyLevel <= 874 then
+        return "Factory Staff", "Area2Quest", 2, CFrame.new(632.698608, 73.1055908, 918.666321)
+    elseif MyLevel >= 875 and MyLevel <= 899 then
+        return "Marine Lieutenant", "MarineQuest3", 1, CFrame.new(-2440.79639, 71.7140732, -3216.06812)
+    elseif MyLevel >= 900 and MyLevel <= 949 then
+        return "Marine Captain", "MarineQuest3", 2, CFrame.new(-2440.79639, 71.7140732, -3216.06812)
+    elseif MyLevel >= 950 and MyLevel <= 974 then
+        return "Zombie", "ZombieQuest", 1, CFrame.new(-5497.06152, 47.5923004, -795.237061)
+    elseif MyLevel >= 975 and MyLevel <= 999 then
+        return "Vampire", "ZombieQuest", 2, CFrame.new(-5497.06152, 47.5923004, -795.237061)
+    elseif MyLevel >= 1000 and MyLevel <= 1049 then
+        return "Snow Trooper", "SnowMountainQuest", 1, CFrame.new(609.858826, 400.119904, -5372.25928)
+    elseif MyLevel >= 1050 and MyLevel <= 1099 then
+        return "Winter Warrior", "SnowMountainQuest", 2, CFrame.new(609.858826, 400.119904, -5372.25928)
+    elseif MyLevel >= 1100 and MyLevel <= 1124 then
+        return "Lab Subordinate", "IceSideQuest", 1, CFrame.new(-6064.06885, 15.2422857, -4902.97852)
+    elseif MyLevel >= 1125 and MyLevel <= 1174 then
+        return "Horned Warrior", "IceSideQuest", 2, CFrame.new(-6064.06885, 15.2422857, -4902.97852)
+    elseif MyLevel >= 1175 and MyLevel <= 1199 then
+        return "Magma Ninja", "FireSideQuest", 1, CFrame.new(-5428.03174, 15.0622921, -5299.43457)
+    elseif MyLevel >= 1200 and MyLevel <= 1249 then
+        return "Lava Pirate", "FireSideQuest", 2, CFrame.new(-5428.03174, 15.0622921, -5299.43457)
+    elseif MyLevel >= 1250 and MyLevel <= 1274 then
+        return "Ship Deckhand", "ShipQuest1", 1, CFrame.new(1037.80127, 125.092171, 32911.6016)
+    elseif MyLevel >= 1275 and MyLevel <= 1299 then
+        return "Ship Engineer", "ShipQuest1", 2, CFrame.new(1037.80127, 125.092171, 32911.6016)
+    elseif MyLevel >= 1300 and MyLevel <= 1324 then
+        return "Ship Steward", "ShipQuest2", 1, CFrame.new(968.80957, 125.092171, 33244.125)
+    elseif MyLevel >= 1325 and MyLevel <= 1349 then
+        return "Ship Officer", "ShipQuest2", 2, CFrame.new(968.80957, 125.092171, 33244.125)
+    elseif MyLevel >= 1350 and MyLevel <= 1374 then
+        return "Arctic Warrior", "FrostQuest", 1, CFrame.new(5667.6582, 26.7997818, -6486.08984)
+    elseif MyLevel >= 1375 and MyLevel <= 1424 then
+        return "Snow Lurker", "FrostQuest", 2, CFrame.new(5667.6582, 26.7997818, -6486.08984)
+    elseif MyLevel >= 1425 and MyLevel <= 1449 then
+        return "Sea Soldier", "ForgottenQuest", 1, CFrame.new(-3054.44458, 235.544281, -10142.8193)
+    elseif MyLevel >= 1450 and MyLevel < 1500 then
+        return "Water Fighter", "ForgottenQuest", 2, CFrame.new(-3054.44458, 235.544281, -10142.8193)
+
+--- Sea 3 Missions
+
+    elseif MyLevel >= 1500 and MyLevel <= 1524 then
+        return "Pirate Millionaire", "PiratePortQuest", 1, CFrame.new(-290.074677, 42.9034653, 5581.58984)
+    elseif MyLevel >= 1525 and MyLevel <= 1574 then
+        return "Pistol Billionaire", "PiratePortQuest", 2, CFrame.new(-290.074677, 42.9034653, 5581.58984)
+    elseif MyLevel >= 1575 and MyLevel <= 1599 then
+        return "Dragon Crew Warrior", "AmazonQuest", 1, CFrame.new(5832.83594, 51.6806107, -1101.51563)
+    elseif MyLevel >= 1600 and MyLevel <= 1624 then
+        return "Dragon Crew Archer", "AmazonQuest", 2, CFrame.new(5833.1147460938, 51.60498046875, -1103.0693359375)
+    elseif MyLevel >= 1625 and MyLevel <= 1649 then
+        return "Female Islander", "AmazonQuest2", 1, CFrame.new(5446.8793945313, 601.62945556641, 749.45672607422)
+    elseif MyLevel >= 1650 and MyLevel <= 1699 then
+        return "Giant Islander", "AmazonQuest2", 2, CFrame.new(5446.8793945313, 601.62945556641, 749.45672607422)
+    elseif MyLevel >= 1700 and MyLevel <= 1724 then
+        return "Marine Commodore", "MarineTreeIsland", 1, CFrame.new(2180.54126, 27.8156815, -6741.5498)
+    elseif MyLevel >= 1725 and MyLevel <= 1774 then
+        return "Marine Rear Admiral", "MarineTreeIsland", 2, CFrame.new(2179.98828125, 28.731239318848, -6740.0551757813)
+    elseif MyLevel >= 1775 and MyLevel <= 1799 then
+        return "Fishman Raider", "DeepForestIsland3", 1, CFrame.new(-10581.6563, 330.872955, -8761.18652)
+    elseif MyLevel >= 1800 and MyLevel <= 1824 then
+        return "Fishman Captain", "DeepForestIsland3", 2, CFrame.new(-10581.6563, 330.872955, -8761.18652)
+    elseif MyLevel >= 1825 and MyLevel <= 1849 then
+        return "Forest Pirate", "DeepForestIsland", 1, CFrame.new(-13234.04, 331.488495, -7625.40137)
+    elseif MyLevel >= 1850 and MyLevel <= 1899 then
+        return "Mythological Pirate", "DeepForestIsland", 2, CFrame.new(-13234.04, 331.488495, -7625.40137)
+    elseif MyLevel >= 1900 and MyLevel <= 1924 then
+        return "Jungle Pirate", "DeepForestIsland2", 1, CFrame.new(-12680.3818, 389.971039, -9902.01953)
+    elseif MyLevel >= 1925 and MyLevel <= 1974 then
+        return "Musketeer Pirate", "DeepForestIsland2", 2, CFrame.new(-12680.3818, 389.971039, -9902.01953)
+    elseif MyLevel >= 1975 and MyLevel <= 1999 then
+        return "Reborn Skeleton", "HauntedQuest1", 1, CFrame.new(-9479.2168, 141.215088, 5566.09277)
+    elseif MyLevel >= 2000 and MyLevel <= 2024 then
+        return "Living Zombie", "HauntedQuest1", 2, CFrame.new(-9479.2168, 141.215088, 5566.09277)
+    elseif MyLevel >= 2025 and MyLevel <= 2049 then
+        return "Demonic Soul", "HauntedQuest2", 1, CFrame.new(-9516.99316, 172.017181, 6078.46533)
+    elseif MyLevel >= 2050 and MyLevel <= 2074 then
+        return "Posessed Mummy", "HauntedQuest2", 2, CFrame.new(-9516.99316, 172.017181, 6078.46533)
+    elseif MyLevel >= 2075 and MyLevel <= 2099 then
+        return "Peanut Scout", "NutsIslandQuest", 1, CFrame.new(-2104.3908691406, 38.104167938232, -10194.21875)
+    elseif MyLevel >= 2100 and MyLevel <= 2124 then
+        return "Peanut President", "NutsIslandQuest", 2, CFrame.new(-2104.3908691406, 38.104167938232, -10194.21875)
+    elseif MyLevel >= 2125 and MyLevel <= 2149 then
+        return "Ice Cream Chef", "IceCreamIslandQuest", 1, CFrame.new(-820.64825439453, 65.819526672363, -10965.795898438)
+    elseif MyLevel >= 2150 and MyLevel <= 2199 then
+        return "Ice Cream Commander", "IceCreamIslandQuest", 2, CFrame.new(-820.64825439453, 65.819526672363, -10965.795898438)
+    elseif MyLevel >= 2200 and MyLevel <= 2224 then
+        return "Cookie Crafter", "CakeQuest1", 1, CFrame.new(-2021.32007, 37.7982254, -12028.7295)
+    elseif MyLevel >= 2225 and MyLevel <= 2249 then
+        return "Cake Guard", "CakeQuest1", 2, CFrame.new(-2021.32007, 37.7982254, -12028.7295)
+    elseif MyLevel >= 2250 and MyLevel <= 2274 then
+        return "Baking Staff", "CakeQuest2", 1, CFrame.new(-1927.91602, 37.7981339, -12842.5391)
+    elseif MyLevel >= 2275 and MyLevel <= 2299 then
+        return "Head Baker", "CakeQuest2", 2, CFrame.new(-1927.91602, 37.7981339, -12842.5391)
+    elseif MyLevel >= 2300 and MyLevel <= 2324 then
+        return "Cocoa Warrior", "ChocQuest1", 1, CFrame.new(233.228363, 29.8760013, -12201.2333984375)
+    elseif MyLevel >= 2325 and MyLevel <= 2349 then
+        return "Chocolate Bar Battler", "ChocQuest1", 2, CFrame.new(233.228363, 29.8760013, -12201.2333984375)
+    elseif MyLevel >= 2350 and MyLevel <= 2374 then
+        return "Sweet Thief", "ChocQuest2", 1, CFrame.new(150.506637, 30.6936931, -12774.5029296875)
+    elseif MyLevel >= 2375 and MyLevel <= 2399 then
+        return "Candy Rebel", "ChocQuest2", 2, CFrame.new(150.506637, 30.6936931, -12774.5029296875)
+    elseif MyLevel >= 2400 and MyLevel <= 2424 then
+        return "Candy Pirate", "CandyQuest1", 1, CFrame.new(-1150.0400390625, 20.3789348, -14446.3349609375)
+    elseif MyLevel >= 2425 and MyLevel <= 2449 then
+        return "Snow Demon", "CandyQuest1", 2, CFrame.new(-1150.0400390625, 20.3789348, -14446.3349609375)
+    elseif MyLevel >= 2450 and MyLevel <= 2474 then
+        return "Isle Outlaw", "TikiQuest1", 1, CFrame.new(-16547.748046875, 61.135334, -173.41360473632812)
+    elseif MyLevel >= 2475 and MyLevel <= 2524 then
+        return "Island Boy", "TikiQuest1", 2, CFrame.new(-16547.748046875, 61.135334, -173.41360473632812)
+    elseif MyLevel >= 2525 and MyLevel <= 2549 then
+        return "Isle Champion", "TikiQuest2", 2, CFrame.new(-16539.078125, 55.6863288, 1051.5738525390625)
+    elseif MyLevel >= 2550 and MyLevel <= 2574 then
+        return "Serpent Hunter", "TikiQuest3", 1, CFrame.new(-16661.890625, 105.286231, 1576.69775390625)
+    elseif MyLevel >= 2575 then
+        return "Skull Slayer", "TikiQuest3", 2, CFrame.new(-16661.890625, 105.286231, 1576.69775390625)
+    end
+    return nil
 end
 
-local function SaveJson(FileName, save)
-	if writefile then
-		local json = HttpService:JSONEncode(save)
-		writefile(FileName, json)
-	end
-end
+--------------------------------------------------------------------------------------------------------------------------------
+                                                   -- === TabInfo | Info === --
+---------------------------------------------------------------------------------------------------------------------------------
+TabInfo:AddDiscordInvite({
+    Name = "Spectra Hub",
+    Description = "Server Discord!",
+    Logo = "rbxassetid://126286543557523",
+    Invite = "https://discord.gg/vsKDhkJf8D",
+})
 
-local Theme = MyLibrary.Themes[MyLibrary.Save.Theme]
+TabInfo:AddSection({"Player Info"})
 
-local function AddEle(Name, Func) MyLibrary.Elements[Name] = Func end
-local function Make(Ele, Instance, props, ...)
-	return MyLibrary.Elements[Ele](Instance, props, ...)
-end
+TabInfo:AddParagraph({"Welcome", "Welcome to Spectra Hub Blox Fruits Script!"})
 
-AddEle("Corner", function(parent, CornerRadius)
-	local New = SetProps(Create("UICorner", parent, {
-		CornerRadius = CornerRadius or UDim.new(0, 7)
-	}), props)
-	return New
+local LevelLabel = TabInfo:AddParagraph({"Level", "Loading..."})
+local BeliLabel = TabInfo:AddParagraph({"Beli", "Loading..."})
+local FragmentLabel = TabInfo:AddParagraph({"Fragments", "Loading..."})
+local RaceLabel = TabInfo:AddParagraph({"Race", "Loading..."})
+
+spawn(function()
+    while wait(1) do
+        pcall(function()
+            local player = game:GetService("Players").LocalPlayer
+            local data = player.Data
+            LevelLabel:SetDesc("Level: "..data.Level.Value)
+            BeliLabel:SetDesc("Beli: "..data.Beli.Value)
+            FragmentLabel:SetDesc("Fragments: "..data.Fragments.Value)
+            RaceLabel:SetDesc("Race: "..CheckRace())
+        end)
+    end
 end)
 
-AddEle("Stroke", function(parent, props, ...)
-	local args = {...}
-	local New = InsertTheme(SetProps(Create("UIStroke", parent, {
-		Color = args[1] or Theme["Color Stroke"],
-		Thickness = args[2] or 1,
-		ApplyStrokeMode = "Border"
-	}), props), "Stroke")
-	return New
-end)
-
-AddEle("Button", function(parent, props, ...)
-	local args = {...}
-	local New = InsertTheme(SetProps(Create("TextButton", parent, {
-		Text = "",
-		Size = UDim2.fromScale(1, 1),
-		BackgroundColor3 = Theme["Color Hub 2"],
-		AutoButtonColor = false
-	}), props), "Frame")
-	New.MouseEnter:Connect(function() New.BackgroundTransparency = 0.4 end)
-	New.MouseLeave:Connect(function() New.BackgroundTransparency = 0 end)
-	if args[1] then New.Activated:Connect(args[1]) end
-	return New
-end)
-
-AddEle("Gradient", function(parent, props, ...)
-	local New = InsertTheme(SetProps(Create("UIGradient", parent, {
-		Color = Theme["Color Hub 1"]
-	}), props), "Gradient")
-	return New
-end)
-
-local function ButtonFrame(Instance, Title, Description, HolderSize)
-	local TitleL = InsertTheme(Create("TextLabel", {
-		Font = Enum.Font.FredokaOne,
-		TextColor3 = Theme["Color Text"],
-		Size = UDim2.new(1, -20),
-		AutomaticSize = "Y",
-		Position = UDim2.new(0, 0, 0.5),
-		AnchorPoint = Vector2.new(0, 0.5),
-		BackgroundTransparency = 1,
-		TextTruncate = "AtEnd",
-		TextSize = 10,
-		TextXAlignment = "Left",
-		Text = "",
-		RichText = true
-	}), "Text")
-	local DescL = InsertTheme(Create("TextLabel", {
-		Font = Enum.Font.Gotham,
-		TextColor3 = Theme["Color Dark Text"],
-		Size = UDim2.new(1, -20),
-		AutomaticSize = "Y",
-		Position = UDim2.new(0, 12, 0, 15),
-		BackgroundTransparency = 1,
-		TextWrapped = true,
-		TextSize = 8,
-		TextXAlignment = "Left",
-		Text = "",
-		RichText = true
-	}), "DarkText")
-	local Frame = Make("Button", Instance, {
-		Size = UDim2.new(1, 0, 0, 25),
-		AutomaticSize = "Y",
-		Name = "Option"
-	})Make("Corner", Frame, UDim.new(0, 6))
-		-- Borda da Caixa (CONFIG.BoxBordersEnabled)
-		if CONFIG.BoxBordersEnabled then
-			Create("UIStroke", Frame, {
-				Thickness = CONFIG.BoxBorderThickness,
-				Color = Theme["Color Stroke"],
-				ApplyStrokeMode = "Border"
-			})
-		end
-	LabelHolder = Create("Frame", Frame, {
-		AutomaticSize = "Y",
-		BackgroundTransparency = 1,
-		Size = HolderSize,
-		Position = UDim2.new(0, 10, 0),
-		AnchorPoint = Vector2.new(0, 0)
-	}, {
-		Create("UIListLayout", {
-			SortOrder = "LayoutOrder",
-			VerticalAlignment = "Center",
-			Padding = UDim.new(0, 2)
-		}),
-		Create("UIPadding", {
-			PaddingBottom = UDim.new(0, 5),
-			PaddingTop = UDim.new(0, 5)
-		}),
-		TitleL,
-		DescL,
-	})
-	local Label = {}
-	function Label:SetTitle(NewTitle)
-		if type(NewTitle) == "string" and NewTitle:gsub(" ", ""):len() > 0 then
-			TitleL.Text = NewTitle
-		end
-	end
-	function Label:SetDesc(NewDesc)
-		if type(NewDesc) == "string" and NewDesc:gsub(" ", ""):len() > 0 then
-			DescL.Visible = true
-			DescL.Text = NewDesc
-			LabelHolder.Position = UDim2.new(0, 10, 0)
-			LabelHolder.AnchorPoint = Vector2.new(0, 0)
-		else
-			DescL.Visible = false
-			DescL.Text = ""
-			LabelHolder.Position = UDim2.new(0, 10, 0.5)
-			LabelHolder.AnchorPoint = Vector2.new(0, 0.5)
-		end
-	end
-	Label:SetTitle(Title)
-	Label:SetDesc(Description)
-	return Frame, Label
+local function detectExecutor()
+    if identifyexecutor then
+        return identifyexecutor()
+    elseif syn then
+        return "Synapse X"
+    elseif KRNL_LOADED then
+        return "KRNL"
+    elseif is_sirhurt_closure then
+        return "SirHurt"
+    elseif pebc_execute then
+        return "ProtoSmasher"
+    elseif getexecutorname then
+        return getexecutorname()
+    else
+        return "Executor Unknown"
+    end
 end
 
-local function GetColor(Instance)
-	if Instance:IsA("Frame") then return "BackgroundColor3"
-	elseif Instance:IsA("ImageLabel") then return "ImageColor3"
-	elseif Instance:IsA("TextLabel") then return "TextColor3"
-	elseif Instance:IsA("ScrollingFrame") then return "ScrollBarImageColor3"
-	elseif Instance:IsA("UIStroke") then return "Color"
-	end
-	return ""
-end
+local executorName = detectExecutor()
 
-function MyLibrary:GetIcon(index)
-	if type(index) ~= "string" or index:find("rbxassetid://") or #index == 0 then
-		return index
-	end
-	local firstMatch = nil
-	index = string.lower(index):gsub("lucide", ""):gsub("-", "")
-	for Name, Icon in self.Icons do
-		Name = Name:gsub("lucide", ""):gsub("-", "")
-		if Name == index then return Icon
-		elseif not firstMatch and Name:find(index, 1, true) then firstMatch = Icon
-		end
-	end
-	return firstMatch or index
-end
+local Paragraph = TabInfo:AddParagraph({"Executor", executorName})
 
-function MyLibrary:SetTheme(NewTheme)
-	if not VerifyTheme(NewTheme) then return end
-	MyLibrary.Save.Theme = NewTheme
-	SaveJson("redz library V5.json", MyLibrary.Save)
-	Theme = MyLibrary.Themes[NewTheme]
-	Connection:FireConnection("ThemeChanged", NewTheme)
-	table.foreach(MyLibrary.Instances, function(_,Val)
-		if Val.Type == "Gradient" then Val.Instance.Color = Theme["Color Hub 1"]
-		elseif Val.Type == "Frame" then Val.Instance.BackgroundColor3 = Theme["Color Hub 2"]
-		elseif Val.Type == "Stroke" then Val.Instance[GetColor(Val.Instance)] = Theme["Color Stroke"]
-		elseif Val.Type == "Theme" then Val.Instance[GetColor(Val.Instance)] = Theme["Color Theme"]
-		elseif Val.Type == "Text" then Val.Instance[GetColor(Val.Instance)] = Theme["Color Text"]
-		elseif Val.Type == "DarkText" then Val.Instance[GetColor(Val.Instance)] = Theme["Color Dark Text"]
-		elseif Val.Type == "ScrollBar" then Val.Instance[GetColor(Val.Instance)] = Theme["Color Theme"]
-		end
+TabInfo:AddSection({"Script Information"})
+
+local function createInfoBlock(tab, title, initial)
+	local block
+	local ok = pcall(function()
+		block = tab:AddParagraph({ Title = title, Content = initial })
 	end)
-end
-
-function MyLibrary:SetScale(NewScale)
-	NewScale = ViewportSize.Y / math.clamp(NewScale, 300, 2000)
-	UIScale, ScreenGui.Scale.Scale = NewScale, NewScale
-end
-
-function MyLibrary:MakeWindow(Configs)
-	local WTitle = Configs[1] or Configs.Name or Configs.Title or "redz Library V5"
-	local WMiniText = Configs[2] or Configs.SubTitle or "by : redz9999"
-	Settings.ScriptFile = Configs[3] or Configs.SaveFolder or false
-
-	local function LoadFile()
-		local File = Settings.ScriptFile
-		if type(File) ~= "string" then return end
-		if not readfile or not isfile then return end
-		local s, r = pcall(isfile, File)
-		if s and r then
-			local s2, _Flags = pcall(readfile, File)
-			if s2 and type(_Flags) == "string" then
-				local s3,r3 = pcall(function() return HttpService:JSONDecode(_Flags) end)
-				Flags = s3 and r3 or {}
-			end
-		end
-	end;LoadFile()
-
-	local UISizeX, UISizeY = unpack(MyLibrary.Save.UISize)
-	local MainFrame = InsertTheme(Create("ImageButton", ScreenGui, {
-		Size = UDim2.fromOffset(UISizeX, UISizeY),
-		Position = UDim2.new(0.5, -UISizeX/2, 0.5, -UISizeY/2),
-		BackgroundTransparency = 0.03,
-		Name = "Hub",
-		Image = "rbxassetid://86590580698440",
-		ImageColor3 = Color3.fromRGB(255, 255, 255),
-		ImageTransparency = 0.2,
-		ScaleType = Enum.ScaleType.Crop
-	}), "Main")
-	Make("Gradient", MainFrame, { Rotation = 45 })MakeDrag(MainFrame)
-	local MainCorner = Make("Corner", MainFrame)
-
-
-	-- Borda do Menu com Gradiente (CONFIG.MenuBorderEnabled)
-	if CONFIG.MenuBorderEnabled then
-		local MenuBorderStroke = Create("UIStroke", MainFrame, {
-			Thickness = CONFIG.MenuBorderThickness,
-			ApplyStrokeMode = "Border",
-			Color = Color3.fromRGB(255, 255, 255)
-		})
-		Create("UIGradient", MenuBorderStroke, {
-			Color = ColorSequence.new({
-				ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)),
-				ColorSequenceKeypoint.new(0.50, Color3.fromRGB(124, 0, 255)),
-				ColorSequenceKeypoint.new(1.00, Color3.fromRGB(0, 0, 0))
-			}),
-			Rotation = CONFIG.MenuBorderGradientEnabled and CONFIG.MenuBorderRotation or 0
-		})
-	end
-	local Components = Create("Folder", MainFrame, { Name = "Components" })
-	local DropdownHolder = Create("Folder", ScreenGui, { Name = "Dropdown" })
-
-	local TopBar = Create("Frame", Components, {
-		Size = UDim2.new(1, 0, 0, 28),
-		BackgroundTransparency = 1,
-		Name = "Top Bar"
-	})
-
-	local Title = InsertTheme(Create("TextLabel", TopBar, {
-		Position = UDim2.new(0, 15, 0.5),
-		AnchorPoint = Vector2.new(0, 0.5),
-		AutomaticSize = "XY",
-		Text = WTitle,
-		TextXAlignment = "Left",
-		TextSize = 12,
-		TextColor3 = Theme["Color Text"],
-		BackgroundTransparency = 1,
-		Font = Enum.Font.BuilderSansBold,
-		Name = "Title"
-	}, {
-		InsertTheme(Create("TextLabel", {
-			Size = UDim2.fromScale(0, 1),
-			AutomaticSize = "X",
-			AnchorPoint = Vector2.new(0, 1),
-			Position = UDim2.new(1, 5, 0.9),
-			Text = WMiniText,
-			TextColor3 = Theme["Color Dark Text"],
-			BackgroundTransparency = 1,
-			TextXAlignment = "Left",
-			TextYAlignment = "Bottom",
-			TextSize = 9,
-			Font = Enum.Font.Gotham,
-			Name = "SubTitle"
-		}), "DarkText")
-	}), "Text")
-
-	local MainScroll = InsertTheme(Create("ScrollingFrame", Components, {
-		Size = UDim2.new(0, MyLibrary.Save.TabSize, 1, -TopBar.Size.Y.Offset),
-		ScrollBarImageColor3 = Theme["Color Theme"],
-		Position = UDim2.new(0, 0, 1, 0),
-		AnchorPoint = Vector2.new(0, 1),
-		ScrollBarThickness = 1.5,
-		BackgroundTransparency = 1,
-		ScrollBarImageTransparency = 0.2,
-		CanvasSize = UDim2.new(),
-		AutomaticCanvasSize = "Y",
-		ScrollingDirection = "Y",
-		BorderSizePixel = 0,
-		Name = "Tab Scroll"
-	}, {
-		Create("UIPadding", {
-			PaddingLeft = UDim.new(0, 10),
-			PaddingRight = UDim.new(0, 10),
-			PaddingTop = UDim.new(0, 10),
-			PaddingBottom = UDim.new(0, 10)
-		}), Create("UIListLayout", { Padding = UDim.new(0, 5) })
-	}), "ScrollBar")
-
-	local Containers = Create("Frame", Components, {
-		Size = UDim2.new(1, -MainScroll.Size.X.Offset, 1, -TopBar.Size.Y.Offset),
-		AnchorPoint = Vector2.new(1, 1),
-		Position = UDim2.new(1, 0, 1, 0),
-		BackgroundTransparency = 1,
-		ClipsDescendants = true,
-		Name = "Containers"
-	})
-
-	local ControlSize1, ControlSize2 = MakeDrag(Create("ImageButton", MainFrame, {
-		Size = UDim2.new(0, 35, 0, 35),
-		Position = MainFrame.Size,
-		Active = true,
-		AnchorPoint = Vector2.new(0.8, 0.8),
-		BackgroundTransparency = 1,
-		Name = "Control Hub Size"
-	})), MakeDrag(Create("ImageButton", MainFrame, {
-		Size = UDim2.new(0, 20, 1, -30),
-		Position = UDim2.new(0, MainScroll.Size.X.Offset, 1, 0),
-		AnchorPoint = Vector2.new(0.5, 1),
-		Active = true,
-		BackgroundTransparency = 1,
-		Name = "Control Tab Size"
-	}))
-
-	local function ControlSize()
-		local Pos1, Pos2 = ControlSize1.Position, ControlSize2.Position
-		ControlSize1.Position = UDim2.fromOffset(math.clamp(Pos1.X.Offset, 430, 1000), math.clamp(Pos1.Y.Offset, 200, 500))
-		ControlSize2.Position = UDim2.new(0, math.clamp(Pos2.X.Offset, 135, 250), 1, 0)
-		MainScroll.Size = UDim2.new(0, ControlSize2.Position.X.Offset, 1, -TopBar.Size.Y.Offset)
-		Containers.Size = UDim2.new(1, -MainScroll.Size.X.Offset, 1, -TopBar.Size.Y.Offset)
-		MainFrame.Size = ControlSize1.Position
-	end
-
-	ControlSize1:GetPropertyChangedSignal("Position"):Connect(ControlSize)
-	ControlSize2:GetPropertyChangedSignal("Position"):Connect(ControlSize)
-
-	ConnectSave(ControlSize1, function()
-		if not Minimized then
-			MyLibrary.Save.UISize = {MainFrame.Size.X.Offset, MainFrame.Size.Y.Offset}
-			SaveJson("redz library V5.json", MyLibrary.Save)
-		end
-	end)
-	ConnectSave(ControlSize2, function()
-		MyLibrary.Save.TabSize = MainScroll.Size.X.Offset
-		SaveJson("redz library V5.json", MyLibrary.Save)
-	end)
-
-	local ButtonsFolder = Create("Folder", TopBar, { Name = "Buttons" })
-	local CloseButton = Create("ImageButton", {
-		Size = UDim2.new(0, 14, 0, 14),
-		Position = UDim2.new(1, -10, 0.5),
-		AnchorPoint = Vector2.new(1, 0.5),
-		BackgroundTransparency = 1,
-		Image = "rbxassetid://10747384394",
-		AutoButtonColor = false,
-		Name = "Close"
-	})
-	local MinimizeButton = SetProps(CloseButton:Clone(), {
-		Position = UDim2.new(1, -35, 0.5),
-		Image = "rbxassetid://10734896206",
-		Name = "Minimize"
-	})
-	SetChildren(ButtonsFolder, { CloseButton, MinimizeButton })
-
-	-- Botão de Tradução (CONFIG.TranslationEnabled)
-	local TranslateButton
-	if CONFIG.TranslationEnabled then
-		TranslateButton = Create("ImageButton", {
-			Size = UDim2.new(0, 14, 0, 14),
-			Position = UDim2.new(1, -58, 0.5),
-			AnchorPoint = Vector2.new(1, 0.5),
-			BackgroundTransparency = 1,
-			Image = "rbxassetid://10723417703",
-			ImageColor3 = Color3.fromRGB(255, 255, 255),
-			AutoButtonColor = false,
-			Name = "Translate"
-		})
-		InsertTheme(Create("TextLabel", TranslateButton, {
-			Size = UDim2.fromOffset(30, 14),
-			Position = UDim2.new(0.5, 0, 1, 4),
-			AnchorPoint = Vector2.new(0.5, 0),
-			BackgroundTransparency = 1,
-			Text = CONFIG.DefaultLanguage,
-			TextColor3 = Color3.fromRGB(255, 255, 255),
-			TextSize = 7,
-			Font = Enum.Font.GothamBold,
-			Name = "LangLabel"
-		}), "Text")
-		TranslateButton.Activated:Connect(function()
-			Translations:Toggle()
-			TranslateButton.LangLabel.Text = Translations.CurrentLanguage
-			Connection:FireConnection("LanguageChanged", Translations.CurrentLanguage)
+	if not ok or not block then
+		ok = pcall(function()
+			block = tab:AddLabel(title .. (initial and ("\n" .. initial) or ""))
 		end)
 	end
-	if CONFIG.TranslationEnabled and TranslateButton then
-		TranslateButton.Parent = ButtonsFolder
-	end
-
-	local Minimized, SaveSize, WaitClick
-	local Window, FirstTab = {}, false
-
-	function Window:CloseBtn()
-		Window:Dialog({
-			Title = "Close",
-			Text = "Do you really want to close the UI?",
-			Options = {
-				{"Confirm", function() ScreenGui:Destroy() end},
-				{"Cancel"}
-			}
-		})
-	end
-
-	function Window:MinimizeBtn()
-		if WaitClick then return end
-		WaitClick = true
-		if Minimized then
-			MinimizeButton.Image = "rbxassetid://10734896206"
-			CreateTween({MainFrame, "Size", SaveSize, 0.25, true})
-			ControlSize1.Visible = true
-			ControlSize2.Visible = true
-			Minimized = false
-		else
-			MinimizeButton.Image = "rbxassetid://10734924532"
-			SaveSize = MainFrame.Size
-			ControlSize1.Visible = false
-			ControlSize2.Visible = false
-			CreateTween({MainFrame, "Size", UDim2.fromOffset(MainFrame.Size.X.Offset, 28), 0.25, true})
-			Minimized = true
-		end
-		WaitClick = false
-	end
-
-	function Window:Minimize()
-		MainFrame.Visible = not MainFrame.Visible
-	end
-
-	function Window:AddMinimizeButton(Configs)
-		local Button = MakeDrag(Create("ImageButton", ScreenGui, {
-			Size = UDim2.fromOffset(35, 35),
-			Position = UDim2.fromScale(0.15, 0.15),
-			BackgroundTransparency = 1,
-			AutoButtonColor = false
-		}))
-		local Stroke, Corner
-		if Configs.Corner then Corner = Make("Corner", Button); SetProps(Corner, Configs.Corner) end
-		if Configs.Stroke then Stroke = Make("Stroke", Button); SetProps(Stroke, Configs.Stroke) end
-		SetProps(Button, Configs.Button)
-		Button.Activated:Connect(Window.Minimize)
-		return { Stroke = Stroke, Corner = Corner, Button = Button }
-	end
-
-	function Window:Set(Val1, Val2)
-		if type(Val1) == "string" and type(Val2) == "string" then
-			Title.Text = Val1; Title.SubTitle.Text = Val2
-		elseif type(Val1) == "string" then Title.Text = Val1
-		end
-	end
-
-	function Window:Dialog(Configs)
-		if MainFrame:FindFirstChild("Dialog") then return end
-		if Minimized then Window:MinimizeBtn() end
-		local DTitle = Configs[1] or Configs.Title or "Dialog"
-		local DText = Configs[2] or Configs.Text or "This is a Dialog"
-		local DOptions = Configs[3] or Configs.Options or {}
-		local Frame = Create("Frame", {
-			Active = true,
-			Size = UDim2.fromOffset(250 * 1.08, 150 * 1.08),
-			Position = UDim2.fromScale(0.5, 0.5),
-			AnchorPoint = Vector2.new(0.5, 0.5)
-		}, {
-			InsertTheme(Create("TextLabel", {
-				Font = Enum.Font.GothamBold,
-				Size = UDim2.new(1, 0, 0, 20),
-				Text = DTitle,
-				TextXAlignment = "Left",
-				TextColor3 = Theme["Color Text"],
-				TextSize = 15,
-				Position = UDim2.fromOffset(15, 5),
-				BackgroundTransparency = 1
-			}), "Text"),
-			InsertTheme(Create("TextLabel", {
-				Font = Enum.Font.GothamMedium,
-				Size = UDim2.new(1, -25),
-				AutomaticSize = "Y",
-				Text = DText,
-				TextXAlignment = "Left",
-				TextColor3 = Theme["Color Dark Text"],
-				TextSize = 12,
-				Position = UDim2.fromOffset(15, 25),
-				BackgroundTransparency = 1,
-				TextWrapped = true
-			}), "DarkText")
-		})Make("Gradient", Frame, {Rotation = 270})Make("Corner", Frame)
-		local ButtonsHolder = Create("Frame", Frame, {
-			Size = UDim2.fromScale(1, 0.35),
-			Position = UDim2.fromScale(0, 1),
-			AnchorPoint = Vector2.new(0, 1),
-			BackgroundTransparency = 1
-		}, {
-			Create("UIListLayout", {
-				Padding = UDim.new(0, 10),
-				VerticalAlignment = "Center",
-				FillDirection = "Horizontal",
-				HorizontalAlignment = "Center"
-			})
-		})
-		local Screen = InsertTheme(Create("Frame", MainFrame, {
-			BackgroundTransparency = 0.6,
-			Active = true,
-			BackgroundColor3 = Theme["Color Stroke"],
-			Size = UDim2.new(1, 0, 1, 0),
-			Name = "Dialog"
-		}), "Stroke")
-		MainCorner:Clone().Parent = Screen
-		Frame.Parent = Screen
-		CreateTween({Frame, "Size", UDim2.fromOffset(250, 150), 0.2})
-		CreateTween({Screen, "BackgroundTransparency", 0.3, 0.15})
-		local ButtonCount, Dialog = 1, {}
-		function Dialog:Button(Cfg)
-			local Name = Cfg[1] or Cfg.Name or Cfg.Title or ""
-			local Callback = Cfg[2] or Cfg.Callback or function()end
-			ButtonCount = ButtonCount + 1
-			local Btn = Make("Button", ButtonsHolder)
-			Make("Corner", Btn)
-			SetProps(Btn, { Text = Name, Font = Enum.Font.GothamBold, TextColor3 = Theme["Color Text"], TextSize = 12 })
-			for _,B in pairs(ButtonsHolder:GetChildren()) do
-				if B:IsA("TextButton") then
-					B.Size = UDim2.new(1 / ButtonCount, -(((ButtonCount - 1) * 20) / ButtonCount), 0, 32)
-				end
-			end
-			Btn.Activated:Connect(Dialog.Close)
-			Btn.Activated:Connect(Callback)
-		end
-		function Dialog:Close()
-			CreateTween({Frame, "Size", UDim2.fromOffset(250 * 1.08, 150 * 1.08), 0.2})
-			CreateTween({Screen, "BackgroundTransparency", 1, 0.15})
-			CreateTween({Frame, "BackgroundTransparency", 1, 0.15, true})
-			Screen:Destroy()
-		end
-		table.foreach(DOptions, function(_,Btn) Dialog:Button(Btn) end)
-		return Dialog
-	end
-
-	function Window:SelectTab(TabSelect)
-		if type(TabSelect) == "number" then
-			MyLibrary.Tabs[TabSelect].func:Enable()
-		else
-			for _,Tab in pairs(MyLibrary.Tabs) do
-				if Tab.Cont == TabSelect.Cont then Tab.func:Enable() end
-			end
-		end
-	end
-
-	local ContainerList = {}
-	function Window:MakeTab(paste, Configs)
-		if type(paste) == "table" then Configs = paste end
-		local TName = Configs[1] or Configs.Title or "Tab!"
-		local TIcon = Configs[2] or Configs.Icon or ""
-		TIcon = MyLibrary:GetIcon(TIcon)
-		if not TIcon:find("rbxassetid://") or TIcon:gsub("rbxassetid://", ""):len() < 6 then
-			TIcon = false
-		end
-
-		local TabSelect = Make("Button", MainScroll, {
-			Size = UDim2.new(1, 0, 0, 24),
-			BackgroundTransparency = 0
-		})Make("Corner", TabSelect)
-
-		-- Borda da Tab (CONFIG.TabBordersEnabled)
-		if CONFIG.TabBordersEnabled then
-			Create("UIStroke", TabSelect, {
-				Thickness = CONFIG.TabBorderThickness,
-				Color = Theme["Color Stroke"],
-				ApplyStrokeMode = "Border"
-			})
-		end
-
-		local LabelTitle = InsertTheme(Create("TextLabel", TabSelect, {
-			Size = UDim2.new(1, TIcon and -25 or -15, 1),
-			Position = UDim2.fromOffset(TIcon and 25 or 15),
-			BackgroundTransparency = 1,
-			Font = Enum.Font.BuilderSansBold,
-			Text = TName,
-			TextColor3 = Theme["Color Text"],
-			TextSize = 10,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextTransparency = (FirstTab and 0.3) or 0,
-			TextTruncate = "AtEnd"
-		}), "Text")
-
-		local LabelIcon = InsertTheme(Create("ImageLabel", TabSelect, {
-			Position = UDim2.new(0, 8, 0.5),
-			Size = UDim2.new(0, 13, 0, 13),
-			AnchorPoint = Vector2.new(0, 0.5),
-			Image = TIcon or "",
-			BackgroundTransparency = 1,
-			ImageTransparency = (FirstTab and 0.3) or 0
-		}), "Text")
-
-		local Selected = InsertTheme(Create("Frame", TabSelect, {
-			Size = FirstTab and UDim2.new(0, 4, 0, 4) or UDim2.new(0, 4, 0, 13),
-			Position = UDim2.new(0, 1, 0.5),
-			AnchorPoint = Vector2.new(0, 0.5),
-			BackgroundColor3 = Theme["Color Theme"],
-			BackgroundTransparency = FirstTab and 1 or 0
-		}), "Theme")Make("Corner", Selected, UDim.new(0.5, 0))
-
-		local Container = InsertTheme(Create("ScrollingFrame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			Position = UDim2.new(0, 0, 1),
-			AnchorPoint = Vector2.new(0, 1),
-			ScrollBarThickness = 1.5,
-			BackgroundTransparency = 1,
-			ScrollBarImageTransparency = 0.2,
-			ScrollBarImageColor3 = Theme["Color Theme"],
-			AutomaticCanvasSize = "Y",
-			ScrollingDirection = "Y",
-			BorderSizePixel = 0,
-			CanvasSize = UDim2.new(),
-			Name = ("Container %i [ %s ]"):format(#ContainerList + 1, TName)
-		}, {
-			Create("UIPadding", {
-				PaddingLeft = UDim.new(0, 10),
-				PaddingRight = UDim.new(0, 10),
-				PaddingTop = UDim.new(0, 10),
-				PaddingBottom = UDim.new(0, 10)
-			}), Create("UIListLayout", { Padding = UDim.new(0, 5) })
-		}), "ScrollBar")
-
-		table.insert(ContainerList, Container)
-		if not FirstTab then Container.Parent = Containers end
-
-		local function Tabs()
-			if Container.Parent then return end
-			for _,Frame in pairs(ContainerList) do
-				if Frame:IsA("ScrollingFrame") and Frame ~= Container then Frame.Parent = nil end
-			end
-			Container.Parent = Containers
-			Container.Size = UDim2.new(1, 0, 1, 150)
-			table.foreach(MyLibrary.Tabs, function(_,Tab)
-				if Tab.Cont ~= Container then Tab.func:Disable() end
-			end)
-			CreateTween({Container, "Size", UDim2.new(1, 0, 1, 0), 0.3})
-			CreateTween({LabelTitle, "TextTransparency", 0, 0.35})
-			CreateTween({LabelIcon, "ImageTransparency", 0, 0.35})
-			CreateTween({Selected, "Size", UDim2.new(0, 4, 0, 13), 0.35})
-			CreateTween({Selected, "BackgroundTransparency", 0, 0.35})
-		end
-		TabSelect.Activated:Connect(Tabs)
-
-		FirstTab = true
-		local Tab = {}
-		table.insert(MyLibrary.Tabs, {TabInfo = {Name = TName, Icon = TIcon}, func = Tab, Cont = Container})
-		Tab.Cont = Container
-
-		function Tab:Disable()
-			Container.Parent = nil
-			CreateTween({LabelTitle, "TextTransparency", 0.3, 0.35})
-			CreateTween({LabelIcon, "ImageTransparency", 0.3, 0.35})
-			CreateTween({Selected, "Size", UDim2.new(0, 4, 0, 4), 0.35})
-			CreateTween({Selected, "BackgroundTransparency", 1, 0.35})
-		end
-		function Tab:Enable() Tabs() end
-		function Tab:Visible(Bool)
-			Funcs:ToggleVisible(TabSelect, Bool)
-			Funcs:ToggleParent(Container, Bool, Containers)
-		end
-		function Tab:Destroy() TabSelect:Destroy(); Container:Destroy() end
-
-		function Tab:AddSection(Configs)
-			local SectionName = type(Configs) == "string" and Configs or Configs[1] or Configs.Name or Configs.Title or Configs.Section
-			local SectionFrame = Create("Frame", Container, {
-				Size = UDim2.new(1, 0, 0, 20),
-				BackgroundTransparency = 1,
-				Name = "Option"
-			})
-			local SectionLabel = InsertTheme(Create("TextLabel", SectionFrame, {
-				Font = Enum.Font.BuilderSansExtraBold,
-				Text = SectionName,
-				TextColor3 = Theme["Color Text"],
-				Size = UDim2.new(1, -25, 1, 0),
-				Position = UDim2.new(0, 5),
-				BackgroundTransparency = 1,
-				TextTruncate = "AtEnd",
-				TextSize = 11,
-				TextXAlignment = "Left"
-			}), "Text")
-			local Section = {}
-			table.insert(MyLibrary.Options, {type = "Section", Name = SectionName, func = Section})
-			function Section:Visible(Bool) if Bool == nil then SectionFrame.Visible = not SectionFrame.Visible return end; SectionFrame.Visible = Bool end
-			function Section:Destroy() SectionFrame:Destroy() end
-			function Section:Set(New) if New then SectionLabel.Text = GetStr(New) end end
-			return Section
-		end
-
-		function Tab:AddParagraph(Configs)
-			local PName = Configs[1] or Configs.Title or "Paragraph"
-			local PDesc = Configs[2] or Configs.Text or ""
-			local Frame, LabelFunc = ButtonFrame(Container, PName, PDesc, UDim2.new(1, -20))
-			local Paragraph = {}
-			function Paragraph:Visible(...) Funcs:ToggleVisible(Frame, ...) end
-			function Paragraph:Destroy() Frame:Destroy() end
-			function Paragraph:SetTitle(Val) LabelFunc:SetTitle(GetStr(Val)) end
-			function Paragraph:SetDesc(Val) LabelFunc:SetDesc(GetStr(Val)) end
-			function Paragraph:Set(Val1, Val2)
-				if Val1 and Val2 then LabelFunc:SetTitle(GetStr(Val1)); LabelFunc:SetDesc(GetStr(Val2))
-				elseif Val1 then LabelFunc:SetDesc(GetStr(Val1)) end
-			end
-			return Paragraph
-		end
-
-		function Tab:AddButton(Configs)
-			local BName = Configs[1] or Configs.Name or Configs.Title or "Button!"
-			local BDescription = Configs.Desc or Configs.Description or ""
-			local Callback = Funcs:GetCallback(Configs, 2)
-			local FButton, LabelFunc = ButtonFrame(Container, BName, BDescription, UDim2.new(1, -20))
-			local ButtonIcon = Create("ImageLabel", FButton, {
-				Size = UDim2.new(0, 14, 0, 14),
-				Position = UDim2.new(1, -10, 0.5),
-				AnchorPoint = Vector2.new(1, 0.5),
-				BackgroundTransparency = 1,
-				Image = "rbxassetid://10734950309"
-			})
-			FButton.Activated:Connect(function() Funcs:FireCallback(Callback) end)
-			local Button = {}
-			function Button:Visible(...) Funcs:ToggleVisible(FButton, ...) end
-			function Button:Destroy() FButton:Destroy() end
-			function Button:Callback(...) Funcs:InsertCallback(Callback, ...) end
-			function Button:Set(Val1, Val2)
-				if type(Val1) == "string" and type(Val2) == "string" then LabelFunc:SetTitle(Val1); LabelFunc:SetDesc(Val2)
-				elseif type(Val1) == "string" then LabelFunc:SetTitle(Val1)
-				elseif type(Val1) == "function" then Callback = Val1 end
-			end
-			return Button
-		end
-
-		function Tab:AddToggle(Configs)
-			local TName = Configs[1] or Configs.Name or Configs.Title or "Toggle"
-			local TDesc = Configs.Desc or Configs.Description or ""
-			local Callback = Funcs:GetCallback(Configs, 3)
-			local Flag = Configs[4] or Configs.Flag or false
-			local Default = Configs[2] or Configs.Default or false
-			if CheckFlag(Flag) then Default = GetFlag(Flag) end
-			local Button, LabelFunc = ButtonFrame(Container, TName, TDesc, UDim2.new(1, -38))
-			local ToggleHolder = InsertTheme(Create("Frame", Button, {
-				Size = UDim2.new(0, 35, 0, 18),
-				Position = UDim2.new(1, -10, 0.5),
-				AnchorPoint = Vector2.new(1, 0.5),
-				BackgroundColor3 = Theme["Color Stroke"]
-			}), "Stroke")Make("Corner", ToggleHolder, UDim.new(0.5, 0))
-			local Slider = Create("Frame", ToggleHolder, {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(0.8, 0, 0.8, 0),
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				AnchorPoint = Vector2.new(0.5, 0.5)
-			})
-			local Toggle = InsertTheme(Create("Frame", Slider, {
-				Size = UDim2.new(0, 12, 0, 12),
-				Position = UDim2.new(0, 0, 0.5),
-				AnchorPoint = Vector2.new(0, 0.5),
-				BackgroundColor3 = Theme["Color Theme"]
-			}), "Theme")Make("Corner", Toggle, UDim.new(0.5, 0))
-			local WaitClickT
-			local function SetToggle(Val)
-				if WaitClickT then return end
-				WaitClickT, Default = true, Val
-				SetFlag(Flag, Default)
-				Funcs:FireCallback(Callback, Default)
-				if Default then
-					CreateTween({Toggle, "Position", UDim2.new(1, 0, 0.5), 0.25})
-					CreateTween({Toggle, "BackgroundTransparency", 0, 0.25})
-					CreateTween({Toggle, "AnchorPoint", Vector2.new(1, 0.5), 0.25})
-				else
-					CreateTween({Toggle, "Position", UDim2.new(0, 0, 0.5), 0.25})
-					CreateTween({Toggle, "BackgroundTransparency", 0.8, 0.25})
-					CreateTween({Toggle, "AnchorPoint", Vector2.new(0, 0.5), 0.25})
-				end
-				WaitClickT = false
-			end;task.spawn(SetToggle, Default)
-			Button.Activated:Connect(function() SetToggle(not Default) end)
-			local ToggleObj = {}
-			function ToggleObj:Visible(...) Funcs:ToggleVisible(Button, ...) end
-			function ToggleObj:Destroy() Button:Destroy() end
-			function ToggleObj:Callback(...) Funcs:InsertCallback(Callback, ...)() end
-			function ToggleObj:Set(Val1, Val2)
-				if type(Val1) == "string" and type(Val2) == "string" then LabelFunc:SetTitle(Val1); LabelFunc:SetDesc(Val2)
-				elseif type(Val1) == "string" then LabelFunc:SetTitle(Val1, false, true)
-				elseif type(Val1) == "boolean" then
-					if WaitClickT and Val2 then repeat task.wait() until not WaitClickT end
-					task.spawn(SetToggle, Val1)
-				elseif type(Val1) == "function" then Callback = Val1 end
-			end
-			return ToggleObj
-		end
-
-		function Tab:AddSlider(Configs)
-			local SName = Configs[1] or Configs.Name or Configs.Title or "Slider!"
-			local SDesc = Configs.Desc or Configs.Description or ""
-			local Min = Configs[2] or Configs.MinValue or Configs.Min or 10
-			local Max = Configs[3] or Configs.MaxValue or Configs.Max or 100
-			local Increase = Configs[4] or Configs.Increase or 1
-			local Callback = Funcs:GetCallback(Configs, 6)
-			local Flag = Configs[7] or Configs.Flag or false
-			local Default = Configs[5] or Configs.Default or 25
-			if CheckFlag(Flag) then Default = GetFlag(Flag) end
-			Min, Max = Min / Increase, Max / Increase
-			local Button, LabelFunc = ButtonFrame(Container, SName, SDesc, UDim2.new(1, -180))
-			local SliderHolder = Create("TextButton", Button, {
-				Size = UDim2.new(0.45, 0, 1),
-				Position = UDim2.new(1),
-				AnchorPoint = Vector2.new(1, 0),
-				AutoButtonColor = false,
-				Text = "",
-				BackgroundTransparency = 0
-			})
-			local SliderBar = InsertTheme(Create("Frame", SliderHolder, {
-				BackgroundColor3 = Theme["Color Stroke"],
-				Size = UDim2.new(1, -20, 0, 6),
-				Position = UDim2.new(0.5, 0, 0.5),
-				AnchorPoint = Vector2.new(0.5, 0.5)
-			}), "Stroke")Make("Corner", SliderBar)
-			local Indicator = InsertTheme(Create("Frame", SliderBar, {
-				BackgroundColor3 = Theme["Color Theme"],
-				Size = UDim2.fromScale(0.3, 1),
-				BorderSizePixel = 0
-			}), "Theme")Make("Corner", Indicator)
-			local SliderIcon = Create("Frame", SliderBar, {
-				Size = UDim2.new(0, 6, 0, 12),
-				BackgroundColor3 = Color3.fromRGB(220, 220, 220),
-				Position = UDim2.fromScale(0.3, 0.5),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				BackgroundTransparency = 0.2
-			})Make("Corner", SliderIcon)
-			local LabelVal = InsertTheme(Create("TextLabel", SliderHolder, {
-				Size = UDim2.new(0, 14, 0, 14),
-				AnchorPoint = Vector2.new(1, 0.5),
-				Position = UDim2.new(0, 0, 0.5),
-				BackgroundTransparency = 1,
-				TextColor3 = Theme["Color Text"],
-				Font = Enum.Font.FredokaOne,
-				TextSize = 12
-			}), "Text")
-			local UIScaleInst = Create("UIScale", LabelVal)
-			local BaseMousePos = Create("Frame", SliderBar, { Position = UDim2.new(0, 0, 0.5, 0), Visible = false })
-			local function UpdateLabel(NewValue)
-				local Number = tonumber(NewValue * Increase)
-				Number = math.floor(Number * 100) / 100
-				Default, LabelVal.Text = Number, tostring(Number)
-				Funcs:FireCallback(Callback, Default)
-			end
-			local function ControlPos()
-				local MousePos = Player:GetMouse()
-				local APos = MousePos.X - BaseMousePos.AbsolutePosition.X
-				local ConfigureDpiPos = APos / SliderBar.AbsoluteSize.X
-				SliderIcon.Position = UDim2.new(math.clamp(ConfigureDpiPos, 0, 1), 0, 0.5, 0)
-			end
-			local function UpdateValues()
-				Indicator.Size = UDim2.new(SliderIcon.Position.X.Scale, 0, 1, 0)
-				local SliderPos = SliderIcon.Position.X.Scale
-				local NewValue = math.floor(((SliderPos * Max) / Max) * (Max - Min) + Min)
-				UpdateLabel(NewValue)
-			end
-			SliderHolder.MouseButton1Down:Connect(function()
-				CreateTween({SliderIcon, "BackgroundTransparency", 0, 0.3})
-				Container.ScrollingEnabled = false
-				while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do task.wait()
-					ControlPos()
-				end
-				CreateTween({SliderIcon, "BackgroundTransparency", 0.2, 0.3})
-				Container.ScrollingEnabled = true
-				SetFlag(Flag, Default)
-			end)
-			LabelVal:GetPropertyChangedSignal("Text"):Connect(function()
-				UIScaleInst.Scale = 0.3
-				CreateTween({UIScaleInst, "Scale", 1.2, 0.1})
-				CreateTween({LabelVal, "Rotation", math.random(-1, 1) * 5, 0.15, true})
-				CreateTween({UIScaleInst, "Scale", 1, 0.2})
-				CreateTween({LabelVal, "Rotation", 0, 0.1})
-			end)
-			local function SetSlider(NewValue)
-				if type(NewValue) ~= "number" then return end
-				local MinV, MaxV = Min * Increase, Max * Increase
-				local SliderPos = (NewValue - MinV) / (MaxV - MinV)
-				SetFlag(Flag, NewValue)
-				CreateTween({SliderIcon, "Position", UDim2.fromScale(math.clamp(SliderPos, 0, 1), 0.5), 0.3, true})
-			end;SetSlider(Default)
-			SliderIcon:GetPropertyChangedSignal("Position"):Connect(UpdateValues)UpdateValues()
-			local Slider = {}
-			function Slider:Set(NewVal1, NewVal2)
-				if NewVal1 and NewVal2 then LabelFunc:SetTitle(NewVal1); LabelFunc:SetDesc(NewVal2)
-				elseif type(NewVal1) == "string" then LabelFunc:SetTitle(NewVal1)
-				elseif type(NewVal1) == "function" then Callback = NewVal1
-				elseif type(NewVal1) == "number" then SetSlider(NewVal1) end
-			end
-			function Slider:Callback(...) Funcs:InsertCallback(Callback, ...)(tonumber(Default)) end
-			function Slider:Visible(...) Funcs:ToggleVisible(Button, ...) end
-			function Slider:Destroy() Button:Destroy() end
-			return Slider
-		end
-
-		function Tab:AddTextBox(Configs)
-			local TName = Configs[1] or Configs.Name or Configs.Title or "Text Box"
-			local TDesc = Configs.Desc or Configs.Description or ""
-			local TDefault = Configs[2] or Configs.Default or ""
-			local TPlaceholderText = Configs[5] or Configs.PlaceholderText or "Input"
-			local TClearText = Configs[3] or Configs.ClearText or false
-			local Callback = Funcs:GetCallback(Configs, 4)
-			if type(TDefault) ~= "string" or TDefault:gsub(" ", ""):len() < 1 then TDefault = false end
-			local Button, LabelFunc = ButtonFrame(Container, TName, TDesc, UDim2.new(1, -38))
-			local SelectedFrame = InsertTheme(Create("Frame", Button, {
-				Size = UDim2.new(0, 150, 0, 18),
-				Position = UDim2.new(1, -10, 0.5),
-				AnchorPoint = Vector2.new(1, 0.5),
-				BackgroundColor3 = Theme["Color Stroke"]
-			}), "Stroke")Make("Corner", SelectedFrame, UDim.new(0, 4))
-			local TextBoxInput = InsertTheme(Create("TextBox", SelectedFrame, {
-				Size = UDim2.new(0.85, 0, 0.85, 0),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				BackgroundTransparency = 1,
-				Font = Enum.Font.GothamBold,
-				TextScaled = true,
-				TextColor3 = Theme["Color Text"],
-				ClearTextOnFocus = TClearText,
-				PlaceholderText = TPlaceholderText,
-				Text = ""
-			}), "Text")
-			local Pencil = Create("ImageLabel", SelectedFrame, {
-				Size = UDim2.new(0, 12, 0, 12),
-				Position = UDim2.new(0, -5, 0.5),
-				AnchorPoint = Vector2.new(1, 0.5),
-				Image = "rbxassetid://15637081879",
-				BackgroundTransparency = 1
-			})
-			local TextBoxObj = {}
-			local function Input()
-				local Text = TextBoxInput.Text
-				if Text:gsub(" ", ""):len() > 0 then
-					if TextBoxObj.OnChanging then Text = TextBoxObj.OnChanging(Text) or Text end
-					Funcs:FireCallback(Callback, Text)
-					TextBoxInput.Text = Text
-				end
-			end
-			TextBoxInput.FocusLost:Connect(Input)Input()
-			TextBoxInput.FocusLost:Connect(function() CreateTween({Pencil, "ImageColor3", Color3.fromRGB(255, 255, 255), 0.2}) end)
-			TextBoxInput.Focused:Connect(function() CreateTween({Pencil, "ImageColor3", Theme["Color Theme"], 0.2}) end)
-			TextBoxObj.OnChanging = false
-			function TextBoxObj:Visible(...) Funcs:ToggleVisible(Button, ...) end
-			function TextBoxObj:Destroy() Button:Destroy() end
-			return TextBoxObj
-		end
-
-		function Tab:AddDropdown(Configs)
-			local DName = Configs[1] or Configs.Name or Configs.Title or "Dropdown"
-			local DDesc = Configs.Desc or Configs.Description or ""
-			local DOptions = Configs[2] or Configs.Options or {}
-			local OpDefault = Configs[3] or Configs.Default or {}
-			local Flag = Configs[5] or Configs.Flag or false
-			local DMultiSelect = Configs.MultiSelect or false
-			local Callback = Funcs:GetCallback(Configs, 4)
-			local Button, LabelFunc = ButtonFrame(Container, DName, DDesc, UDim2.new(1, -180))
-			local SelectedFrame = InsertTheme(Create("Frame", Button, {
-				Size = UDim2.new(0, 150, 0, 18),
-				Position = UDim2.new(1, -10, 0.5),
-				AnchorPoint = Vector2.new(1, 0.5),
-				BackgroundColor3 = Theme["Color Stroke"],
-				BackgroundTransparency = 0.1
-			}), "Stroke")Make("Corner", SelectedFrame, UDim.new(0, 4))
-			local ActiveLabel = InsertTheme(Create("TextLabel", SelectedFrame, {
-				Size = UDim2.new(0.85, 0, 0.85, 0),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				BackgroundTransparency = 1,
-				Font = Enum.Font.GothamBold,
-				TextScaled = true,
-				TextColor3 = Theme["Color Text"],
-				Text = "..."
-			}), "Text")
-			local Arrow = Create("ImageLabel", SelectedFrame, {
-				Size = UDim2.new(0, 15, 0, 15),
-				Position = UDim2.new(0, -5, 0.5),
-				AnchorPoint = Vector2.new(1, 0.5),
-				Image = "rbxassetid://10709791523",
-				BackgroundTransparency = 1
-			})
-			local NoClickFrame = Create("TextButton", DropdownHolder, {
-				Name = "AntiClick",
-				Size = UDim2.new(1, 0, 1, 0),
-				BackgroundTransparency = 1,
-				Visible = false,
-				Text = ""
-			})
-			local DropFrame = Create("Frame", NoClickFrame, {
-				Size = UDim2.new(SelectedFrame.Size.X, 0, 0),
-				BackgroundTransparency = 0.1,
-				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-				AnchorPoint = Vector2.new(0, 1),
-				Name = "DropdownFrame",
-				ClipsDescendants = true,
-				Active = true
-			})Make("Corner", DropFrame)Make("Stroke", DropFrame)Make("Gradient", DropFrame, {Rotation = 60})
-			local ScrollFrame = InsertTheme(Create("ScrollingFrame", DropFrame, {
-				ScrollBarImageColor3 = Theme["Color Theme"],
-				Size = UDim2.new(1, 0, 1, 0),
-				ScrollBarThickness = 1.5,
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				CanvasSize = UDim2.new(),
-				ScrollingDirection = "Y",
-				AutomaticCanvasSize = "Y",
-				Active = true
-			}, {
-				Create("UIPadding", {
-					PaddingLeft = UDim.new(0, 8),
-					PaddingRight = UDim.new(0, 8),
-					PaddingTop = UDim.new(0, 5),
-					PaddingBottom = UDim.new(0, 5)
-				}), Create("UIListLayout", { Padding = UDim.new(0, 4) })
-			}), "ScrollBar")
-			local ScrollSize, WaitClickD = 5
-			local function Disable()
-				WaitClickD = true
-				CreateTween({Arrow, "Rotation", 0, 0.2})
-				CreateTween({DropFrame, "Size", UDim2.new(0, 152, 0, 0), 0.2, true})
-				CreateTween({Arrow, "ImageColor3", Color3.fromRGB(255, 255, 255), 0.2})
-				Arrow.Image = "rbxassetid://10709791523"
-				NoClickFrame.Visible = false
-				WaitClickD = false
-			end
-			local function GetFrameSize() return UDim2.fromOffset(152, ScrollSize) end
-			local function CalculateSize()
-				local Count = 0
-				for _,Frame in pairs(ScrollFrame:GetChildren()) do
-					if Frame:IsA("Frame") or Frame.Name == "Option" then Count = Count + 1 end
-				end
-				ScrollSize = (math.clamp(Count, 0, 10) * 25) + 10
-				if NoClickFrame.Visible then
-					NoClickFrame.Visible = true
-					CreateTween({DropFrame, "Size", GetFrameSize(), 0.2, true})
-				end
-			end
-			local function Minimize()
-				if WaitClickD then return end
-				WaitClickD = true
-				if NoClickFrame.Visible then
-					Arrow.Image = "rbxassetid://10709791523"
-					CreateTween({Arrow, "ImageColor3", Color3.fromRGB(255, 255, 255), 0.2})
-					CreateTween({DropFrame, "Size", UDim2.new(0, 152, 0, 0), 0.2, true})
-					NoClickFrame.Visible = false
-				else
-					NoClickFrame.Visible = true
-					Arrow.Image = "rbxassetid://10709790948"
-					CreateTween({Arrow, "ImageColor3", Theme["Color Theme"], 0.2})
-					CreateTween({DropFrame, "Size", GetFrameSize(), 0.2, true})
-				end
-				WaitClickD = false
-			end
-			local function CalculatePos()
-				local FramePos = SelectedFrame.AbsolutePosition
-				local ScreenSize = ScreenGui.AbsoluteSize
-				local ClampX = math.clamp((FramePos.X / UIScale), 0, ScreenSize.X / UIScale - DropFrame.Size.X.Offset)
-				local ClampY = math.clamp((FramePos.Y / UIScale), 0, ScreenSize.Y / UIScale)
-				local NewPos = UDim2.fromOffset(ClampX, ClampY)
-				local AnchorPoint = FramePos.Y > ScreenSize.Y / 1.4 and 1 or ScrollSize > 80 and 0.5 or 0
-				DropFrame.AnchorPoint = Vector2.new(0, AnchorPoint)
-				CreateTween({DropFrame, "Position", NewPos, 0.1})
-			end
-			local AddNewOptions, GetOptions, AddOption, RemoveOption, Selected do
-				local DefaultD = type(OpDefault) ~= "table" and {OpDefault} or OpDefault
-				local MultiSelect = DMultiSelect
-				local Options = {}
-				Selected = MultiSelect and {} or CheckFlag(Flag) and GetFlag(Flag) or DefaultD[1]
-				if MultiSelect then
-					for index, Value in pairs(CheckFlag(Flag) and GetFlag(Flag) or DefaultD) do
-						if type(index) == "string" and (DOptions[index] or table.find(DOptions, index)) then
-							Selected[index] = Value
-						elseif DOptions[Value] then Selected[Value] = true end
-					end
-				end
-				local function CallbackSelected()
-					SetFlag(Flag, MultiSelect and Selected or tostring(Selected))
-					Funcs:FireCallback(Callback, Selected)
-				end
-				local function UpdateLabel()
-					if MultiSelect then
-						local list = {}
-						for index, Value in pairs(Selected) do
-							if Value then table.insert(list, index) end
-						end
-						ActiveLabel.Text = #list > 0 and table.concat(list, ", ") or "..."
-					else ActiveLabel.Text = tostring(Selected or "...") end
-				end
-				local function UpdateSelected()
-					if MultiSelect then
-						for _,v in pairs(Options) do
-							local nodes, Stats = v.nodes, v.Stats
-							CreateTween({nodes[2], "BackgroundTransparency", Stats and 0 or 0.8, 0.35})
-							CreateTween({nodes[2], "Size", Stats and UDim2.fromOffset(4, 12) or UDim2.fromOffset(4, 4), 0.35})
-							CreateTween({nodes[3], "TextTransparency", Stats and 0 or 0.4, 0.35})
-						end
-					else
-						for _,v in pairs(Options) do
-							local Slt = v.Value == Selected
-							local nodes = v.nodes
-							CreateTween({nodes[2], "BackgroundTransparency", Slt and 0 or 1, 0.35})
-							CreateTween({nodes[2], "Size", Slt and UDim2.fromOffset(4, 14) or UDim2.fromOffset(4, 4), 0.35})
-							CreateTween({nodes[3], "TextTransparency", Slt and 0 or 0.4, 0.35})
-						end
-					end
-					UpdateLabel()
-				end
-				local function Select(Option)
-					if MultiSelect then
-						Option.Stats = not Option.Stats
-						Option.LastCB = tick()
-						Selected[Option.Name] = Option.Stats
-						CallbackSelected()
-					else
-						Option.LastCB = tick()
-						Selected = Option.Value
-						CallbackSelected()
-					end
-					UpdateSelected()
-				end
-				AddOption = function(index, Value)
-					local Name = tostring(type(index) == "string" and index or Value)
-					if Options[Name] then return end
-					Options[Name] = { index = index, Value = Value, Name = Name, Stats = false, LastCB = 0 }
-					if MultiSelect then
-						local Stats = Selected[Name]
-						Selected[Name] = Stats or false
-						Options[Name].Stats = Stats
-					end
-					local Btn = Make("Button", ScrollFrame, {
-						Name = "Option",
-						Size = UDim2.new(1, 0, 0, 21),
-						Position = UDim2.new(0, 0, 0.5),
-						AnchorPoint = Vector2.new(0, 0.5)
-					})Make("Corner", Btn, UDim.new(0, 4))
-					local IsSelected = InsertTheme(Create("Frame", Btn, {
-						Position = UDim2.new(0, 1, 0.5),
-						Size = UDim2.new(0, 4, 0, 4),
-						BackgroundColor3 = Theme["Color Theme"],
-						BackgroundTransparency = 1,
-						AnchorPoint = Vector2.new(0, 0.5)
-					}), "Theme")Make("Corner", IsSelected, UDim.new(0.5, 0))
-					local OptionName = InsertTheme(Create("TextLabel", Btn, {
-						Size = UDim2.new(1, 0, 1),
-						Position = UDim2.new(0, 10),
-						Text = Name,
-						TextColor3 = Theme["Color Text"],
-						Font = Enum.Font.FredokaOne,
-						TextXAlignment = "Left",
-						BackgroundTransparency = 1,
-						TextTransparency = 0.4
-					}), "Text")
-					Btn.Activated:Connect(function() Select(Options[Name]) end)
-					Options[Name].nodes = {Btn, IsSelected, OptionName}
-				end
-				RemoveOption = function(index, Value)
-					local Name = tostring(type(index) == "string" and index or Value)
-					if Options[Name] then
-						if MultiSelect then Selected[Name] = nil else Selected = nil end
-						Options[Name].nodes[1]:Destroy()
-						table.clear(Options[Name])
-						Options[Name] = nil
-					end
-				end
-				GetOptions = function() return Options end
-				AddNewOptions = function(List, Clear)
-					if Clear then table.foreach(Options, RemoveOption) end
-					table.foreach(List, AddOption)
-					CallbackSelected()
-					UpdateSelected()
-				end
-				table.foreach(DOptions, AddOption)
-				CallbackSelected()
-				UpdateSelected()
-			end
-			Button.Activated:Connect(Minimize)
-			NoClickFrame.MouseButton1Down:Connect(Disable)
-			NoClickFrame.MouseButton1Click:Connect(Disable)
-			MainFrame:GetPropertyChangedSignal("Visible"):Connect(Disable)
-			SelectedFrame:GetPropertyChangedSignal("AbsolutePosition"):Connect(CalculatePos)
-			Button.Activated:Connect(CalculateSize)
-			ScrollFrame.ChildAdded:Connect(CalculateSize)
-			ScrollFrame.ChildRemoved:Connect(CalculateSize)
-			CalculatePos()
-			CalculateSize()
-			local Dropdown = {}
-			function Dropdown:Visible(...) Funcs:ToggleVisible(Button, ...) end
-			function Dropdown:Destroy() Button:Destroy() end
-			function Dropdown:Callback(...) Funcs:InsertCallback(Callback, ...)(Selected) end
-			function Dropdown:Add(...)
-				local NewOpts = {...}
-				if type(NewOpts[1]) == "table" then
-					table.foreach(NewOpts[1], function(_,N) AddOption(N) end)
-				else table.foreach(NewOpts, function(_,N) AddOption(N) end) end
-			end
-			function Dropdown:Remove(Option)
-				for index, Value in pairs(GetOptions()) do
-					if type(Option) == "number" and index == Option or Value.Name == "Option" then
-						RemoveOption(index, Value.Value)
-					end
-				end
-			end
-			function Dropdown:Set(Val1, Clear)
-				if type(Val1) == "table" then AddNewOptions(Val1, not Clear)
-				elseif type(Val1) == "function" then Callback = Val1 end
-			end
-			return Dropdown
-		end
-
-		function Tab:AddDiscordInvite(Configs)
-			local ITitle = Configs[1] or Configs.Name or Configs.Title or "Discord"
-			local Desc = Configs.Desc or Configs.Description or ""
-			local Logo = Configs[2] or Configs.Logo or ""
-			local Invite = Configs[3] or Configs.Invite or ""
-			local InviteHolder = Create("Frame", Container, {
-				Size = UDim2.new(1, 0, 0, 80),
-				Name = "Option",
-				BackgroundTransparency = 1
-			})
-			local InviteLabel = Create("TextLabel", InviteHolder, {
-				Size = UDim2.new(1, 0, 0, 15),
-				Position = UDim2.new(0, 5),
-				TextColor3 = Color3.fromRGB(40, 150, 255),
-				Font = Enum.Font.GothamBold,
-				TextXAlignment = "Left",
-				BackgroundTransparency = 1,
-				TextSize = 10,
-				Text = Invite
-			})
-			local FrameHolder = InsertTheme(Create("Frame", InviteHolder, {
-				Size = UDim2.new(1, 0, 0, 65),
-				AnchorPoint = Vector2.new(0, 1),
-				Position = UDim2.new(0, 0, 1),
-				BackgroundColor3 = Theme["Color Hub 2"]
-			}), "Frame")Make("Corner", FrameHolder)
-			local ImageLabel = Create("ImageLabel", FrameHolder, {
-				Size = UDim2.new(0, 30, 0, 30),
-				Position = UDim2.new(0, 7, 0, 7),
-				Image = Logo,
-				BackgroundTransparency = 1
-			})Make("Corner", ImageLabel, UDim.new(0, 4))Make("Stroke", ImageLabel)
-			local LTitle = InsertTheme(Create("TextLabel", FrameHolder, {
-				Size = UDim2.new(1, -52, 0, 15),
-				Position = UDim2.new(0, 44, 0, 7),
-				Font = Enum.Font.GothamBold,
-				TextColor3 = Theme["Color Text"],
-				TextXAlignment = "Left",
-				BackgroundTransparency = 1,
-				TextSize = 10,
-				Text = ITitle
-			}), "Text")
-			local LDesc = InsertTheme(Create("TextLabel", FrameHolder, {
-				Size = UDim2.new(1, -52, 0, 0),
-				Position = UDim2.new(0, 44, 0, 22),
-				TextWrapped = true,
-				AutomaticSize = "Y",
-				Font = Enum.Font.Gotham,
-				TextColor3 = Theme["Color Dark Text"],
-				TextXAlignment = "Left",
-				BackgroundTransparency = 1,
-				TextSize = 8,
-				Text = Desc
-			}), "DarkText")
-			local JoinButton = Create("TextButton", FrameHolder, {
-				Size = UDim2.new(1, -14, 0, 16),
-				AnchorPoint = Vector2.new(0.5, 1),
-				Position = UDim2.new(0.5, 0, 1, -7),
-				Text = "Join Server",
-				Font = Enum.Font.GothamBold,
-				TextSize = 12,
-				TextColor3 = Color3.fromRGB(220, 220, 220),
-				BackgroundColor3 = Color3.fromRGB(50, 150, 50)
-			})Make("Corner", JoinButton, UDim.new(0, 5))
-			local ClickDelay
-			JoinButton.Activated:Connect(function()
-				setclipboard(Invite)
-				if ClickDelay then return end
-				ClickDelay = true
-				SetProps(JoinButton, { Text = "Copied to Clipboard", BackgroundColor3 = Color3.fromRGB(100, 100, 100), TextColor3 = Color3.fromRGB(150, 150, 150) })
-				task.wait(5)
-				SetProps(JoinButton, { Text = "Join Server", BackgroundColor3 = Color3.fromRGB(50, 150, 50), TextColor3 = Color3.fromRGB(220, 220, 220) })
-				ClickDelay = false
-			end)
-			local DiscordInvite = {}
-			function DiscordInvite:Destroy() InviteHolder:Destroy() end
-			function DiscordInvite:Visible(...) Funcs:ToggleVisible(InviteHolder, ...) end
-			return DiscordInvite
-		end
-
-		function Tab:AddImage(Configs)
-			local ITitle = Configs[1] or Configs.Name or Configs.Title or ""
-			local IDesc = Configs.Desc or Configs.Description or ""
-			local IImageId = Configs[2] or Configs.ImageId or ""
-
-			local OuterFrame = InsertTheme(Create("Frame", Container, {
-				Size = UDim2.new(1, 0, 0, 0),
-				AutomaticSize = "Y",
-				BackgroundColor3 = Theme["Color Hub 2"],
-				Name = "Option"
-			}), "Frame")
-			Make("Corner", OuterFrame, UDim.new(0, 6))
-			Make("Stroke", OuterFrame)
-
-			local ImageHolder = Create("Frame", OuterFrame, {
-				Size = UDim2.new(1, 0, 0, 80),
-				BackgroundTransparency = 1,
-				Name = "ImageHolder"
-			})
-
-			local Img = Create("ImageLabel", ImageHolder, {
-				Size = UDim2.new(1, -20, 1, -20),
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Image = IImageId:find("rbxassetid://") and IImageId or "rbxassetid://" .. IImageId,
-				BackgroundTransparency = 1,
-				ScaleType = Enum.ScaleType.Fit,
-				Name = "Image"
-			})
-			Make("Corner", Img, UDim.new(0, 4))
-			Make("Stroke", Img)
-
-			local InfoHolder = Create("Frame", OuterFrame, {
-				Size = UDim2.new(1, -20, 0, 0),
-				AutomaticSize = "Y",
-				Position = UDim2.new(0, 10, 1, 5),
-				AnchorPoint = Vector2.new(0, 0),
-				BackgroundTransparency = 1,
-			}, {
-				Create("UIListLayout", {
-					SortOrder = "LayoutOrder",
-					Padding = UDim.new(0, 2)
-				}),
-				Create("UIPadding", {
-					PaddingBottom = UDim.new(0, 8)
-				}),
-				InsertTheme(Create("TextLabel", {
-					Font = Enum.Font.BuilderSansBold,
-					TextColor3 = Theme["Color Text"],
-					Size = UDim2.new(1, 0, 0, 12),
-					BackgroundTransparency = 1,
-					TextXAlignment = "Left",
-					TextSize = 10,
-					Text = ITitle,
-					RichText = true,
-					Name = "Title"
-				}), "Text"),
-				InsertTheme(Create("TextLabel", {
-					Font = Enum.Font.Gotham,
-					TextColor3 = Theme["Color Dark Text"],
-					Size = UDim2.new(1, 0, 0, 0),
-					AutomaticSize = "Y",
-					BackgroundTransparency = 1,
-					TextWrapped = true,
-					TextXAlignment = "Left",
-					TextSize = 8,
-					Text = IDesc,
-					RichText = true,
-					Name = "Desc"
-				}), "DarkText")
-			})
-
-			local Image = {}
-			function Image:Visible(...) Funcs:ToggleVisible(OuterFrame, ...) end
-			function Image:Destroy() OuterFrame:Destroy() end
-			function Image:SetImage(Id)
-				Img.Image = Id:find("rbxassetid://") and Id or "rbxassetid://" .. Id
-			end
-			function Image:SetTitle(T) InfoHolder.Title.Text = T end
-			function Image:SetDesc(D) InfoHolder.Desc.Text = D end
-			return Image
-		end
-
-		return Tab
-	end
-
-	CloseButton.Activated:Connect(Window.CloseBtn)
-	MinimizeButton.Activated:Connect(Window.MinimizeBtn)
-	return Window
+	return block
 end
 
-return MyLibrary
+local function setBlockText(block, title, text)
+	if not block then return end
+	local ok = pcall(function()
+		if block.Set then return block:Set(text) end
+		if block.SetDesc then return block:SetDesc(text) end
+		if block.SetText then return block:SetText(text) end
+		if block.Update then return block:Update(text) end
+		if block.Refresh then return block:Refresh(text) end
+	end)
+	if not ok then
+		pcall(function()
+			if block.Text ~= nil then
+				block.Text = title .. "\n" .. text
+			end
+		end)
+	end
+end
+
+local function getCurrentDate()
+	local currentTime = os.time()
+	return os.date("%d/%m/%Y", currentTime)
+end
+
+local Players = game:GetService("Players")
+local localPlayer = Players.LocalPlayer
+
+local welcomeBlock = createInfoBlock(Tab1, "Welcome! Today is: ", getCurrentDate())
+
+TabInfo:AddParagraph({"You Nickname: " .. (game.Players.LocalPlayer.Name or "Unknown")})
+
+TabInfo:AddParagraph({"You ID: " .. tostring(game.Players.LocalPlayer.UserId or 0)})
+
+local timerBlock   = createInfoBlock(Tab1, "Script Usage Time: ", "00:00:00")
+local fpsBlock     = createInfoBlock(Tab1, "Your FPS: ", "FPS: 0")
+
+local RunService = game:GetService("RunService")
+
+local startClock = os.clock()
+
+local currentFPS = 0
+RunService.RenderStepped:Connect(function(dt)
+	currentFPS = math.floor(1/dt + 0.5)
+end)
+
+task.spawn(function()
+	while true do
+		task.wait(0.5)
+
+		setBlockText(welcomeBlock, "Welcome! Today is: ", getCurrentDate())
+
+		local e = os.clock() - startClock
+		local h = math.floor(e/3600)
+		local m = math.floor((e%3600)/60)
+		local s = math.floor(e%60)
+		setBlockText(timerBlock, "Script Usage Time: ", string.format("%02d:%02d:%02d", h, m, s))
+
+		setBlockText(fpsBlock, "Your FPS: ", "FPS: " .. tostring(currentFPS))
+	end
+end)
+
+local Section = TabInfo:AddSection({"Collaborators"})
+
+TabInfo:AddParagraph({ "Owner:", "Denolk"})
+TabInfo:AddParagraph({ "Assistants:", "Assure" })
+
+--------------------------------------------------------------------------------------------------------------------------------
+                                                   -- === TabFarm | Farming === --
+---------------------------------------------------------------------------------------------------------------------------------
+TabFarm:AddSection({"Select Attack Mode"})
+TabFarm:AddParagraph({ "In-progress...", "Modes: Normal, Fast, Super Fast, God Mode." })
+
+TabFarm:AddDropdown({
+    Name = "Select Weapon",
+    Options = {"Melee", "Sword", "Fruit", "Gun"},
+    Default = "Melee",
+    Callback = function(Value)
+        _G.Weapon = Value
+    end
+})
+
+TabFarm:AddSection({"Types of Auto Farms"})
+
+TabFarm:AddToggle({
+    Name = "Auto Farm Level",
+    Default = false,
+    Callback = function(Value)
+        _G.AutoFarm = Value
+        if not Value then Unstabilize() end
+    end
+})
+
+spawn(function()
+    while task.wait() do
+        if _G.AutoFarm then
+            pcall(function()
+                local targetMon, questName, questLevel, questPos = CheckQuest()
+                local hasQuest = player.PlayerGui.Main.Quest.Visible
+                
+                if not hasQuest then
+                    topos(questPos)
+                    if (player.Character.HumanoidRootPart.Position - questPos.Position).Magnitude < 10 then
+                        ReplicatedStorage.Remotes.CommF_:InvokeServer("StartQuest", questName, questLevel)
+                    end
+                else
+                    local enemy = workspace.Enemies:FindFirstChild(targetMon)
+                    if enemy and enemy:FindFirstChild("HumanoidRootPart") and enemy.Humanoid.Health > 0 then
+                        EquipWeapon()
+
+                        topos(enemy.HumanoidRootPart.CFrame * CFrame.new(0, 25, 0))
+                        
+                        ReplicatedStorage.Modules.Net["RE/RegisterAttack"]:FireServer(0.4)
+                        ReplicatedStorage.Modules.Net["RE/RegisterHit"]:FireServer(enemy.HumanoidRootPart, {}, "617888d2")
+                    else
+
+                        local spawnPoint = workspace._WorldOrigin.EnemySpawns:FindFirstChild(targetMon)
+                        if spawnPoint then topos(spawnPoint.CFrame) end
+                    end
+                end
+            end)
+        end
+    end
+end)
+
+TabFarm:AddToggle({
+    Name = "Bring Mode",
+    Default = false,
+    Callback = function(v)
+        _G.AutoFarmMaterial = v
+    end
+})
+
+--------------------------------------------------------------------------------------------------------------------------------
+                                                   -- === TabEsp | Esp General === --
+---------------------------------------------------------------------------------------------------------------------------------
+local ToggleStates = {
+    IslandESP = false,
+    ESPPlayer = false,
+    ChestESP = false,
+    DevilFruitESP = false,
+    FlowerESP = false,
+    RealFruitESP = false,
+    MobESP = false,
+    SeaESP = false,
+    NpcESP = false,
+    MirageIslandESP = false,
+    AfdESP = false,
+    AuraESP = false,
+    LADESP = false,
+    GearESP = false
+}
+
+local function isnil(thing)
+    return (thing == nil)
+end
+
+local function round(n)
+    return math.floor(tonumber(n) + 0.5)
+end
+
+local Number = math.random(1, 1000000)
+
+local function UpdateIslandESP()
+    for i,v in pairs(game:GetService("Workspace")["_WorldOrigin"].Locations:GetChildren()) do
+        pcall(function()
+            if ToggleStates.IslandESP then
+                if v.Name ~= "Sea" then
+                    if not v:FindFirstChild('NameEsp') then
+                        local bill = Instance.new('BillboardGui',v)
+                        bill.Name = 'NameEsp'
+                        bill.ExtentsOffset = Vector3.new(0, 1, 0)
+                        bill.Size = UDim2.new(1,200,1,30)
+                        bill.Adornee = v
+                        bill.AlwaysOnTop = true
+                        local name = Instance.new('TextLabel',bill)
+                        name.Font = "GothamBold"
+                        name.FontSize = "Size14"
+                        name.TextWrapped = true
+                        name.Size = UDim2.new(1,0,1,0)
+                        name.TextYAlignment = 'Top'
+                        name.BackgroundTransparency = 1
+                        name.TextStrokeTransparency = 0.5
+                        name.TextColor3 = Color3.fromRGB(7, 236, 240)
+                    else
+                        v['NameEsp'].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' Distance')
+                    end
+                end
+            else
+                if v:FindFirstChild('NameEsp') then
+                    v:FindFirstChild('NameEsp'):Destroy()
+                end
+            end
+        end)
+    end
+end
+
+local function UpdatePlayerChams()
+    for i,v in pairs(game:GetService'Players':GetChildren()) do
+        pcall(function()
+            if not isnil(v.Character) then
+                if ToggleStates.ESPPlayer then
+                    if not isnil(v.Character.Head) and not v.Character.Head:FindFirstChild('NameEsp'..Number) then
+                        local bill = Instance.new('BillboardGui',v.Character.Head)
+                        bill.Name = 'NameEsp'..Number
+                        bill.ExtentsOffset = Vector3.new(0, 1, 0)
+                        bill.Size = UDim2.new(1,200,1,30)
+                        bill.Adornee = v.Character.Head
+                        bill.AlwaysOnTop = true
+                        local name = Instance.new('TextLabel',bill)
+                        name.Font = Enum.Font.GothamSemibold
+                        name.FontSize = "Size14"
+                        name.TextWrapped = true
+                        name.Text = (v.Name ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Character.Head.Position).Magnitude/3) ..' Distance')
+                        name.Size = UDim2.new(1,0,1,0)
+                        name.TextYAlignment = 'Top'
+                        name.BackgroundTransparency = 1
+                        name.TextStrokeTransparency = 0.5
+                        if v.Team == game.Players.LocalPlayer.Team then
+                            name.TextColor3 = Color3.new(0,255,0)
+                        else
+                            name.TextColor3 = Color3.new(255,0,0)
+                        end
+                    else
+                        v.Character.Head['NameEsp'..Number].TextLabel.Text = (v.Name ..' | '.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Character.Head.Position).Magnitude/3) ..' Distance\nHealth : ' .. round(v.Character.Humanoid.Health*100/v.Character.Humanoid.MaxHealth) .. '%')
+                    end
+                else
+                    if v.Character.Head:FindFirstChild('NameEsp'..Number) then
+                        v.Character.Head:FindFirstChild('NameEsp'..Number):Destroy()
+                    end
+                end
+            end
+        end)
+    end
+end
+
+local function UpdateChestChams()
+    for i,v in pairs(game.Workspace:GetChildren()) do
+        pcall(function()
+            if string.find(v.Name,"Chest") then
+                if ToggleStates.ChestESP then
+                    if not v:FindFirstChild('NameEsp'..Number) then
+                        local bill = Instance.new('BillboardGui',v)
+                        bill.Name = 'NameEsp'..Number
+                        bill.ExtentsOffset = Vector3.new(0, 1, 0)
+                        bill.Size = UDim2.new(1,200,1,30)
+                        bill.Adornee = v
+                        bill.AlwaysOnTop = true
+                        local name = Instance.new('TextLabel',bill)
+                        name.Font = Enum.Font.GothamSemibold
+                        name.FontSize = "Size14"
+                        name.TextWrapped = true
+                        name.Size = UDim2.new(1,0,1,0)
+                        name.TextYAlignment = 'Top'
+                        name.BackgroundTransparency = 1
+                        name.TextStrokeTransparency = 0.5
+                        if v.Name == "Chest1" then
+                            name.TextColor3 = Color3.fromRGB(109, 109, 109)
+                            name.Text = ("Chest 1" ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' Distance')
+                        end
+                        if v.Name == "Chest2" then
+                            name.TextColor3 = Color3.fromRGB(173, 158, 21)
+                            name.Text = ("Chest 2" ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' Distance')
+                        end
+                        if v.Name == "Chest3" then
+                            name.TextColor3 = Color3.fromRGB(85, 255, 255)
+                            name.Text = ("Chest 3" ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' Distance')
+                        end
+                    else
+                        v['NameEsp'..Number].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' Distance')
+                    end
+                else
+                    if v:FindFirstChild('NameEsp'..Number) then
+                        v:FindFirstChild('NameEsp'..Number):Destroy()
+                    end
+                end
+            end
+        end)
+    end
+end
+
+local function UpdateDevilChams()
+    for i,v in pairs(game.Workspace:GetChildren()) do
+        pcall(function()
+            if ToggleStates.DevilFruitESP then
+                if string.find(v.Name, "Fruit") then
+                    if not v.Handle:FindFirstChild('NameEsp'..Number) then
+                        local bill = Instance.new('BillboardGui',v.Handle)
+                        bill.Name = 'NameEsp'..Number
+                        bill.ExtentsOffset = Vector3.new(0, 1, 0)
+                        bill.Size = UDim2.new(1,200,1,30)
+                        bill.Adornee = v.Handle
+                        bill.AlwaysOnTop = true
+                        local name = Instance.new('TextLabel',bill)
+                        name.Font = Enum.Font.GothamSemibold
+                        name.FontSize = "Size14"
+                        name.TextWrapped = true
+                        name.Size = UDim2.new(1,0,1,0)
+                        name.TextYAlignment = 'Top'
+                        name.BackgroundTransparency = 1
+                        name.TextStrokeTransparency = 0.5
+                        name.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        name.Text = (v.Name ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude/3) ..' Distance')
+                    else
+                        v.Handle['NameEsp'..Number].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude/3) ..' Distance')
+                    end
+                end
+            else
+                if v.Handle:FindFirstChild('NameEsp'..Number) then
+                    v.Handle:FindFirstChild('NameEsp'..Number):Destroy()
+                end
+            end
+        end)
+    end
+end
+
+local function UpdateFlowerChams()
+    for i,v in pairs(game.Workspace:GetChildren()) do
+        pcall(function()
+            if v.Name == "Flower2" or v.Name == "Flower1" then
+                if ToggleStates.FlowerESP then
+                    if not v:FindFirstChild('NameEsp'..Number) then
+                        local bill = Instance.new('BillboardGui',v)
+                        bill.Name = 'NameEsp'..Number
+                        bill.ExtentsOffset = Vector3.new(0, 1, 0)
+                        bill.Size = UDim2.new(1,200,1,30)
+                        bill.Adornee = v
+                        bill.AlwaysOnTop = true
+                        local name = Instance.new('TextLabel',bill)
+                        name.Font = Enum.Font.GothamSemibold
+                        name.FontSize = "Size14"
+                        name.TextWrapped = true
+                        name.Size = UDim2.new(1,0,1,0)
+                        name.TextYAlignment = 'Top'
+                        name.BackgroundTransparency = 1
+                        name.TextStrokeTransparency = 0.5
+                        name.TextColor3 = Color3.fromRGB(255, 0, 0)
+                        if v.Name == "Flower1" then
+                            name.Text = ("Blue Flower" ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' Distance')
+                            name.TextColor3 = Color3.fromRGB(0, 0, 255)
+                        end
+                        if v.Name == "Flower2" then
+                            name.Text = ("Red Flower" ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' Distance')
+                            name.TextColor3 = Color3.fromRGB(255, 0, 0)
+                        end
+                    else
+                        v['NameEsp'..Number].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' Distance')
+                    end
+                else
+                    if v:FindFirstChild('NameEsp'..Number) then
+                        v:FindFirstChild('NameEsp'..Number):Destroy()
+                    end
+                end
+            end
+        end)
+    end
+end
+
+local function UpdateRealFruitChams()
+    local spawners = {"AppleSpawner", "PineappleSpawner", "BananaSpawner"}
+    local colors = {
+        AppleSpawner = Color3.fromRGB(255, 0, 0),
+        PineappleSpawner = Color3.fromRGB(255, 174, 0),
+        BananaSpawner = Color3.fromRGB(251, 255, 0)
+    }
+    
+    for _, spawnerName in pairs(spawners) do
+        local spawner = game.Workspace:FindFirstChild(spawnerName)
+        if spawner then
+            for i,v in pairs(spawner:GetChildren()) do
+                if v:IsA("Tool") then
+                    if ToggleStates.RealFruitESP then
+                        if not v.Handle:FindFirstChild('NameEsp'..Number) then
+                            local bill = Instance.new('BillboardGui',v.Handle)
+                            bill.Name = 'NameEsp'..Number
+                            bill.ExtentsOffset = Vector3.new(0, 1, 0)
+                            bill.Size = UDim2.new(1,200,1,30)
+                            bill.Adornee = v.Handle
+                            bill.AlwaysOnTop = true
+                            local name = Instance.new('TextLabel',bill)
+                            name.Font = Enum.Font.GothamSemibold
+                            name.FontSize = "Size14"
+                            name.TextWrapped = true
+                            name.Size = UDim2.new(1,0,1,0)
+                            name.TextYAlignment = 'Top'
+                            name.BackgroundTransparency = 1
+                            name.TextStrokeTransparency = 0.5
+                            name.TextColor3 = colors[spawnerName]
+                            name.Text = (v.Name ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude/3) ..' Distance')
+                        else
+                            v.Handle['NameEsp'..Number].TextLabel.Text = (v.Name ..' '.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude/3) ..' Distance')
+                        end
+                    else
+                        if v.Handle:FindFirstChild('NameEsp'..Number) then
+                            v.Handle:FindFirstChild('NameEsp'..Number):Destroy()
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
+
+local function UpdateIslandMirageESP()
+    for i,v in pairs(game:GetService("Workspace")["_WorldOrigin"].Locations:GetChildren()) do
+        pcall(function()
+            if ToggleStates.MirageIslandESP then
+                if v.Name == "Mirage Island" then
+                    if not v:FindFirstChild('NameEsp') then
+                        local bill = Instance.new('BillboardGui',v)
+                        bill.Name = 'NameEsp'
+                        bill.ExtentsOffset = Vector3.new(0, 1, 0)
+                        bill.Size = UDim2.new(1,200,1,30)
+                        bill.Adornee = v
+                        bill.AlwaysOnTop = true
+                        local name = Instance.new('TextLabel',bill)
+                        name.Font = "Code"
+                        name.FontSize = "Size14"
+                        name.TextWrapped = true
+                        name.Size = UDim2.new(1,0,1,0)
+                        name.TextYAlignment = 'Top'
+                        name.BackgroundTransparency = 1
+                        name.TextStrokeTransparency = 0.5
+                        name.TextColor3 = Color3.fromRGB(80, 245, 245)
+                    else
+                        v['NameEsp'].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' M')
+                    end
+                end
+            else
+                if v:FindFirstChild('NameEsp') then
+                    v:FindFirstChild('NameEsp'):Destroy()
+                end
+            end
+        end)
+    end
+end
+
+local function UpdateAfdESP()
+    for i,v in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
+        pcall(function()
+            if ToggleStates.AfdESP then
+                if v.Name == "Advanced Fruit Dealer" then
+                    if not v:FindFirstChild('NameEsp') then
+                        local bill = Instance.new('BillboardGui',v)
+                        bill.Name = 'NameEsp'
+                        bill.ExtentsOffset = Vector3.new(0, 1, 0)
+                        bill.Size = UDim2.new(1,200,1,30)
+                        bill.Adornee = v
+                        bill.AlwaysOnTop = true
+                        local name = Instance.new('TextLabel',bill)
+                        name.Font = "Code"
+                        name.FontSize = "Size14"
+                        name.TextWrapped = true
+                        name.Size = UDim2.new(1,0,1,0)
+                        name.TextYAlignment = 'Top'
+                        name.BackgroundTransparency = 1
+                        name.TextStrokeTransparency = 0.5
+                        name.TextColor3 = Color3.fromRGB(80, 245, 245)
+                    else
+                        v['NameEsp'].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' M')
+                    end
+                end
+            else
+                if v:FindFirstChild('NameEsp') then
+                    v:FindFirstChild('NameEsp'):Destroy()
+                end
+            end
+        end)
+    end
+end
+
+local function UpdateAuraESP()
+    for i,v in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
+        pcall(function()
+            if ToggleStates.AuraESP then
+                if v.Name == "Master of Enhancement" then
+                    if not v:FindFirstChild('NameEsp') then
+                        local bill = Instance.new('BillboardGui',v)
+                        bill.Name = 'NameEsp'
+                        bill.ExtentsOffset = Vector3.new(0, 1, 0)
+                        bill.Size = UDim2.new(1,200,1,30)
+                        bill.Adornee = v
+                        bill.AlwaysOnTop = true
+                        local name = Instance.new('TextLabel',bill)
+                        name.Font = "Code"
+                        name.FontSize = "Size14"
+                        name.TextWrapped = true
+                        name.Size = UDim2.new(1,0,1,0)
+                        name.TextYAlignment = 'Top'
+                        name.BackgroundTransparency = 1
+                        name.TextStrokeTransparency = 0.5
+                        name.TextColor3 = Color3.fromRGB(80, 245, 245)
+                    else
+                        v['NameEsp'].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' M')
+                    end
+                end
+            else
+                if v:FindFirstChild('NameEsp') then
+                    v:FindFirstChild('NameEsp'):Destroy()
+                end
+            end
+        end)
+    end
+end
+
+local function UpdateLSDESP()
+    for i,v in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
+        pcall(function()
+            if ToggleStates.LADESP then
+                if v.Name == "Legendary Sword Dealer" then
+                    if not v:FindFirstChild('NameEsp') then
+                        local bill = Instance.new('BillboardGui',v)
+                        bill.Name = 'NameEsp'
+                        bill.ExtentsOffset = Vector3.new(0, 1, 0)
+                        bill.Size = UDim2.new(1,200,1,30)
+                        bill.Adornee = v
+                        bill.AlwaysOnTop = true
+                        local name = Instance.new('TextLabel',bill)
+                        name.Font = "Code"
+                        name.FontSize = "Size14"
+                        name.TextWrapped = true
+                        name.Size = UDim2.new(1,0,1,0)
+                        name.TextYAlignment = 'Top'
+                        name.BackgroundTransparency = 1
+                        name.TextStrokeTransparency = 0.5
+                        name.TextColor3 = Color3.fromRGB(80, 245, 245)
+                    else
+                        v['NameEsp'].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' M')
+                    end
+                end
+            else
+                if v:FindFirstChild('NameEsp') then
+                    v:FindFirstChild('NameEsp'):Destroy()
+                end
+            end
+        end)
+    end
+end
+
+local function UpdateGeaESP()
+    local mysticIsland = game:GetService("Workspace").Map:FindFirstChild("MysticIsland")
+    if mysticIsland then
+        for i,v in pairs(mysticIsland:GetChildren()) do
+            pcall(function()
+                if ToggleStates.GearESP then
+                    if v.Name == "MeshPart" then
+                        if not v:FindFirstChild('NameEsp') then
+                            local bill = Instance.new('BillboardGui',v)
+                            bill.Name = 'NameEsp'
+                            bill.ExtentsOffset = Vector3.new(0, 1, 0)
+                            bill.Size = UDim2.new(1,200,1,30)
+                            bill.Adornee = v
+                            bill.AlwaysOnTop = true
+                            local name = Instance.new('TextLabel',bill)
+                            name.Font = "Code"
+                            name.FontSize = "Size14"
+                            name.TextWrapped = true
+                            name.Size = UDim2.new(1,0,1,0)
+                            name.TextYAlignment = 'Top'
+                            name.BackgroundTransparency = 1
+                            name.TextStrokeTransparency = 0.5
+                            name.TextColor3 = Color3.fromRGB(80, 245, 245)
+                        else
+                            v['NameEsp'].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' M')
+                        end
+                    end
+                else
+                    if v:FindFirstChild('NameEsp') then
+                        v:FindFirstChild('NameEsp'):Destroy()
+                    end
+                end
+            end)
+        end
+    end
+end
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if ToggleStates.MobESP then
+                for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                    if v:FindFirstChild('HumanoidRootPart') then
+                        if not v:FindFirstChild("MobEap") then
+                            local BillboardGui = Instance.new("BillboardGui")
+                            local TextLabel = Instance.new("TextLabel")
+                            BillboardGui.Parent = v  
+                            BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling  
+                            BillboardGui.Active = true  
+                            BillboardGui.Name = "MobEap"  
+                            BillboardGui.AlwaysOnTop = true  
+                            BillboardGui.LightInfluence = 1.000  
+                            BillboardGui.Size = UDim2.new(0, 200, 0, 50)  
+                            BillboardGui.StudsOffset = Vector3.new(0, 2.5, 0)  
+                            TextLabel.Parent = BillboardGui  
+                            TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)  
+                            TextLabel.BackgroundTransparency = 1.000  
+                            TextLabel.Size = UDim2.new(0, 200, 0, 50)  
+                            TextLabel.Font = Enum.Font.GothamBold  
+                            TextLabel.TextColor3 = Color3.fromRGB(7, 236, 240)  
+                            TextLabel.TextSize = 35  
+                        end  
+                        local Dis = math.floor((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude)  
+                        v.MobEap.TextLabel.Text = v.Name.." - "..Dis.." Distance"  
+                    end  
+                end  
+            else  
+                for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do  
+                    if v:FindFirstChild("MobEap") then  
+                        v.MobEap:Destroy()  
+                    end  
+                end  
+            end  
+        end)
+    end
+end)
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if ToggleStates.SeaESP then
+                for i,v in pairs(game:GetService("Workspace").SeaBeasts:GetChildren()) do
+                    if v:FindFirstChild('HumanoidRootPart') then
+                        if not v:FindFirstChild("Seaesps") then
+                            local BillboardGui = Instance.new("BillboardGui")
+                            local TextLabel = Instance.new("TextLabel")
+                            BillboardGui.Parent = v  
+                            BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling  
+                            BillboardGui.Active = true  
+                            BillboardGui.Name = "Seaesps"  
+                            BillboardGui.AlwaysOnTop = true  
+                            BillboardGui.LightInfluence = 1.000  
+                            BillboardGui.Size = UDim2.new(0, 200, 0, 50)  
+                            BillboardGui.StudsOffset = Vector3.new(0, 2.5, 0)  
+                            TextLabel.Parent = BillboardGui  
+                            TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)  
+                            TextLabel.BackgroundTransparency = 1.000  
+                            TextLabel.Size = UDim2.new(0, 200, 0, 50)  
+                            TextLabel.Font = Enum.Font.GothamBold  
+                            TextLabel.TextColor3 = Color3.fromRGB(7, 236, 240)  
+                            TextLabel.TextSize = 35  
+                        end  
+                        local Dis = math.floor((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude)  
+                        v.Seaesps.TextLabel.Text = v.Name.." - "..Dis.." Distance"  
+                    end  
+                end  
+            else  
+                for i,v in pairs (game:GetService("Workspace").SeaBeasts:GetChildren()) do  
+                    if v:FindFirstChild("Seaesps") then  
+                        v.Seaesps:Destroy()  
+                    end  
+                end  
+            end  
+        end)
+    end
+end)
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if ToggleStates.NpcESP then
+                for i,v in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
+                    if v:FindFirstChild('HumanoidRootPart') then
+                        if not v:FindFirstChild("NpcEspes") then
+                            local BillboardGui = Instance.new("BillboardGui")
+                            local TextLabel = Instance.new("TextLabel")
+                            BillboardGui.Parent = v  
+                            BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling  
+                            BillboardGui.Active = true  
+                            BillboardGui.Name = "NpcEspes"  
+                            BillboardGui.AlwaysOnTop = true  
+                            BillboardGui.LightInfluence = 1.000  
+                            BillboardGui.Size = UDim2.new(0, 200, 0, 50)  
+                            BillboardGui.StudsOffset = Vector3.new(0, 2.5, 0)  
+                            TextLabel.Parent = BillboardGui  
+                            TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)  
+                            TextLabel.BackgroundTransparency = 1.000  
+                            TextLabel.Size = UDim2.new(0, 200, 0, 50)  
+                            TextLabel.Font = Enum.Font.GothamBold  
+                            TextLabel.TextColor3 = Color3.fromRGB(7, 236, 240)  
+                            TextLabel.TextSize = 35  
+                        end  
+                        local Dis = math.floor((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude)  
+                        v.NpcEspes.TextLabel.Text = v.Name.." - "..Dis.." Distance"  
+                    end  
+                end  
+            else  
+                for i,v in pairs (game:GetService("Workspace").NPCs:GetChildren()) do  
+                    if v:FindFirstChild("NpcEspes") then  
+                        v.NpcEspes:Destroy()  
+                    end  
+                end  
+            end  
+        end)
+    end
+end)
+
+spawn(function()
+    while wait(1) do
+        UpdateIslandESP()
+        UpdatePlayerChams()
+        UpdateChestChams()
+        UpdateDevilChams()
+        UpdateFlowerChams()
+        UpdateRealFruitChams()
+        UpdateIslandMirageESP()
+        UpdateAfdESP()
+        UpdateAuraESP()
+        UpdateLSDESP()
+        UpdateGeaESP()
+    end
+end)
+
+TabEsp:AddToggle({
+    Name = "Island ESP",
+    Default = false,
+    Callback = function(v)
+        ToggleStates.IslandESP = v
+    end
+})
+
+TabEsp:AddToggle({
+    Name = "Player ESP",
+    Default = false,
+    Callback = function(v)
+        ToggleStates.ESPPlayer = v
+    end
+})
+
+TabEsp:AddToggle({
+    Name = "Chest ESP",
+    Default = false,
+    Callback = function(v)
+        ToggleStates.ChestESP = v
+    end
+})
+
+TabEsp:AddToggle({
+    Name = "Devil Fruit ESP",
+    Default = false,
+    Callback = function(v)
+        ToggleStates.DevilFruitESP = v
+    end
+})
+
+TabEsp:AddToggle({
+    Name = "Flower ESP",
+    Default = false,
+    Callback = function(v)
+        ToggleStates.FlowerESP = v
+    end
+})
+
+TabEsp:AddToggle({
+    Name = "Fruit Spawner ESP",
+    Default = false,
+    Callback = function(v)
+        ToggleStates.RealFruitESP = v
+    end
+})
+
+TabEsp:AddToggle({
+    Name = "Mob ESP",
+    Default = false,
+    Callback = function(v)
+        ToggleStates.MobESP = v
+    end
+})
+
+TabEsp:AddToggle({
+    Name = "Sea Beast ESP",
+    Default = false,
+    Callback = function(v)
+        ToggleStates.SeaESP = v
+    end
+})
+
+TabEsp:AddToggle({
+    Name = "NPC ESP",
+    Default = false,
+    Callback = function(v)
+        ToggleStates.NpcESP = v
+    end
+})
+
+TabEsp:AddToggle({
+    Name = "Mirage Island ESP",
+    Default = false,
+    Callback = function(v)
+        ToggleStates.MirageIslandESP = v
+    end
+})
+
+TabEsp:AddToggle({
+    Name = "Advanced Fruit Dealer ESP",
+    Default = false,
+    Callback = function(v)
+        ToggleStates.AfdESP = v
+    end
+})
+
+TabEsp:AddToggle({
+    Name = "Master of Enhancement ESP",
+    Default = false,
+    Callback = function(v)
+        ToggleStates.AuraESP = v
+    end
+})
+
+TabEsp:AddToggle({
+    Name = "Legendary Sword Dealer ESP",
+    Default = false,
+    Callback = function(v)
+        ToggleStates.LADESP = v
+    end
+})
+
+TabEsp:AddToggle({
+    Name = "Gear ESP",
+    Default = false,
+    Callback = function(v)
+        ToggleStates.GearESP = v
+    end
+})
