@@ -21,35 +21,141 @@ else
     warn("Your exploit does not support setfpscap.")
 end
 
-local redzlib = loadstring(game:HttpGet("https://pastefy.app/q1Cquciw/raw"))();
-local Window = redzlib:MakeWindow({
+local WindUI = (loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua")))();
+local Window = WindUI:CreateWindow({
     Title = "Vylera Hub",
-    SubTitle = "Blox Fruits",
-    Logo = "rbxassetid://84228153855933",
-    TitleSize = 14,
-    SaveFolder = "Vylera Hub_BF"
+    Icon = "rbxassetid://84228153855933",
+    Author = "Vylera Hub | Blox Fruit",
+    Folder = "Vylera Hub_BF",
+    Size = UDim2.fromOffset(550, 300),
+    Transparent = true,
+    Theme = "Dark",
+    SideBarWidth = 190,
+    HasOutline = false,
+    HideSearchBar = true,
+    ScrollBarEnabled = false,
+    User = {
+        Enabled = true,
+        Anonymous = false
+    },
 });
-local Tabs = {};
-Tabs.InfoTab = Window:MakeTab({"Information", "info"});
-Tabs.MainTab = Window:MakeTab({"Farming", "rocket"});
-Tabs.OthersTab = Window:MakeTab({"Others", "crown"});
-Tabs.ItemsTab = Window:MakeTab({"Items", "box"});
-Tabs.SettingsTab = Window:MakeTab({"Settings", "settings"});
-Tabs.LocalPlayerTab = Window:MakeTab({"Player", "user"});
-Tabs.StatsTab = Window:MakeTab({"Stats", "sliders-horizontal"});
-Tabs.SeaEventTab = Window:MakeTab({"Sea Event", "anchor"});
-Tabs.SeaStackTab = Window:MakeTab({"Sea Stack", "waves"});
-Tabs.SeaSettingsTab = Window:MakeTab({"Sea Settings", "cog"});
-Tabs.DragonDojoTab = Window:MakeTab({"Dragon Dojo", "shield"});
-Tabs.RaceTab = Window:MakeTab({"Race V4", "bot"});
-Tabs.CombatTab = Window:MakeTab({"Combat", "sword"});
-Tabs.RaidTab = Window:MakeTab({"Raid", "door-open"});
-Tabs.EspTab = Window:MakeTab({"Esp", "eye"});
-Tabs.TeleportTab = Window:MakeTab({"Teleport", "map-pinned"});
-Tabs.ShopTab = Window:MakeTab({"Shop", "shopping-cart"});
-Tabs.FruitTab = Window:MakeTab({"Fruit", "apple"});
-Tabs.MiscTab = Window:MakeTab({"Misc", "layout-grid"});
-Tabs.ServerTab = Window:MakeTab({"Server", "server"});
+Window:EditOpenButton({
+    Title = "Vylera Hub - Open",
+    Icon = "monitor",
+    CornerRadius = UDim.new(0, 6),
+    StrokeThickness = 2,
+    Color = ColorSequence.new(Color3.fromRGB(30, 30, 30), Color3.fromRGB(255, 255, 255)),
+    Draggable = true
+});
+local Tabs = {
+    InfoTab = Window:Tab({
+        Title = "Information",
+        Icon = "info",
+        Desc = "Info Section"
+    }),
+    MainDivider = Window:Divider(),
+    MainTab = Window:Tab({
+        Title = "Farming",
+        Icon = "rocket",
+        Desc = "Main Section"
+    }),
+    OthersTab = Window:Tab({
+        Title = "Others",
+        Icon = "crown",
+        Desc = "Farming Section"
+    }),
+    ItemsTab = Window:Tab({
+        Title = "Items",
+        Icon = "box",
+        Desc = "Items Section"
+    }),
+    SettingsTab = Window:Tab({
+        Title = "Settings",
+        Icon = "settings",
+        Desc = "Settings Section"
+    }),
+    PlayerDivider = Window:Divider(),
+    LocalPlayerTab = Window:Tab({
+        Title = "Player",
+        Icon = "user",
+        Desc = "Local Player Section"
+    }),
+    StatsTab = Window:Tab({
+        Title = "Stats",
+        Icon = "sliders-horizontal",
+        Desc = "Stats Section"
+    }),
+    SeaDivider = Window:Divider(),
+    SeaEventTab = Window:Tab({
+        Title = "Sea Event",
+        Icon = "anchor",
+        Desc = "Sea Event Section"
+    }),
+    SeaStackTab = Window:Tab({
+        Title = "Sea Stack",
+        Icon = "waves",
+        Desc = "Sea Stack Section"
+    }),
+    SeaSettingsTab = Window:Tab({
+        Title = "Sea Settings",
+        Icon = "cog",
+        Desc = "Sea Settings Section"
+    }),
+    AutoDivider = Window:Divider(),
+    DragonDojoTab = Window:Tab({
+        Title = "Dragon Dojo",
+        Icon = "shield",
+        Desc = "Dragon Dojo Section"
+    }),
+    RaceTab = Window:Tab({
+        Title = "Race V4",
+        Icon = "bot",
+        Desc = "Race Section"
+    }),
+    CombatDivider = Window:Divider(),
+    CombatTab = Window:Tab({
+        Title = "Combat",
+        Icon = "sword",
+        Desc = "Combat Section"
+    }),
+    RaidTab = Window:Tab({
+        Title = "Raid",
+        Icon = "door-open",
+        Desc = "Raid Section"
+    }),
+    EspTab = Window:Tab({
+        Title = "Esp",
+        Icon = "eye",
+        Desc = "Esp Section"
+    }),
+    TeleportTab = Window:Tab({
+        Title = "Teleport",
+        Icon = "map-pinned",
+        Desc = "Teleport Section"
+    }),
+    ShopTab = Window:Tab({
+        Title = "Shop",
+        Icon = "shopping-cart",
+        Desc = "Shop Section"
+    }),
+    FruitTab = Window:Tab({
+        Title = "Fruit",
+        Icon = "apple",
+        Desc = "Fruit Section"
+    }),
+    MiscDivider = Window:Divider(),
+    MiscTab = Window:Tab({
+        Title = "Misc",
+        Icon = "layout-grid",
+        Desc = "Misc Section"
+    }),
+    ServerTab = Window:Tab({
+        Title = "Server",
+        Icon = "server",
+        Desc = "Server Section"
+    })
+};
+Window:SelectTab(1);
 _G.Settings = {
     Main = {
         ["Select Weapon"] = "Melee",
@@ -2296,7 +2402,17 @@ spawn(function()
         end
     end);
 end);
-MainSection = Tabs.MainTab:AddSection({"Main"});GameTimeParagraph = Tabs.MainTab:AddParagraph({"Game Time", "0"});spawn(function()
+MainSection = Tabs.MainTab:Section({
+    Title = "Main",
+    TextXAlignment = "Left"
+});
+GameTimeParagraph = Tabs.MainTab:Paragraph({
+    Title = "Game Time",
+    Desc = "0",
+    Image = "timer",
+    ImageSize = 20
+});
+spawn(function()
     while task.wait() do
         pcall(function()
             local GameTime = math.floor(workspace.DistributedGameTime + 0.5);
@@ -2307,30 +2423,81 @@ MainSection = Tabs.MainTab:AddSection({"Main"});GameTimeParagraph = Tabs.MainTab
         end);
     end
 end);
-FpsParagraph = Tabs.MainTab:AddParagraph({"Fps", "0"});spawn(function()
+FpsParagraph = Tabs.MainTab:Paragraph({
+    Title = "Fps",
+    Desc = "0",
+    Image = "monitor",
+    ImageSize = 20
+});
+spawn(function()
     while task.wait() do
         pcall(function()
             FpsParagraph:SetDesc(workspace:GetRealPhysicsFPS());
         end);
     end
 end);
-PingParagraph = Tabs.MainTab:AddParagraph({"Ping", "0"});spawn(function()
+PingParagraph = Tabs.MainTab:Paragraph({
+    Title = "Ping",
+    Desc = "0",
+    Image = "signal",
+    ImageSize = 20
+});
+spawn(function()
     while task.wait() do
         pcall(function()
             PingParagraph:SetDesc((game:GetService("Stats")).Network.ServerStatsItem["Data Ping"]:GetValueString());
         end);
     end
 end);
-DiscordServerParagraph = Tabs.InfoTab:AddParagraph({"Discord Server", "Link Discord Vylera Hub!"});DiscordServerParagraph1 = Tabs.InfoTab:AddParagraph({"Social Vylera Hub", "Link Social Vylera Hub!"});LevelFarmSection = Tabs.MainTab:AddSection({"Level Farm"});local WeaponList = {"Melee", "Sword", "Fruit"};
-ChooseWeaponDropdown = Tabs.MainTab:AddDropdown({
-    Name = "Choose Weapon",
-    Options = WeaponList,
-    Default = _G.Settings.Main["Select Weapon"],
+DiscordServerParagraph = Tabs.InfoTab:Paragraph({
+    Title = "Discord Server",
+    Desc = "Link Discord Vylera Hub!",
+    TextXAlignment = "Left",
+    Buttons = {{
+        Title = "Copy Link Discord",
+        Callback = function()
+            setclipboard("not right now");
+            WindUI:Notify({
+                Title = "Notication",
+                Content = "Discord Link Copied",
+                Icon = "bell",
+                Duration = 3
+            });
+        end
+    }}
+});
+DiscordServerParagraph1 = Tabs.InfoTab:Paragraph({
+    Title = "Social Vylera Hub",
+    Desc = "Link Social Vylera Hub!",
+    TextXAlignment = "Left",
+    Buttons = {{
+        Title = "Copy Social",
+        Callback = function()
+            setclipboard("not right now");
+            WindUI:Notify({
+                Title = "Notication",
+                Content = "Social Link Copied",
+                Icon = "bell",
+                Duration = 3
+            });
+        end
+    }}
+});
+LevelFarmSection = Tabs.MainTab:Section({
+    Title = "Level Farm",
+    TextXAlignment = "Left"
+});
+local WeaponList = {"Melee", "Sword", "Fruit"};
+ChooseWeaponDropdown = Tabs.MainTab:Dropdown({
+    Title = "Choose Weapon",
+    Values = WeaponList,
+    Value = _G.Settings.Main["Select Weapon"],
     Callback = function(option)
         _G.Settings.Main["Select Weapon"] = option;
         (getgenv()).SaveSetting();
     end
-});task.spawn(function()
+});
+task.spawn(function()
     while wait(0.2) do
         pcall(function()
             if _G.Settings.Main["Select Weapon"] == "Melee" then
@@ -2370,23 +2537,26 @@ ChooseWeaponDropdown = Tabs.MainTab:AddDropdown({
     end
 end);
 local LevelFarmMethodList = {"Quest", "No Quest", "Nearest"};
-LevelFarmMethodDropdown = Tabs.MainTab:AddDropdown({
-    Name = "Choose Farm Level Method",
-    Options = LevelFarmMethodList,
-    Default = _G.Settings.Main["Farm Level Method"],
+LevelFarmMethodDropdown = Tabs.MainTab:Dropdown({
+    Title = "Choose Farm Level Method",
+    Values = LevelFarmMethodList,
+    Value = _G.Settings.Main["Farm Level Method"],
     Callback = function(option)
         _G.Settings.Main["Farm Level Method"] = option;
         (getgenv()).SaveSetting();
     end
-});AutoLevelFarmToggle = Tabs.MainTab:AddToggle({
-    Name = "Auto Farm Level",
-    Default = _G.Settings.Main["Auto Farm"],
+});
+AutoLevelFarmToggle = Tabs.MainTab:Toggle({
+    Title = "Auto Farm Level",
+    Desc = "Automatic Plowing Level",
+    Value = _G.Settings.Main["Auto Farm"],
     Callback = function(state)
         _G.Settings.Main["Auto Farm"] = state;
         StopTween(_G.Settings.Main["Auto Farm"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Main["Farm Level Method"] == "No Quest" and _G.Settings.Main["Auto Farm"] then
             pcall(function()
@@ -2498,15 +2668,17 @@ spawn(function()
         end
     end
 end);
-AutoFastFarmToggle = Tabs.MainTab:AddToggle({
-    Name = "Auto Fast Farm",
-    Default = _G.Settings.Main["Auto Fast Farm"],
+AutoFastFarmToggle = Tabs.MainTab:Toggle({
+    Title = "Auto Fast Farm",
+    Desc = "Work on Sea 1 Only",
+    Value = _G.Settings.Main["Auto Fast Farm"],
     Callback = function(state)
         _G.Settings.Main["Auto Fast Farm"] = state;
         StopTween(_G.Settings.Main["Auto Fast Farm"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     pcall(function()
         while wait(0.2) do
             if _G.Settings.Main["Auto Fast Farm"] and World1 then
@@ -2518,51 +2690,59 @@ AutoFastFarmToggle = Tabs.MainTab:AddToggle({
         end
     end);
 end);
-MasteryFarmSection = Tabs.MainTab:AddSection({"Mastery Farm"});if World3 then
+MasteryFarmSection = Tabs.MainTab:Section({
+    Title = "Mastery Farm",
+    TextXAlignment = "Left"
+});
+if World3 then
     MasteryMethodList = {"Quest", "No Quest", "Nearest", "Cakeprince", "Bones"};
 elseif World2 or World1 then
     MasteryMethodList = {"Quest", "No Quest", "Nearest"};
 end
-MasteryMethodDropdown = Tabs.MainTab:AddDropdown({
-    Name = "Choose Mastery Method",
-    Options = MasteryMethodList,
-    Default = _G.Settings.Main["Mastery Method"],
+MasteryMethodDropdown = Tabs.MainTab:Dropdown({
+    Title = "Choose Mastery Method",
+    Values = MasteryMethodList,
+    Value = _G.Settings.Main["Mastery Method"],
     Callback = function(option)
         _G.Settings.Main["Mastery Method"] = option;
         (getgenv()).SaveSetting();
     end
-});AutoFruitMasteryToggle = Tabs.MainTab:AddToggle({
-    Name = "Auto Fruit Mastery",
-    Default = _G.Settings.Main["Auto Farm Fruit Mastery"],
+});
+AutoFruitMasteryToggle = Tabs.MainTab:Toggle({
+    Title = "Auto Fruit Mastery",
+    Value = _G.Settings.Main["Auto Farm Fruit Mastery"],
     Callback = function(state)
         _G.Settings.Main["Auto Farm Fruit Mastery"] = state;
         StopTween(_G.Settings.Main["Auto Farm Fruit Mastery"]);
         (getgenv()).SaveSetting();
     end
-});AutoGunMasteryToggle = Tabs.MainTab:AddToggle({
-    Name = "Auto Gun Mastery",
-    Default = _G.Settings.Main["Auto Farm Gun Mastery"],
+});
+AutoGunMasteryToggle = Tabs.MainTab:Toggle({
+    Title = "Auto Gun Mastery",
+    Value = _G.Settings.Main["Auto Farm Gun Mastery"],
     Callback = function(state)
         _G.Settings.Main["Auto Farm Gun Mastery"] = state;
         StopTween(_G.Settings.Main["Auto Farm Gun Mastery"]);
         (getgenv()).SaveSetting();
     end
-});local SwordList = {};
+});
+local SwordList = {};
 local Inventory = (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("getInventory");
 for i, v in pairs(Inventory) do
     if v.Type == "Sword" then
         table.insert(SwordList, v.Name);
     end
 end
-ChooseSwordDropdown = Tabs.MainTab:AddDropdown({
-    Name = "Choose Sword",
-    Options = SwordList,
-    Default = _G.Settings.Main["Selected Mastery Sword"],
+ChooseSwordDropdown = Tabs.MainTab:Dropdown({
+    Title = "Choose Sword",
+    Values = SwordList,
+    Value = _G.Settings.Main["Selected Mastery Sword"],
     Callback = function(option)
         _G.Settings.Main["Selected Mastery Sword"] = option;
         (getgenv()).SaveSetting();
     end
-});function getInfoSword(SwordName)
+});
+function getInfoSword(SwordName)
     if game.Players.LocalPlayer.Character:FindFirstChild(SwordName) then
         return true;
     elseif game.Players.LocalPlayer.Backpack:FindFirstChild(SwordName) then
@@ -2582,15 +2762,16 @@ spawn(function()
         end);
     end
 end);
-AutoSwordMasteryToggle = Tabs.MainTab:AddToggle({
-    Name = "Auto Sword Mastery",
-    Default = _G.Settings.Main["Auto Farm Sword Mastery"],
+AutoSwordMasteryToggle = Tabs.MainTab:Toggle({
+    Title = "Auto Sword Mastery",
+    Value = _G.Settings.Main["Auto Farm Sword Mastery"],
     Callback = function(state)
         _G.Settings.Main["Auto Farm Sword Mastery"] = state;
         StopTween(_G.Settings.Main["Auto Farm Sword Mastery"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while task.wait(0.2) do
         if _G.Settings.Main["Auto Farm Sword Mastery"] and _G.Settings.Main["Mastery Method"] == "Quest" then
             pcall(function()
@@ -3433,14 +3614,20 @@ spawn(function()
         end
     end
 end);
-TyrantOfTheSkiesSection = Tabs.MainTab:AddSection({"Tyrant Of The Skies | New Farm Boss Chim"});AutoSummonTyrantOfTheSkiesToggle = Tabs.MainTab:AddToggle({
-    Name = "Auto Summon Tyrant Of The Skies",
+TyrantOfTheSkiesSection = Tabs.MainTab:Section({
+    Title = "Tyrant Of The Skies | New Farm Boss Chim",
+    TextXAlignment = "Left"
+});
+AutoSummonTyrantOfTheSkiesToggle = Tabs.MainTab:Toggle({
+    Title = "Auto Summon Tyrant Of The Skies",
+    Desc = "Auto Farming Monsters and Summoning Bosses",
     Default = false,
     Callback = function(state)
         _G.Settings.Main["Auto Summon Tyrant Of The Skies"] = state;
         StopTween(_G.Settings.Main["Auto Summon Tyrant Of The Skies"]);
     end
-});function checkEagleEye()
+});
+function checkEagleEye()
     local islandModel = (game:GetService("Workspace")).Map.TikiOutpost.IslandModel;
     local targetEyes = {
         Eye1 = false,
@@ -3511,14 +3698,16 @@ spawn(function()
         end
     end
 end);
-AutoKillTyrantOfTheSkiesToggle = Tabs.MainTab:AddToggle({
-    Name = "Auto Kill Tyrant Of The Skies",
+AutoKillTyrantOfTheSkiesToggle = Tabs.MainTab:Toggle({
+    Title = "Auto Kill Tyrant Of The Skies",
+    Desc = "Auto Boss Bird Attack",
     Default = false,
     Callback = function(state)
         _G.Settings.Main["Auto Kill Tyrant Of The Skies"] = state;
         StopTween(_G.Settings.Main["Auto Kill Tyrant Of The Skies"]);
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Main["Auto Kill Tyrant Of The Skies"] then
             pcall(function()
@@ -3543,7 +3732,11 @@ AutoKillTyrantOfTheSkiesToggle = Tabs.MainTab:AddToggle({
         end
     end
 end);
-MonFarmSection = Tabs.MainTab:AddSection({"Mon Farm"});if World1 then
+MonFarmSection = Tabs.MainTab:Section({
+    Title = "Mon Farm",
+    TextXAlignment = "Left"
+});
+if World1 then
     tableMon = {"Bandit", "Monkey", "Gorilla", "Pirate", "Brute", "Desert Bandit", "Desert Officer", "Snow Bandit",
                 "Snowman", "Chief Petty Officer", "Sky Bandit", "Dark Master", "Toga Warrior", "Gladiator",
                 "Military Soldier", "Military Spy", "Fishman Warrior", "Fishman Commando", "God's Guard", "Shanda",
@@ -3562,23 +3755,26 @@ elseif World3 then
                 "Chocolate Bar Battler", "Sweet Thief", "Candy Rebel", "Candy Pirate", "Snow Demon", "Isle Outlaw",
                 "Island Boy", "Sun-kissed Warrior", "Isle Champion"};
 end
-ChooseMonDropdown = Tabs.MainTab:AddDropdown({
-    Name = "Choose Mon",
-    Options = tableMon,
-    Default = _G.Settings.Main["Selected Mon"],
+ChooseMonDropdown = Tabs.MainTab:Dropdown({
+    Title = "Choose Mon",
+    Values = tableMon,
+    Value = _G.Settings.Main["Selected Mon"],
     Callback = function(option)
         _G.Settings.Main["Selected Mon"] = option;
         (getgenv()).SaveSetting();
     end
-});AutoMonFarmToggle = Tabs.MainTab:AddToggle({
-    Name = "Auto Farm Mon",
-    Default = _G.Settings.Main["Auto Farm Mon"],
+});
+AutoMonFarmToggle = Tabs.MainTab:Toggle({
+    Title = "Auto Farm Mon",
+    Desc = "Auto Kill Mon When Spawn",
+    Value = _G.Settings.Main["Auto Farm Mon"],
     Callback = function(state)
         _G.Settings.Main["Auto Farm Mon"] = state;
         StopTween(_G.Settings.Main["Auto Farm Mon"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Main["Auto Farm Mon"] then
             pcall(function()
@@ -3606,7 +3802,15 @@ ChooseMonDropdown = Tabs.MainTab:AddDropdown({
         end
     end
 end);
-BossSection = Tabs.MainTab:AddSection({"Boss Farm"});BossStatusParagraph = Tabs.MainTab:AddParagraph({"Boss Status", "N/A"});spawn(function()
+BossSection = Tabs.MainTab:Section({
+    Title = "Boss Farm",
+    TextXAlignment = "Left"
+});
+BossStatusParagraph = Tabs.MainTab:Paragraph({
+    Title = "Boss Status",
+    Desc = "N/A"
+});
+spawn(function()
     while wait(0.2) do
         pcall(function()
             if (game:GetService("ReplicatedStorage")):FindFirstChild(_G.Settings.Main["Selected Boss"]) or
@@ -3628,23 +3832,26 @@ elseif World3 then
     tableBoss = {"Stone", "Island Empress", "Kilo Admiral", "Captain Elephant", "Beautiful Pirate",
                  "rip_indra True Form", "Longma", "Soul Reaper", "Cake Queen"};
 end
-ChooseBossDropdown = Tabs.MainTab:AddDropdown({
-    Name = "Choose Boss",
-    Options = tableBoss,
-    Default = _G.Settings.Main["Selected Boss"],
+ChooseBossDropdown = Tabs.MainTab:Dropdown({
+    Title = "Choose Boss",
+    Values = tableBoss,
+    Value = _G.Settings.Main["Selected Boss"],
     Callback = function(option)
         _G.Settings.Main["Selected Boss"] = option;
         (getgenv()).SaveSetting();
     end
-});AutoFarmBossToggle = Tabs.MainTab:AddToggle({
-    Name = "Auto Farm Boss",
-    Default = _G.Settings.Main["Auto Farm Boss"],
+});
+AutoFarmBossToggle = Tabs.MainTab:Toggle({
+    Title = "Auto Farm Boss",
+    Desc = "Auto Kill Boss When Spawn",
+    Value = _G.Settings.Main["Auto Farm Boss"],
     Callback = function(state)
         _G.Settings.Main["Auto Farm Boss"] = state;
         StopTween(_G.Settings.Main["Auto Farm Boss"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Main["Auto Farm Boss"] then
             pcall(function()
@@ -3674,15 +3881,16 @@ ChooseBossDropdown = Tabs.MainTab:AddDropdown({
         end
     end
 end);
-AutoFarmAllBossToggle = Tabs.MainTab:AddToggle({
-    Name = "Auto Farm All Boss",
-    Default = _G.Settings.Main["Auto Farm All Boss"],
+AutoFarmAllBossToggle = Tabs.MainTab:Toggle({
+    Title = "Auto Farm All Boss",
+    Value = _G.Settings.Main["Auto Farm All Boss"],
     Callback = function(state)
         _G.Settings.Main["Auto Farm All Boss"] = state;
         StopTween(_G.Settings.Main["Auto Farm All Boss"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Main["Auto Farm All Boss"] then
             pcall(function()
@@ -3714,7 +3922,15 @@ AutoFarmAllBossToggle = Tabs.MainTab:AddToggle({
         end
     end
 end);
-EliteHunterSection = Tabs.OthersTab:AddSection({"Elite Hunter"});EliteHunterParagraph = Tabs.OthersTab:AddParagraph({"Elite Hunter Status", "N/A"});spawn(function()
+EliteHunterSection = Tabs.OthersTab:Section({
+    Title = "Elite Hunter",
+    TextXAlignment = "Left"
+});
+EliteHunterParagraph = Tabs.OthersTab:Paragraph({
+    Title = "Elite Hunter Status",
+    Desc = "N/A"
+});
+spawn(function()
     while wait(0.2) do
         pcall(function()
             if (game:GetService("ReplicatedStorage")):FindFirstChild("Diablo") or
@@ -3730,7 +3946,11 @@ EliteHunterSection = Tabs.OthersTab:AddSection({"Elite Hunter"});EliteHunterPara
         end);
     end
 end);
-EliteHunterProgressParagraph = Tabs.OthersTab:AddParagraph({"Elite Hunter Progress", "N/A"});spawn(function()
+EliteHunterProgressParagraph = Tabs.OthersTab:Paragraph({
+    Title = "Elite Hunter Progress",
+    Desc = "N/A"
+});
+spawn(function()
     while wait() do
         pcall(function()
             if World1 or World2 then
@@ -3742,23 +3962,27 @@ EliteHunterProgressParagraph = Tabs.OthersTab:AddParagraph({"Elite Hunter Progre
         end);
     end
 end);
-AutoEliteHunterToggle = Tabs.OthersTab:AddToggle({
-    Name = "Auto Elite Hunter",
-    Default = _G.Settings.Farm["Auto Elite Hunter"],
+AutoEliteHunterToggle = Tabs.OthersTab:Toggle({
+    Title = "Auto Elite Hunter",
+    Desc = "Function Sea 3 Only",
+    Value = _G.Settings.Farm["Auto Elite Hunter"],
     Callback = function(state)
         _G.Settings.Farm["Auto Elite Hunter"] = state;
         StopTween(_G.Settings.Farm["Auto Elite Hunter"]);
         (getgenv()).SaveSetting();
     end
-});AutoEliteHunterHopToggle = Tabs.OthersTab:AddToggle({
-    Name = "Auto Elite Hunter Hop",
-    Default = _G.Settings.Farm["Auto Elite Hunter Hop"],
+});
+AutoEliteHunterHopToggle = Tabs.OthersTab:Toggle({
+    Title = "Auto Elite Hunter Hop",
+    Desc = "Function Sea 3 Only",
+    Value = _G.Settings.Farm["Auto Elite Hunter Hop"],
     Callback = function(state)
         _G.Settings.Farm["Auto Elite Hunter Hop"] = state;
         StopTween(_G.Settings.Farm["Auto Elite Hunter Hop"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Farm["Auto Elite Hunter"] and World3 then
             pcall(function()
@@ -3819,16 +4043,25 @@ spawn(function()
         end
     end
 end);
-BoneFarmSection = Tabs.OthersTab:AddSection({"Bone Farm"});local listBoneFarmMethod = {"Quest", "No Quest"};
-BoneFarmMethodDropdown = Tabs.OthersTab:AddDropdown({
-    Name = "Choose Bone Farm Method",
-    Options = listBoneFarmMethod,
-    Default = _G.Settings.Farm["Selected Bone Farm Method"],
+BoneFarmSection = Tabs.OthersTab:Section({
+    Title = "Bone Farm",
+    TextXAlignment = "Left"
+});
+local listBoneFarmMethod = {"Quest", "No Quest"};
+BoneFarmMethodDropdown = Tabs.OthersTab:Dropdown({
+    Title = "Choose Bone Farm Method",
+    Values = listBoneFarmMethod,
+    Value = _G.Settings.Farm["Selected Bone Farm Method"],
     Callback = function(option)
         _G.Settings.Farm["Selected Bone Farm Method"] = option;
         (getgenv()).SaveSetting();
     end
-});BoneCountParagraph = Tabs.OthersTab:AddParagraph({"Bones Owned", "N/A"});spawn(function()
+});
+BoneCountParagraph = Tabs.OthersTab:Paragraph({
+    Title = "Bones Owned",
+    Desc = "N/A"
+});
+spawn(function()
     while wait() do
         pcall(function()
             local Bones = GetCountMaterials("Bones");
@@ -3836,15 +4069,17 @@ BoneFarmMethodDropdown = Tabs.OthersTab:AddDropdown({
         end);
     end
 end);
-AutoFarmBoneToggle = Tabs.OthersTab:AddToggle({
-    Name = "Auto Farm Bone",
-    Default = _G.Settings.Farm["Auto Farm Bone"],
+AutoFarmBoneToggle = Tabs.OthersTab:Toggle({
+    Title = "Auto Farm Bone",
+    Desc = "Function Sea 3 Only",
+    Value = _G.Settings.Farm["Auto Farm Bone"],
     Callback = function(state)
         _G.Settings.Farm["Auto Farm Bone"] = state;
         StopTween(_G.Settings.Farm["Auto Farm Bone"]);
         (getgenv()).SaveSetting();
     end
-});BonePos = CFrame.new(-9506.234375, 172.130615234375, 6117.0771484375);
+});
+BonePos = CFrame.new(-9506.234375, 172.130615234375, 6117.0771484375);
 spawn(function()
     while wait(0.2) do
         if _G.Settings.Farm["Selected Bone Farm Method"] == "No Quest" and _G.Settings.Farm["Auto Farm Bone"] and World3 then
@@ -3931,15 +4166,17 @@ spawn(function()
         end
     end
 end);
-AutoRandomSurpriseToggle = Tabs.OthersTab:AddToggle({
-    Name = "Auto Random Surprise",
-    Default = _G.Settings.Farm["Auto Random Surprise"],
+AutoRandomSurpriseToggle = Tabs.OthersTab:Toggle({
+    Title = "Auto Random Surprise",
+    Desc = "Function Sea 3 Only",
+    Value = _G.Settings.Farm["Auto Random Surprise"],
     Callback = function(state)
         _G.Settings.Farm["Auto Random Surprise"] = state;
         StopTween(_G.Settings.Farm["Auto Random Surprise"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     pcall(function()
         while wait(0.2) do
             if _G.Settings.Farm["Auto Random Surprise"] then
@@ -3948,15 +4185,21 @@ AutoRandomSurpriseToggle = Tabs.OthersTab:AddToggle({
         end
     end);
 end);
-PirateRaidSection = Tabs.OthersTab:AddSection({"Pirate Raid"});AutoPirateRaidToggle = Tabs.OthersTab:AddToggle({
-    Name = "Auto Pirate Raid",
-    Default = _G.Settings.Farm["Auto Pirate Raid"],
+PirateRaidSection = Tabs.OthersTab:Section({
+    Title = "Pirate Raid",
+    TextXAlignment = "Left"
+});
+AutoPirateRaidToggle = Tabs.OthersTab:Toggle({
+    Title = "Auto Pirate Raid",
+    Desc = "Function Sea 3 Only",
+    Value = _G.Settings.Farm["Auto Pirate Raid"],
     Callback = function(state)
         _G.Settings.Farm["Auto Pirate Raid"] = state;
         StopTween(_G.Settings.Farm["Auto Pirate Raid"]);
         (getgenv()).SaveSetting();
     end
-});function getPirateRaidEnemies()
+});
+function getPirateRaidEnemies()
     local PirateRaidPos = CFrame.new(-5515.08301, 343.112762, -3013.25171, 0.0679906458, 0.0000000121971047,
         -0.997685969, -0.0000000640159001, 1, 0.00000000786281706, 0.997685969, 0.000000063333168, 0.0679906458);
     for _, v in pairs(game.Workspace.Enemies:GetChildren()) do
@@ -4009,31 +4252,41 @@ spawn(function()
         end
     end
 end);
-ChestFarmSection = Tabs.OthersTab:AddSection({"Chest Farm"});AutoFarmChestTweenToggle = Tabs.OthersTab:AddToggle({
-    Name = "Auto Farm Chest Tween",
-    Default = _G.Settings.Farm["Auto Farm Chest Tween"],
+ChestFarmSection = Tabs.OthersTab:Section({
+    Title = "Chest Farm",
+    TextXAlignment = "Left"
+});
+AutoFarmChestTweenToggle = Tabs.OthersTab:Toggle({
+    Title = "Auto Farm Chest Tween",
+    Desc = "Tween to chest",
+    Value = _G.Settings.Farm["Auto Farm Chest Tween"],
     Callback = function(state)
         _G.Settings.Farm["Auto Farm Chest Tween"] = state;
         StopTween(_G.Settings.Farm["Auto Farm Chest Tween"]);
         (getgenv()).SaveSetting();
     end
-});AutoFarmChestInstantToggle = Tabs.OthersTab:AddToggle({
-    Name = "Auto Farm Chest Instant",
-    Default = _G.Settings.Farm["Auto Farm Chest Instant"],
+});
+AutoFarmChestInstantToggle = Tabs.OthersTab:Toggle({
+    Title = "Auto Farm Chest Instant",
+    Desc = "Instant to chest",
+    Value = _G.Settings.Farm["Auto Farm Chest Instant"],
     Callback = function(state)
         _G.Settings.Farm["Auto Farm Chest Instant"] = state;
         StopTween(_G.Settings.Farm["Auto Farm Chest Instant"]);
         (getgenv()).SaveSetting();
     end
-});AutoStopItemsToggle = Tabs.OthersTab:AddToggle({
-    Name = "Auto Stop Items",
-    Default = _G.Settings.Farm["Auto Stop Items"],
+});
+AutoStopItemsToggle = Tabs.OthersTab:Toggle({
+    Title = "Auto Stop Items",
+    Desc = "Stop When Get God's Chalice or FoD",
+    Value = _G.Settings.Farm["Auto Stop Items"],
     Callback = function(state)
         _G.Settings.Farm["Auto Stop Items"] = state;
         StopTween(_G.Settings.Farm["Auto Stop Items"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait() do
         pcall(function()
             if _G.Settings.Farm["Auto Stop Items"] then
@@ -4088,7 +4341,15 @@ spawn(function()
         end);
     end
 end);
-CakePrinceSection = Tabs.OthersTab:AddSection({"Cake Prince"});CakePrinceStatusParagraph = Tabs.OthersTab:AddParagraph({"Cake Prince Status", "N/A"});spawn(function()
+CakePrinceSection = Tabs.OthersTab:Section({
+    Title = "Cake Prince",
+    TextXAlignment = "Left"
+});
+CakePrinceStatusParagraph = Tabs.OthersTab:Paragraph({
+    Title = "Cake Prince Status",
+    Desc = "N/A"
+});
+spawn(function()
     while task.wait(5) do
         pcall(function()
             if World3 then
@@ -4116,23 +4377,27 @@ CakePrinceSection = Tabs.OthersTab:AddSection({"Cake Prince"});CakePrinceStatusP
         end);
     end
 end);
-AutoKatakuriToggle = Tabs.OthersTab:AddToggle({
-    Name = "Auto Katakuri",
-    Default = _G.Settings.Farm["Auto Farm Katakuri"],
+AutoKatakuriToggle = Tabs.OthersTab:Toggle({
+    Title = "Auto Katakuri",
+    Desc = "Auto Farm + Kill Cake Prince [ Sea 3 Only ]",
+    Value = _G.Settings.Farm["Auto Farm Katakuri"],
     Callback = function(state)
         _G.Settings.Farm["Auto Farm Katakuri"] = state;
         StopTween(_G.Settings.Farm["Auto Farm Katakuri"]);
         (getgenv()).SaveSetting();
     end
-});AutoSpawnCakePrinceToggle = Tabs.OthersTab:AddToggle({
-    Name = "Auto Spawn Cake Prince",
-    Default = _G.Settings.Farm["Auto Spawn Cake Prince"],
+});
+AutoSpawnCakePrinceToggle = Tabs.OthersTab:Toggle({
+    Title = "Auto Spawn Cake Prince",
+    Desc = "Function Sea 3 Only",
+    Value = _G.Settings.Farm["Auto Spawn Cake Prince"],
     Callback = function(state)
         _G.Settings.Farm["Auto Spawn Cake Prince"] = state;
         StopTween(_G.Settings.Farm["Auto Spawn Cake Prince"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Farm["Auto Spawn Cake Prince"] and World3 then
             wait(2);
@@ -4206,23 +4471,27 @@ spawn(function()
         end
     end
 end);
-AutoKillCakePrinceToggle = Tabs.OthersTab:AddToggle({
-    Name = "Auto Kill Cake Prince",
-    Default = _G.Settings.Farm["Auto Kill Cake Prince"],
+AutoKillCakePrinceToggle = Tabs.OthersTab:Toggle({
+    Title = "Auto Kill Cake Prince",
+    Desc = "Function Sea 3 Only",
+    Value = _G.Settings.Farm["Auto Kill Cake Prince"],
     Callback = function(state)
         _G.Settings.Farm["Auto Kill Cake Prince"] = state;
         StopTween(_G.Settings.Farm["Auto Kill Cake Prince"]);
         (getgenv()).SaveSetting();
     end
-});AutoKillDoughKingToggle = Tabs.OthersTab:AddToggle({
-    Name = "Auto Kill Dough King",
-    Default = _G.Settings.Farm["Auto Kill Dough King"],
+});
+AutoKillDoughKingToggle = Tabs.OthersTab:Toggle({
+    Title = "Auto Kill Dough King",
+    Desc = "Function Sea 3 Only",
+    Value = _G.Settings.Farm["Auto Kill Dough King"],
     Callback = function(state)
         _G.Settings.Farm["Auto Kill Dough King"] = state;
         StopTween(_G.Settings.Farm["Auto Kill Dough King"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Farm["Auto Kill Cake Prince"] and World3 then
             pcall(function()
@@ -4286,7 +4555,11 @@ spawn(function()
         end
     end
 end);
-MaterialsSection = Tabs.OthersTab:AddSection({"Materials"});if World1 then
+MaterialsSection = Tabs.OthersTab:Section({
+    Title = "Materials",
+    TextXAlignment = "Left"
+});
+if World1 then
     MaterialList = {"Magma Ore", "Angel Wings", "Leather", "Scrap Metal"};
 elseif World2 then
     MaterialList = {"Radioactive", "Mystic Droplet", "Magma Ore", "Leather", "Ectoplasm", "Scrap Metal"};
@@ -4347,22 +4620,24 @@ function getConfigMaterial(Material)
         MaterialPos = CFrame.new(-13516.0458984375, 469.8182373046875, -6899.16064453125);
     end
 end
-MaterialDropdown = Tabs.OthersTab:AddDropdown({
-    Name = "Choose Material",
-    Options = MaterialList,
-    Default = _G.Settings.Farm["Selected Material"],
+MaterialDropdown = Tabs.OthersTab:Dropdown({
+    Title = "Choose Material",
+    Values = MaterialList,
+    Value = _G.Settings.Farm["Selected Material"],
     Callback = function(option)
         _G.Settings.Farm["Selected Material"] = option;
     end
-});AutoFarmMaterialToggle = Tabs.OthersTab:AddToggle({
-    Name = "Auto Farm Material",
-    Default = _G.Settings.Farm["Auto Farm Material"],
+});
+AutoFarmMaterialToggle = Tabs.OthersTab:Toggle({
+    Title = "Auto Farm Material",
+    Value = _G.Settings.Farm["Auto Farm Material"],
     Callback = function(state)
         _G.Settings.Farm["Auto Farm Material"] = state;
         StopTween(_G.Settings.Farm["Auto Farm Material"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Farm["Auto Farm Material"] then
             pcall(function()
@@ -4402,37 +4677,52 @@ MaterialDropdown = Tabs.OthersTab:AddDropdown({
         end
     end
 end);
-SettingsSection = Tabs.SettingsTab:AddSection({"Settings"});SpinPositionToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Spin Position",
-    Default = _G.Settings.Setting["Spin Position"],
+SettingsSection = Tabs.SettingsTab:Section({
+    Title = "Settings",
+    TextXAlignment = "Left"
+});
+SpinPositionToggle = Tabs.SettingsTab:Toggle({
+    Title = "Spin Position",
+    Desc = "Spin Position When Farm",
+    Value = _G.Settings.Setting["Spin Position"],
     Callback = function(state)
         _G.Settings.Setting["Spin Position"] = state;
         (getgenv()).SaveSetting();
     end
-});FarmDistanceSlider = Tabs.SettingsTab:AddSlider({
-    Name = "Farm Distance",
-    Min = 10,
-    Max = 50,
-    Default = _G.Settings.Setting["Farm Distance"],
+});
+FarmDistanceSlider = Tabs.SettingsTab:Slider({
+    Title = "Farm Distance",
+    Step = 1,
+    Value = {
+        Min = 10,
+        Max = 50,
+        Default = _G.Settings.Setting["Farm Distance"]
+    },
     Callback = function(value)
         _G.Settings.Setting["Farm Distance"] = value;
     end
-});PlayerTweenSpeedSlider = Tabs.SettingsTab:AddSlider({
-    Name = "Player Tween Speed",
-    Min = 10,
-    Max = 350,
-    Default = _G.Settings.Setting["Player Tween Speed"],
+});
+PlayerTweenSpeedSlider = Tabs.SettingsTab:Slider({
+    Title = "Player Tween Speed",
+    Step = 1,
+    Value = {
+        Min = 10,
+        Max = 350,
+        Default = _G.Settings.Setting["Player Tween Speed"]
+    },
     Callback = function(value)
         _G.Settings.Setting["Player Tween Speed"] = value;
     end
-});BringMobToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Bring Mob",
-    Default = true,
+});
+BringMobToggle = Tabs.SettingsTab:Toggle({
+    Title = "Bring Mob",
+    Value = true,
     Callback = function(state)
         _G.Settings.Setting["Bring Mob"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while task.wait() do
         if _G.Settings.Setting["Bring Mob"] then
             pcall(function()
@@ -4449,22 +4739,24 @@ SettingsSection = Tabs.SettingsTab:AddSection({"Settings"});SpinPositionToggle =
     end
 end);
 local BringList = {"Low", "Normal", "High"};
-BringMobDropdown = Tabs.SettingsTab:AddDropdown({
-    Name = "Bring Mob",
-    Options = BringList,
-    Default = _G.Settings.Setting["Bring Mob Mode"],
+BringMobDropdown = Tabs.SettingsTab:Dropdown({
+    Title = "Bring Mob",
+    Value = _G.Settings.Setting["Bring Mob Mode"],
+    Values = BringList,
     Callback = function(option)
         _G.Settings.Setting["Bring Mob Mode"] = option;
     end
-});local AttackList = {"Slow", "Normal", "Fast", "Super Fast"};
-FastAttackMethodDropdown = Tabs.SettingsTab:AddDropdown({
-    Name = "Fast Attack Method",
-    Options = AttackList,
-    Default = _G.Settings.Setting["Fast Attack Mode"],
+});
+local AttackList = {"Slow", "Normal", "Fast", "Super Fast"};
+FastAttackMethodDropdown = Tabs.SettingsTab:Dropdown({
+    Title = "Fast Attack Method",
+    Value = _G.Settings.Setting["Fast Attack Mode"],
+    Values = AttackList,
     Callback = function(option)
         _G.Settings.Setting["Fast Attack Mode"] = option;
     end
-});spawn(function()
+});
+spawn(function()
     while wait() do
         if _G.Settings.Setting["Fast Attack Mode"] == "Slow" then
             _G.Settings.Setting["Fast Attack Delay"] = 0.32;
@@ -4492,14 +4784,16 @@ spawn(function()
         end
     end
 end);
-AttackAuraToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Atatck Aura",
-    Default = _G.Settings.Items["Attack Aura"],
+AttackAuraToggle = Tabs.SettingsTab:Toggle({
+    Title = "Atatck Aura",
+    Desc = "Attack Nearest Enemies",
+    Value = _G.Settings.Items["Attack Aura"],
     Callback = function(state)
         _G.Settings.Items["Attack Aura"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     (game:GetService("RunService")).RenderStepped:Connect(function()
         if _G.Settings.Setting["Attack Aura"] and (not _G.Settings.Main["Auto Farm Fruit Mastery"]) and
             (not _G.Settings.Main["Auto Farm Gun Mastery"]) then
@@ -4509,15 +4803,20 @@ AttackAuraToggle = Tabs.SettingsTab:AddToggle({
         end
     end);
 end);
-GraphicSettingSection = Tabs.SettingsTab:AddSection({"Graphic"});HideNotificationToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Hide Notification",
-    Default = _G.Settings.Setting["Hide Notification"],
+GraphicSettingSection = Tabs.SettingsTab:Section({
+    Title = "Graphic",
+    TextXAlignment = "Left"
+});
+HideNotificationToggle = Tabs.SettingsTab:Toggle({
+    Title = "Hide Notification",
+    Value = _G.Settings.Setting["Hide Notification"],
     Callback = function(state)
         _G.Settings.Setting["Hide Notification"] = state;
         StopTween(_G.Settings.Setting["Hide Notification"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Setting["Hide Notification"] then
             game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = false;
@@ -4526,15 +4825,16 @@ GraphicSettingSection = Tabs.SettingsTab:AddSection({"Graphic"});HideNotificatio
         end
     end
 end);
-HideDamageTextToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Hide Damage Text",
-    Default = _G.Settings.Setting["Hide Damage Text"],
+HideDamageTextToggle = Tabs.SettingsTab:Toggle({
+    Title = "Hide Damage Text",
+    Value = _G.Settings.Setting["Hide Damage Text"],
     Callback = function(state)
         _G.Settings.Setting["Hide Damage Text"] = state;
         StopTween(_G.Settings.Setting["Hide Damage Text"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Setting["Hide Damage Text"] then
             (game:GetService("ReplicatedStorage")).Assets.GUI.DamageCounter.Enabled = false;
@@ -4543,15 +4843,16 @@ HideDamageTextToggle = Tabs.SettingsTab:AddToggle({
         end
     end
 end);
-BlackScreenToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Black Screen",
-    Default = _G.Settings.Setting["Black Screen"],
+BlackScreenToggle = Tabs.SettingsTab:Toggle({
+    Title = "Black Screen",
+    Value = _G.Settings.Setting["Black Screen"],
     Callback = function(state)
         _G.Settings.Setting["Black Screen"] = state;
         StopTween(_G.Settings.Setting["Black Screen"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Setting["Black Screen"] then
             (game:GetService("Players")).LocalPlayer.PlayerGui.Main.Blackscreen.Size = UDim2.new(500, 0, 500, 500);
@@ -4560,15 +4861,16 @@ BlackScreenToggle = Tabs.SettingsTab:AddToggle({
         end
     end
 end);
-WhiteScreenToggle = Tabs.SettingsTab:AddToggle({
-    Name = "White Screen",
-    Default = _G.Settings.Setting["White Screen"],
+WhiteScreenToggle = Tabs.SettingsTab:Toggle({
+    Title = "White Screen",
+    Value = _G.Settings.Setting["White Screen"],
     Callback = function(state)
         _G.Settings.Setting["White Screen"] = state;
         StopTween(_G.Settings.Setting["White Screen"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Setting["White Screen"] then
             (game:GetService("RunService")):Set3dRenderingEnabled(false);
@@ -4577,71 +4879,97 @@ WhiteScreenToggle = Tabs.SettingsTab:AddToggle({
         end
     end
 end);
-MasterySettingsSection = Tabs.SettingsTab:AddSection({"Mastery Settings"});MasteryHealthSlider = Tabs.SettingsTab:AddSlider({
-    Name = "Mastery Health %",
-    Min = 1,
-    Max = 100,
-    Default = _G.Settings.Setting["Mastery Health"],
+MasterySettingsSection = Tabs.SettingsTab:Section({
+    Title = "Mastery Settings",
+    TextXAlignment = "Left"
+});
+MasteryHealthSlider = Tabs.SettingsTab:Slider({
+    Title = "Mastery Health %",
+    Step = 1,
+    Value = {
+        Min = 1,
+        Max = 100,
+        Default = _G.Settings.Setting["Mastery Health"]
+    },
     Callback = function(value)
         _G.Settings.Setting["Mastery Health"] = value;
     end
-});DevilFruitParagraph = Tabs.SettingsTab:AddParagraph({"Devil Fruit Skill", ""});MasteryFruitSkillZToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Skill Z",
-    Default = true,
+});
+DevilFruitParagraph = Tabs.SettingsTab:Paragraph({
+    Title = "Devil Fruit Skill"
+});
+MasteryFruitSkillZToggle = Tabs.SettingsTab:Toggle({
+    Title = "Skill Z",
+    Value = true,
     Callback = function(state)
         _G.Settings.Setting["Fruit Mastery Skill Z"] = state;
         (getgenv()).SaveSetting();
     end
-});MasteryFruitSkillXToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Skill X",
-    Default = true,
+});
+MasteryFruitSkillXToggle = Tabs.SettingsTab:Toggle({
+    Title = "Skill X",
+    Value = true,
     Callback = function(state)
         _G.Settings.Setting["Fruit Mastery Skill X"] = state;
         (getgenv()).SaveSetting();
     end
-});MasteryFruitSkillCToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Skill C",
-    Default = true,
+});
+MasteryFruitSkillCToggle = Tabs.SettingsTab:Toggle({
+    Title = "Skill C",
+    Value = true,
     Callback = function(state)
         _G.Settings.Setting["Fruit Mastery Skill C"] = state;
         (getgenv()).SaveSetting();
     end
-});MasteryFruitSkillVToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Skill V",
-    Default = _G.Settings.Setting["Fruit Mastery Skill V"],
+});
+MasteryFruitSkillVToggle = Tabs.SettingsTab:Toggle({
+    Title = "Skill V",
+    Value = _G.Settings.Setting["Fruit Mastery Skill V"],
     Callback = function(state)
         _G.Settings.Setting["Fruit Mastery Skill V"] = state;
         (getgenv()).SaveSetting();
     end
-});MasteryFruitSkillFToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Skill F",
-    Default = _G.Settings.Setting["Fruit Mastery Skill F"],
+});
+MasteryFruitSkillFToggle = Tabs.SettingsTab:Toggle({
+    Title = "Skill F",
+    Value = _G.Settings.Setting["Fruit Mastery Skill F"],
     Callback = function(state)
         _G.Settings.Setting["Fruit Mastery Skill F"] = state;
         (getgenv()).SaveSetting();
     end
-});GunSkillParagraph = Tabs.SettingsTab:AddParagraph({"Gun Skill", ""});MasteryGunSkillZToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Skill Z",
-    Default = true,
+});
+GunSkillParagraph = Tabs.SettingsTab:Paragraph({
+    Title = "Gun Skill"
+});
+MasteryGunSkillZToggle = Tabs.SettingsTab:Toggle({
+    Title = "Skill Z",
+    Value = true,
     Callback = function(state)
         _G.Settings.Setting["Gun Mastery Skill Z"] = state;
         (getgenv()).SaveSetting();
     end
-});MasteryGunSkillXToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Skill X",
-    Default = true,
+});
+MasteryGunSkillXToggle = Tabs.SettingsTab:Toggle({
+    Title = "Skill X",
+    Value = true,
     Callback = function(state)
         _G.Settings.Setting["Gun Mastery Skill X"] = state;
         (getgenv()).SaveSetting();
     end
-});OthersSettingsSection = Tabs.SettingsTab:AddSection({"Others"});AutoSetSpawnPointToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Auto Set Spawn Point",
-    Default = _G.Settings.Setting["Auto Set Spawn Point"],
+});
+OthersSettingsSection = Tabs.SettingsTab:Section({
+    Title = "Others",
+    TextXAlignment = "Left"
+});
+AutoSetSpawnPointToggle = Tabs.SettingsTab:Toggle({
+    Title = "Auto Set Spawn Point",
+    Value = _G.Settings.Setting["Auto Set Spawn Point"],
     Callback = function(state)
         _G.Settings.Setting["Auto Set Spawn Point"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait() do
         if _G.Settings.Setting["Auto Set Spawn Point"] then
             pcall(function()
@@ -4650,14 +4978,15 @@ MasterySettingsSection = Tabs.SettingsTab:AddSection({"Mastery Settings"});Maste
         end
     end
 end);
-AutoObservationToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Auto Observation",
-    Default = _G.Settings.Setting["Auto Observation"],
+AutoObservationToggle = Tabs.SettingsTab:Toggle({
+    Title = "Auto Observation",
+    Value = _G.Settings.Setting["Auto Observation"],
     Callback = function(state)
         _G.Settings.Setting["Auto Observation"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Setting["Auto Observation"] then
             if not (game:GetService("Players")).LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") then
@@ -4669,21 +4998,23 @@ AutoObservationToggle = Tabs.SettingsTab:AddToggle({
         end
     end
 end);
-AutoHakiToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Auto Haki",
-    Default = _G.Settings.Setting["Auto Haki"],
+AutoHakiToggle = Tabs.SettingsTab:Toggle({
+    Title = "Auto Haki",
+    Value = _G.Settings.Setting["Auto Haki"],
     Callback = function(state)
         _G.Settings.Setting["Auto Haki"] = state;
         (getgenv()).SaveSetting();
     end
-});AutoRejoinToggle = Tabs.SettingsTab:AddToggle({
-    Name = "Auto Rejoin",
-    Default = _G.Settings.Setting["Auto Rejoin"],
+});
+AutoRejoinToggle = Tabs.SettingsTab:Toggle({
+    Title = "Auto Rejoin",
+    Value = _G.Settings.Setting["Auto Rejoin"],
     Callback = function(state)
         _G.Settings.Setting["Auto Rejoin"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Setting["Auto Rejoin"] then
             game.CoreGui.RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(v)
@@ -4704,23 +5035,31 @@ spawn(function()
         end
     end
 end);
-GunSwordSection = Tabs.ItemsTab:AddSection({"World"});AutoSecondSeaToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Second Sea",
-    Default = _G.Settings.Items["Auto Second Sea"],
+GunSwordSection = Tabs.ItemsTab:Section({
+    Title = "World",
+    TextXAlignment = "Left"
+});
+AutoSecondSeaToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Second Sea",
+    Desc = "Function Sea 1 Only",
+    Value = _G.Settings.Items["Auto Second Sea"],
     Callback = function(state)
         _G.Settings.Items["Auto Second Sea"] = state;
         StopTween(_G.Settings.Items["Auto Second Sea"]);
         (getgenv()).SaveSetting();
     end
-});AutoThirdSeaToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Third Sea",
-    Default = _G.Settings.Items["Auto Third Sea"],
+});
+AutoThirdSeaToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Third Sea",
+    Desc = "Function Sea 2 Only",
+    Value = _G.Settings.Items["Auto Third Sea"],
     Callback = function(state)
         _G.Settings.Items["Auto Third Sea"] = state;
         StopTween(_G.Settings.Items["Auto Third Sea"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Items["Auto Third Sea"] then
             pcall(function()
@@ -4830,55 +5169,65 @@ spawn(function()
         end
     end
 end);
-GunSwordSection = Tabs.ItemsTab:AddSection({"Fighting Style"});AutoSuperHumanToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Super Human",
-    Default = _G.Settings.Items["Auto Super Human"],
+GunSwordSection = Tabs.ItemsTab:Section({
+    Title = "Fighting Style",
+    TextXAlignment = "Left"
+});
+AutoSuperHumanToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Super Human",
+    Value = _G.Settings.Items["Auto Super Human"],
     Callback = function(state)
         _G.Settings.Items["Auto Super Human"] = state;
         StopTween(_G.Settings.Items["Auto Super Human"]);
         (getgenv()).SaveSetting();
     end
-});AutoDeathStepToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Death Step",
-    Default = _G.Settings.Items["Auto Death Step"],
+});
+AutoDeathStepToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Death Step",
+    Value = _G.Settings.Items["Auto Death Step"],
     Callback = function(state)
         _G.Settings.Items["Auto Death Step"] = state;
         StopTween(_G.Settings.Items["Auto Death Step"]);
         (getgenv()).SaveSetting();
     end
-});AutoSharkmanKarateToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Sharkman Karate",
-    Default = _G.Settings.Items["Auto Fishman Karate"],
+});
+AutoSharkmanKarateToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Sharkman Karate",
+    Value = _G.Settings.Items["Auto Fishman Karate"],
     Callback = function(state)
         _G.Settings.Items["Auto Fishman Karate"] = state;
         StopTween(_G.Settings.Items["Auto Fishman Karate"]);
         (getgenv()).SaveSetting();
     end
-});AutoElectricClawToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Electric Claw",
-    Default = _G.Settings.Items["Auto Electric Claw"],
+});
+AutoElectricClawToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Electric Claw",
+    Value = _G.Settings.Items["Auto Electric Claw"],
     Callback = function(state)
         _G.Settings.Items["Auto Electric Claw"] = state;
         StopTween(_G.Settings.Items["Auto Electric Claw"]);
         (getgenv()).SaveSetting();
     end
-});AutoDragonTalonToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Dragon Talon",
-    Default = _G.Settings.Items["Auto Dragon Talon"],
+});
+AutoDragonTalonToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Dragon Talon",
+    Value = _G.Settings.Items["Auto Dragon Talon"],
     Callback = function(state)
         _G.Settings.Items["Auto Dragon Talon"] = state;
         StopTween(_G.Settings.Items["Auto Dragon Talon"]);
         (getgenv()).SaveSetting();
     end
-});AutoGodHumanToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto God Human",
-    Default = _G.Settings.Items["Auto God Human"],
+});
+AutoGodHumanToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto God Human",
+    Value = _G.Settings.Items["Auto God Human"],
     Callback = function(state)
         _G.Settings.Items["Auto God Human"] = state;
         StopTween(_G.Settings.Items["Auto God Human"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while task.wait(0.2) do
         if _G.Settings.Items["Auto God Human"] then
             pcall(function()
@@ -4911,11 +5260,12 @@ GunSwordSection = Tabs.ItemsTab:AddSection({"Fighting Style"});AutoSuperHumanTog
                             (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyDeathStep");
                         end
                     else
-                        game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Notification",
-    Text = "Not Have Superhuman",
-    Duration = 5
-});
+                        WindUI:Notify({
+                            Title = "Notification",
+                            Content = "Not Have Superhuman",
+                            Icon = "bell",
+                            Duration = 5
+                        });
                     end
                     if (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyDeathStep", true) == 1 then
                         if (game:GetService("Players")).LocalPlayer.Backpack:FindFirstChild("Death Step") and
@@ -4926,11 +5276,12 @@ GunSwordSection = Tabs.ItemsTab:AddSection({"Fighting Style"});AutoSuperHumanTog
                             (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuySharkmanKarate");
                         end
                     else
-                        game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Notification",
-    Text = "Not Have Death Step",
-    Duration = 5
-});
+                        WindUI:Notify({
+                            Title = "Notification",
+                            Content = "Not Have Death Step",
+                            Icon = "bell",
+                            Duration = 5
+                        });
                     end
                     if (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuySharkmanKarate", true) ==
                         1 then
@@ -4943,11 +5294,12 @@ GunSwordSection = Tabs.ItemsTab:AddSection({"Fighting Style"});AutoSuperHumanTog
                             (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyElectricClaw");
                         end
                     else
-                        game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Notification",
-    Text = "Not Have Sharkman Karate",
-    Duration = 5
-});
+                        WindUI:Notify({
+                            Title = "Notification",
+                            Content = "Not Have Sharkman Karate",
+                            Icon = "bell",
+                            Duration = 5
+                        });
                     end
                     if (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyElectricClaw", true) == 1 then
                         if (game:GetService("Players")).LocalPlayer.Backpack:FindFirstChild("Electric Claw") and
@@ -4959,11 +5311,12 @@ GunSwordSection = Tabs.ItemsTab:AddSection({"Fighting Style"});AutoSuperHumanTog
                             (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyDragonTalon");
                         end
                     else
-                        game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Notification",
-    Text = "Not Have Electric Claw",
-    Duration = 5
-});
+                        WindUI:Notify({
+                            Title = "Notification",
+                            Content = "Not Have Electric Claw",
+                            Icon = "bell",
+                            Duration = 5
+                        });
                     end
                     if (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyDragonTalon", true) == 1 then
                         if (game:GetService("Players")).LocalPlayer.Backpack:FindFirstChild("Dragon Talon") and
@@ -4974,21 +5327,23 @@ GunSwordSection = Tabs.ItemsTab:AddSection({"Fighting Style"});AutoSuperHumanTog
                                 .Value >= 400 then
                             if string.find((game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer(
                                 "BuyGodhuman", true), "Bring") then
-                                game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Notification",
-    Text = "Not Have Enough Material",
-    Duration = 5
-});
+                                WindUI:Notify({
+                                    Title = "Notification",
+                                    Content = "Not Have Enough Material",
+                                    Icon = "bell",
+                                    Duration = 5
+                                });
                             else
                                 (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyGodhuman");
                             end
                         end
                     else
-                        game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Notification",
-    Text = "Not Have Dragon Talon",
-    Duration = 5
-});
+                        WindUI:Notify({
+                            Title = "Notification",
+                            Content = "Not Have Dragon Talon",
+                            Icon = "bell",
+                            Duration = 5
+                        });
                     end
                 else
                     (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuySuperhuman");
@@ -5307,15 +5662,21 @@ spawn(function()
         end
     end);
 end);
-GunSwordSection = Tabs.ItemsTab:AddSection({"Gun & Sword"});AutoGetSaberToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Get Saber",
-    Default = _G.Settings.Items["Auto Saber"],
+GunSwordSection = Tabs.ItemsTab:Section({
+    Title = "Gun & Sword",
+    TextXAlignment = "Left"
+});
+AutoGetSaberToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Get Saber",
+    Desc = "Function Sea 1 Only",
+    Value = _G.Settings.Items["Auto Saber"],
     Callback = function(state)
         _G.Settings.Items["Auto Saber"] = state;
         StopTween(_G.Settings.Items["Auto Saber"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while task.wait(0.2) do
         if _G.Settings.Items["Auto Saber"] and World1 and game.Players.LocalPlayer.Data.Level.Value >= 200 then
             pcall(function()
@@ -5444,15 +5805,17 @@ GunSwordSection = Tabs.ItemsTab:AddSection({"Gun & Sword"});AutoGetSaberToggle =
         end
     end
 end);
-AutoBuddySwordToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Buddy Sword",
-    Default = _G.Settings.Items["Auto Buddy Sword"],
+AutoBuddySwordToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Buddy Sword",
+    Desc = "Function Sea 3 Only",
+    Value = _G.Settings.Items["Auto Buddy Sword"],
     Callback = function(state)
         _G.Settings.Items["Auto Buddy Sword"] = state;
         StopTween(_G.Settings.Items["Auto Buddy Sword"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Items["Auto Buddy Sword"] and World3 then
             pcall(function()
@@ -5610,11 +5973,12 @@ function GuitarPuzzleProgress()
             CommF:InvokeServer("gravestoneEvent", 2, true);
             task.wait(1);
         else
-            game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Notification",
-    Text = "Hop Full Moon",
-    Duration = 5
-});
+            WindUI:Notify({
+                Title = "Notification",
+                Content = "Hop Full Moon",
+                Icon = "bell",
+                Duration = 5
+            });
             Hop();
         end
     else
@@ -5716,30 +6080,33 @@ end
 function AutoSoulGuitar()
     if (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("soulGuitarBuy", true) ==
         "[You already own this item.]" then
-        game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Notification",
-    Text = "You already own this item",
-    Duration = 5
-});
+        WindUI:Notify({
+            Title = "Notification",
+            Content = "You already own this item",
+            Icon = "bell",
+            Duration = 5
+        });
         task.wait(5);
         return;
     end
     if game.Players.LocalPlayer.Data.Fragments.Value < 5000 then
         task.wait(2);
-        game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Notification",
-    Text = "Need 5000 Fragments",
-    Duration = 5
-});
+        WindUI:Notify({
+            Title = "Notification",
+            Content = "Need 5000 Fragments",
+            Icon = "bell",
+            Duration = 5
+        });
         return;
     end
     if not CheckItemCount("Ectoplasm", 250) then
         task.wait(2);
-        game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Notification",
-    Text = "Need 250 Ectoplasm",
-    Duration = 5
-});
+        WindUI:Notify({
+            Title = "Notification",
+            Content = "Need 250 Ectoplasm",
+            Icon = "bell",
+            Duration = 5
+        });
         return;
     end
     if CheckItemCount("Dark Fragment", 1) and CheckItemCount("Ectoplasm", 250) and CheckItemCount("Bones", 500) then
@@ -5823,15 +6190,17 @@ function AutoSoulGuitar()
         end
     end
 end
-AutoSoulGuitarToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Soul Guitar",
-    Default = _G.Settings.Items["Auto Soul Guitar"],
+AutoSoulGuitarToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Soul Guitar",
+    Desc = "Function Sea 3 Only",
+    Value = _G.Settings.Items["Auto Soul Guitar"],
     Callback = function(state)
         _G.Settings.Items["Auto Soul Guitar"] = state;
         StopTween(_G.Settings.Items["Auto Soul Guitar"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         pcall(function()
             if _G.Settings.Items["Auto Soul Guitar"] then
@@ -5840,15 +6209,17 @@ AutoSoulGuitarToggle = Tabs.ItemsTab:AddToggle({
         end);
     end
 end);
-AutoRengokuToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Rengoku",
-    Default = _G.Settings.Items["Auto Rengoku"],
+AutoRengokuToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Rengoku",
+    Desc = "Function Sea 2 Only",
+    Value = _G.Settings.Items["Auto Rengoku"],
     Callback = function(state)
         _G.Settings.Items["Auto Rengoku"] = state;
         StopTween(_G.Settings.Items["Auto Rengoku"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     pcall(function()
         while wait(0.2) do
             if _G.Settings.Items["Auto Rengoku"] and World2 then
@@ -5880,87 +6251,106 @@ AutoRengokuToggle = Tabs.ItemsTab:AddToggle({
         end
     end);
 end);
-AutoHallowScytheToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Hallow Scythe",
-    Default = _G.Settings.Items["Auto Hallow Scythe"],
+AutoHallowScytheToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Hallow Scythe",
+    Desc = "Function Sea 3 Only",
+    Value = _G.Settings.Items["Auto Hallow Scythe"],
     Callback = function(state)
         _G.Settings.Items["Auto Hallow Scythe"] = state;
         StopTween(_G.Settings.Items["Auto Hallow Scythe"]);
         (getgenv()).SaveSetting();
     end
-});AutoWardenSwordToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Warden Sword",
-    Default = _G.Settings.Items["Auto Warden Sword"],
+});
+AutoWardenSwordToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Warden Sword",
+    Desc = "Function Sea 1 Only",
+    Value = _G.Settings.Items["Auto Warden Sword"],
     Callback = function(state)
         _G.Settings.Items["Auto Warden Sword"] = state;
         StopTween(_G.Settings.Items["Auto Warden Sword"]);
         (getgenv()).SaveSetting();
     end
-});AutoGetYamaToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Get Yama",
-    Default = _G.Settings.Items["Auto Yama"],
+});
+AutoGetYamaToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Get Yama",
+    Desc = "Need 30 Elite Hunter, Function Sea 3 Only",
+    Value = _G.Settings.Items["Auto Yama"],
     Callback = function(state)
         _G.Settings.Items["Auto Yama"] = state;
         StopTween(_G.Settings.Items["Auto Yama"]);
         (getgenv()).SaveSetting();
     end
-});AutoGetYamaHopToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Get Yama Hop",
-    Default = _G.Settings.Items["Auto Yama Hop"],
+});
+AutoGetYamaHopToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Get Yama Hop",
+    Desc = "Hop If Elite Hunter Not Spawn",
+    Value = _G.Settings.Items["Auto Yama Hop"],
     Callback = function(state)
         _G.Settings.Items["Auto Yama Hop"] = state;
         StopTween(_G.Settings.Items["Auto Yama Hop"]);
         (getgenv()).SaveSetting();
     end
-});AutoGetTushitaToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Get Tushita",
-    Default = _G.Settings.Items["Auto Tushita"],
+});
+AutoGetTushitaToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Get Tushita",
+    Value = _G.Settings.Items["Auto Tushita"],
     Callback = function(state)
         _G.Settings.Items["Auto Tushita"] = state;
         StopTween(_G.Settings.Items["Auto Tushita"]);
         (getgenv()).SaveSetting();
     end
-});AutoDragonTridentToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Dragon Trident",
-    Default = _G.Settings.Items["Auto Dragon Trident"],
+});
+AutoDragonTridentToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Dragon Trident",
+    Desc = "Function Sea 2 Only",
+    Value = _G.Settings.Items["Auto Dragon Trident"],
     Callback = function(state)
         _G.Settings.Items["Auto Dragon Trident"] = state;
         StopTween(_G.Settings.Items["Auto Dragon Trident"]);
         (getgenv()).SaveSetting();
     end
-});AutoDragonTridentToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Greybeard",
-    Default = _G.Settings.Items["Auto Greybeard"],
+});
+AutoDragonTridentToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Greybeard",
+    Desc = "Function Sea 1 Only",
+    Value = _G.Settings.Items["Auto Greybeard"],
     Callback = function(state)
         _G.Settings.Items["Auto Greybeard"] = state;
         StopTween(_G.Settings.Items["Auto Greybeard"]);
         (getgenv()).SaveSetting();
     end
-});AutoSharkSawToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Shark Saw",
-    Default = _G.Settings.Items["Auto Shark Saw"],
+});
+AutoSharkSawToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Shark Saw",
+    Desc = "Function Sea 1 Only",
+    Value = _G.Settings.Items["Auto Shark Saw"],
     Callback = function(state)
         _G.Settings.Items["Auto Shark Saw"] = state;
         StopTween(_G.Settings.Items["Auto Shark Saw"]);
         (getgenv()).SaveSetting();
     end
-});AutoPoleToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Pole",
-    Default = _G.Settings.Items["Auto Pole"],
+});
+AutoPoleToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Pole",
+    Desc = "Function Sea 1 Only",
+    Value = _G.Settings.Items["Auto Pole"],
     Callback = function(state)
         _G.Settings.Items["Auto Pole"] = state;
         StopTween(_G.Settings.Items["Auto Pole"]);
         (getgenv()).SaveSetting();
     end
-});AutoDarkDaggerToggle = Tabs.ItemsTab:AddToggle({
-    Name = "Auto Dark Dagger",
-    Default = _G.Settings.Items["Auto Dark Dagger"],
+});
+AutoDarkDaggerToggle = Tabs.ItemsTab:Toggle({
+    Title = "Auto Dark Dagger",
+    Desc = "Need Spawn Rip Indra, Function Sea 3 Only",
+    Value = _G.Settings.Items["Auto Dark Dagger"],
     Callback = function(state)
         _G.Settings.Items["Auto Dark Dagger"] = state;
         StopTween(_G.Settings.Items["Auto Dark Dagger"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     pcall(function()
         while wait(0.2) do
             if _G.Settings.Items["Auto Dark Dagger"] and World3 then
@@ -6167,11 +6557,12 @@ spawn(function()
                         end
                     end
                 else
-                    game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Notification",
-    Text = "Rip Indra Not Spawn",
-    Duration = 5
-});
+                    WindUI:Notify({
+                        Title = "Notification",
+                        Content = "Rip Indra Not Spawn",
+                        Icon = "bell",
+                        Duration = 5
+                    });
                     task.wait(3);
                 end
             end);
@@ -6296,53 +6687,70 @@ spawn(function()
         end
     end
 end);
-StatsSection = Tabs.StatsTab:AddSection({"Stats"});StatsPointParagraph = Tabs.StatsTab:AddParagraph({"Stats", "0"});spawn(function()
+StatsSection = Tabs.StatsTab:Section({
+    Title = "Stats",
+    TextXAlignment = "Left"
+});
+StatsPointParagraph = Tabs.StatsTab:Paragraph({
+    Title = "Stats",
+    Desc = "0"
+});
+spawn(function()
     while wait(0.2) do
         pcall(function()
             StatsPointParagraph:SetDesc(tostring((game:GetService("Players")).LocalPlayer.Data.Points.Value));
         end);
     end
 end);
-AutoAddMeleeStats = Tabs.StatsTab:AddToggle({
-    Name = "Add Melee Stats",
-    Default = _G.Settings.Stats["Auto Add Melee Stats"],
+AutoAddMeleeStats = Tabs.StatsTab:Toggle({
+    Title = "Add Melee Stats",
+    Value = _G.Settings.Stats["Auto Add Melee Stats"],
     Callback = function(state)
         _G.Settings.Stats["Auto Add Melee Stats"] = state;
     end
-});AutoAddDefenseStats = Tabs.StatsTab:AddToggle({
-    Name = "Add Defense Stats",
-    Default = _G.Settings.Stats["Auto Add Defense Stats"],
+});
+AutoAddDefenseStats = Tabs.StatsTab:Toggle({
+    Title = "Add Defense Stats",
+    Value = _G.Settings.Stats["Auto Add Defense Stats"],
     Callback = function(state)
         _G.Settings.Stats["Auto Add Defense Stats"] = state;
     end
-});AutoAddSwordStats = Tabs.StatsTab:AddToggle({
-    Name = "Add Sword Stats",
-    Default = _G.Settings.Stats["Auto Add Sword Stats"],
+});
+AutoAddSwordStats = Tabs.StatsTab:Toggle({
+    Title = "Add Sword Stats",
+    Value = _G.Settings.Stats["Auto Add Sword Stats"],
     Callback = function(state)
         _G.Settings.Stats["Auto Add Sword Stats"] = state;
     end
-});AutoAddGunStats = Tabs.StatsTab:AddToggle({
-    Name = "Add Gun Stats",
-    Default = _G.Settings.Stats["Auto Add Gun Stats"],
+});
+AutoAddGunStats = Tabs.StatsTab:Toggle({
+    Title = "Add Gun Stats",
+    Value = _G.Settings.Stats["Auto Add Gun Stats"],
     Callback = function(state)
         _G.Settings.Stats["Auto Add Gun Stats"] = state;
     end
-});AutoAddDevilFruitStats = Tabs.StatsTab:AddToggle({
-    Name = "Add Devil Fruit Stats",
-    Default = _G.Settings.Stats["Auto Add Devil Fruit Stats"],
+});
+AutoAddDevilFruitStats = Tabs.StatsTab:Toggle({
+    Title = "Add Devil Fruit Stats",
+    Value = _G.Settings.Stats["Auto Add Devil Fruit Stats"],
     Callback = function(state)
         _G.Settings.Stats["Auto Add Devil Fruit Stats"] = state;
     end
-});PointStats = 1;
-StatsPointToAddSlider = Tabs.StatsTab:AddSlider({
-    Name = "Point",
-    Min = 1,
-    Max = 100,
-    Default = PointStats,
+});
+PointStats = 1;
+StatsPointToAddSlider = Tabs.StatsTab:Slider({
+    Title = "Point",
+    Step = 1,
+    Value = {
+        Min = 1,
+        Max = 100,
+        Default = PointStats
+    },
     Callback = function(value)
         PointStats = value;
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if game.Players.localPlayer.Data.Points.Value >= PointStats then
             if _G.Settings.Stats["Auto Add Melee Stats"] then
@@ -6388,7 +6796,19 @@ StatsPointToAddSlider = Tabs.StatsTab:AddSlider({
         end
     end
 end);
-RaidSection = Tabs.RaidTab:AddSection({"Raid"});TimeRaidParagraph = Tabs.RaidTab:AddParagraph({"Raid Time", "N/A"});IslandRaidParagraph = Tabs.RaidTab:AddParagraph({"Island", "N/A"});spawn(function()
+RaidSection = Tabs.RaidTab:Section({
+    Title = "Raid",
+    TextXAlignment = "Left"
+});
+TimeRaidParagraph = Tabs.RaidTab:Paragraph({
+    Title = "Raid Time",
+    Desc = "N/A"
+});
+IslandRaidParagraph = Tabs.RaidTab:Paragraph({
+    Title = "Island",
+    Desc = "N/A"
+});
+spawn(function()
     pcall(function()
         while wait(0.2) do
             if (game:GetService("Players")).LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Visible == true then
@@ -6514,14 +6934,15 @@ end
 for i, v in pairs(RaidsModule.advancedRaids) do
     table.insert(Raidslist, v);
 end
-ChooseChipRaidDropdown = Tabs.RaidTab:AddDropdown({
-    Name = "Choose Chip",
-    Options = Raidslist,
-    Default = _G.Settings.Raid["Selected Chip"],
+ChooseChipRaidDropdown = Tabs.RaidTab:Dropdown({
+    Title = "Choose Chip",
+    Values = Raidslist,
+    Value = _G.Settings.Raid["Selected Chip"],
     Callback = function(option)
         _G.Settings.Raid["Selected Chip"] = option;
     end
-});spawn(function()
+});
+spawn(function()
     pcall(function()
         while wait(0.2) do
             if _G.Settings.Raid["Auto Raid"] and (World2 or World3) then
@@ -6536,22 +6957,25 @@ ChooseChipRaidDropdown = Tabs.RaidTab:AddDropdown({
         end
     end);
 end);
-AutoRaidToggle = Tabs.RaidTab:AddToggle({
-    Name = "Auto Raid",
-    Default = _G.Settings.Raid["Auto Raid"],
+AutoRaidToggle = Tabs.RaidTab:Toggle({
+    Title = "Auto Raid",
+    Desc = "Complete automatically",
+    Value = _G.Settings.Raid["Auto Raid"],
     Callback = function(state)
         _G.Settings.Raid["Auto Raid"] = state;
         StopTween(_G.Settings.Raid["Auto Raid"]);
         (getgenv()).SaveSetting();
     end
-});AutoAwakeningToggle = Tabs.RaidTab:AddToggle({
-    Name = "Auto Awaken",
-    Default = _G.Settings.Raid["Auto Awaken"],
+});
+AutoAwakeningToggle = Tabs.RaidTab:Toggle({
+    Title = "Auto Awaken",
+    Value = _G.Settings.Raid["Auto Awaken"],
     Callback = function(state)
         _G.Settings.Raid["Auto Awaken"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Raid["Auto Awaken"] then
             pcall(function()
@@ -6560,23 +6984,27 @@ AutoRaidToggle = Tabs.RaidTab:AddToggle({
         end
     end
 end);
-PriceDevilFruitToUnstoreSlider = Tabs.RaidTab:AddSlider({
-    Name = "Price",
-    Min = 1,
-    Max = 10000000,
-    Default = _G.Settings.Raid["Price Devil Fruit"],
+PriceDevilFruitToUnstoreSlider = Tabs.RaidTab:Slider({
+    Title = "Price",
+    Value = {
+        Min = 1,
+        Max = 10000000,
+        Default = _G.Settings.Raid["Price Devil Fruit"]
+    },
     Callback = function(value)
         _G.Settings.Raid["Price Devil Fruit"] = value;
         (getgenv()).SaveSetting();
     end
-});AutoUnstoreDevilFruitToggle = Tabs.RaidTab:AddToggle({
-    Name = "Auto Unstore Devil Fruit",
-    Default = _G.Settings.Raid["Unstore Devil Fruit"],
+});
+AutoUnstoreDevilFruitToggle = Tabs.RaidTab:Toggle({
+    Title = "Auto Unstore Devil Fruit",
+    Value = _G.Settings.Raid["Unstore Devil Fruit"],
     Callback = function(state)
         _G.Settings.Raid["Unstore Devil Fruit"] = state;
         (getgenv()).SaveSetting();
     end
-});function GetFruitsInfo()
+});
+function GetFruitsInfo()
     for i, v in pairs((game:GetService("Players")).LocalPlayer.Backpack:GetChildren()) do
         if string.find(v.Name, "Fruit") then
             return true;
@@ -6605,8 +7033,8 @@ spawn(function()
         end);
     end
 end);
-TeleportTolabButton = Tabs.RaidTab:AddButton({
-    Name = "Teleport To Lab",
+TeleportTolabButton = Tabs.RaidTab:Button({
+    Title = "Teleport To Lab",
     Callback = function()
         if World2 then
             TweenPlayer(CFrame.new(-6438.73535, 250.645355, -4501.50684));
@@ -6616,16 +7044,20 @@ TeleportTolabButton = Tabs.RaidTab:AddButton({
         end
     end
 });
-
-});LawRaidSection = Tabs.RaidTab:AddSection({"Law Raid"});AutoLawRaidToggle = Tabs.RaidTab:AddToggle({
-    Name = "Auto Law Raid",
-    Default = _G.Settings.Raid["Law Raid"],
+LawRaidSection = Tabs.RaidTab:Section({
+    Title = "Law Raid",
+    TextXAlignment = "Left"
+});
+AutoLawRaidToggle = Tabs.RaidTab:Toggle({
+    Title = "Auto Law Raid",
+    Value = _G.Settings.Raid["Law Raid"],
     Callback = function(state)
         _G.Settings.Raid["Law Raid"] = value;
         StopTween(_G.Settings.Raid["Law Raid"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     pcall(function()
         while wait(0.2) do
             if _G.Settings.Raid["Law Raid"] then
@@ -6679,23 +7111,29 @@ spawn(function()
         end
     end);
 end);
-RaceTabSection = Tabs.RaceTab:AddSection({"Race"});local PlaceV4List = {"Top Of GreatTree", "Timple Of Time", "Lever Pull", "Acient One"};
-SelectedPlaceDropdown = Tabs.RaceTab:AddDropdown({
-    Name = "Selected Place",
-    Options = PlaceV4List,
-    Default = _G.Settings.Race["Selected Place"],
+RaceTabSection = Tabs.RaceTab:Section({
+    Title = "Race",
+    TextXAlignment = "Left"
+});
+local PlaceV4List = {"Top Of GreatTree", "Timple Of Time", "Lever Pull", "Acient One"};
+SelectedPlaceDropdown = Tabs.RaceTab:Dropdown({
+    Title = "Selected Place",
+    Values = PlaceV4List,
+    Value = _G.Settings.Race["Selected Place"],
     Callback = function(value)
         _G.Settings.Race["Selected Place"] = value;
         (getgenv()).SaveSetting();
     end
-});TeleportToPlaceToggle = Tabs.RaceTab:AddToggle({
-    Name = "Teleport To Place",
-    Default = _G.Settings.Race["Teleport To Place"],
+});
+TeleportToPlaceToggle = Tabs.RaceTab:Toggle({
+    Title = "Teleport To Place",
+    Value = _G.Settings.Race["Teleport To Place"],
     Callback = function(state)
         _G.Settings.Race["Teleport To Place"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Race["Teleport To Place"] then
             pcall(function()
@@ -6720,14 +7158,15 @@ SelectedPlaceDropdown = Tabs.RaceTab:AddDropdown({
         end
     end
 end);
-AutoBuyGearToggle = Tabs.RaceTab:AddToggle({
-    Name = "Auto Buy Gear",
-    Default = _G.Settings.Race["Auto Buy Gear"],
+AutoBuyGearToggle = Tabs.RaceTab:Toggle({
+    Title = "Auto Buy Gear",
+    Value = _G.Settings.Race["Auto Buy Gear"],
     Callback = function(state)
         _G.Settings.Race["Auto Buy Gear"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     pcall(function()
         while wait(0.2) do
             if _G.Settings.Race["Auto Buy Gear"] then
@@ -6744,21 +7183,24 @@ AutoBuyGearToggle = Tabs.RaceTab:AddToggle({
         end
     end);
 end);
-TweenToMirageIslandToggle = Tabs.RaceTab:AddToggle({
-    Name = "Tween To Mirage Island",
-    Default = _G.Settings.Race["Tween To Highest Mirage"],
+TweenToMirageIslandToggle = Tabs.RaceTab:Toggle({
+    Title = "Tween To Mirage Island",
+    Desc = "Tween to highest point",
+    Value = _G.Settings.Race["Tween To Highest Mirage"],
     Callback = function(state)
         _G.Settings.Race["Tween To Highest Mirage"] = state;
         (getgenv()).SaveSetting();
     end
-});FindBlueGearToggle = Tabs.RaceTab:AddToggle({
-    Name = "Find Blue Gear",
-    Default = _G.Settings.Race["Find Blue Gear"],
+});
+FindBlueGearToggle = Tabs.RaceTab:Toggle({
+    Title = "Find Blue Gear",
+    Value = _G.Settings.Race["Find Blue Gear"],
     Callback = function(state)
         _G.Settings.Race["Find Blue Gear"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     pcall(function()
         while wait(0.2) do
             if _G.Settings.Race["Find Blue Gear"] then
@@ -6775,14 +7217,15 @@ TweenToMirageIslandToggle = Tabs.RaceTab:AddToggle({
         end
     end);
 end);
-LookMoonAbilityToggle = Tabs.RaceTab:AddToggle({
-    Name = "Look Moon & use Ability",
-    Default = _G.Settings.Race["Look Moon Ability"],
+LookMoonAbilityToggle = Tabs.RaceTab:Toggle({
+    Title = "Look Moon & use Ability",
+    Value = _G.Settings.Race["Look Moon Ability"],
     Callback = function(state)
         _G.Settings.Race["Look Moon Ability"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         pcall(function()
             if _G.Settings.Race["Look Moon Ability"] then
@@ -6794,15 +7237,16 @@ LookMoonAbilityToggle = Tabs.RaceTab:AddToggle({
         end);
     end
 end);
-AutoTrainToggle = Tabs.RaceTab:AddToggle({
-    Name = "Auto Train",
-    Default = _G.Settings.Race["Auto Train"],
+AutoTrainToggle = Tabs.RaceTab:Toggle({
+    Title = "Auto Train",
+    Value = _G.Settings.Race["Auto Train"],
     Callback = function(state)
         _G.Settings.Race["Auto Train"] = state;
         StopTween(_G.Settings.Race["Auto Train"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     pcall(function()
         while wait(0.2) do
             if _G.Settings.Race["Auto Train"] then
@@ -6873,8 +7317,8 @@ spawn(function()
         end);
     end
 end);
-TeleportToRaceDoorButton = Tabs.RaceTab:AddButton({
-    Name = "Teleport To Race Door",
+TeleportToRaceDoorButton = Tabs.RaceTab:Button({
+    Title = "Teleport To Race Door",
     Callback = function()
         (game:GetService("Players")).LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(28286.35546875,
             14895.3017578125, 102.62469482421875);
@@ -6903,21 +7347,22 @@ TeleportToRaceDoorButton = Tabs.RaceTab:AddButton({
         end
     end
 });
-
-});BuyAcientQuestButton = Tabs.RaceTab:AddButton({
-    Name = "Buy Acient Quest",
+BuyAcientQuestButton = Tabs.RaceTab:Button({
+    Title = "Buy Acient Quest",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("UpgradeRace", "Buy");
     end
-});AutoTrialToggle = Tabs.RaceTab:AddToggle({
-    Name = "Auto Trial",
-    Default = _G.Settings.Race["Auto Trial"],
+});
+AutoTrialToggle = Tabs.RaceTab:Toggle({
+    Title = "Auto Trial",
+    Value = _G.Settings.Race["Auto Trial"],
     Callback = function(value)
         _G.Settings.Race["Auto Trial"] = value;
         StopTween(_G.Settings.Race["Auto Trial"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     pcall(function()
         while wait(0.2) do
             if _G.Settings.Race["Auto Trial"] then
@@ -6975,14 +7420,15 @@ TeleportToRaceDoorButton = Tabs.RaceTab:AddButton({
         end
     end);
 end);
-AutoKillPlayerAfterTrialToggle = Tabs.RaceTab:AddToggle({
-    Name = "Auto Kill Player After Trial",
-    Default = _G.Settings.Race["Auto Kill Player After Trial"],
+AutoKillPlayerAfterTrialToggle = Tabs.RaceTab:Toggle({
+    Title = "Auto Kill Player After Trial",
+    Value = _G.Settings.Race["Auto Kill Player After Trial"],
     Callback = function(value)
         _G.Settings.Race["Auto Kill Player After Trial"] = value;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Race["Auto Kill Player After Trial"] then
             if (game:GetService("Players")).LocalPlayer.PlayerGui.Main.TopHUDList.Timer.Visible == true then
@@ -7007,29 +7453,45 @@ AutoKillPlayerAfterTrialToggle = Tabs.RaceTab:AddToggle({
         end
     end
 end);
-TeleportSection = Tabs.TeleportTab:AddSection({"Teleport"});TeleportToFirstSeaButton = Tabs.TeleportTab:AddButton({
-    Name = "Teleport To First Sea",
+TeleportSection = Tabs.TeleportTab:Section({
+    Title = "Teleport",
+    TextXAlignment = "Left"
+});
+TeleportToFirstSeaButton = Tabs.TeleportTab:Button({
+    Title = "Teleport To First Sea",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("TravelMain");
     end
-});TeleportToSecondSeaButton = Tabs.TeleportTab:AddButton({
-    Name = "Teleport To Second Sea",
+});
+TeleportToSecondSeaButton = Tabs.TeleportTab:Button({
+    Title = "Teleport To Second Sea",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("TravelDressrosa");
     end
-});TeleportToThirdSeaButton = Tabs.TeleportTab:AddButton({
-    Name = "Teleport To Third Sea",
+});
+TeleportToThirdSeaButton = Tabs.TeleportTab:Button({
+    Title = "Teleport To Third Sea",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("TravelZou");
     end
-});TeleportIslandSection = Tabs.TeleportTab:AddSection({"Island"});ShopSection = Tabs.ShopTab:AddSection({"Shop"});AutoBuyLegendarySwordToggle = Tabs.ShopTab:AddToggle({
-    Name = "Auto Buy Legendary Sword",
-    Default = _G.Settings.Shop["Auto Buy Legendary Sword"],
+});
+TeleportIslandSection = Tabs.TeleportTab:Section({
+    Title = "Island",
+    TextXAlignment = "Left"
+});
+ShopSection = Tabs.ShopTab:Section({
+    Title = "Shop",
+    TextXAlignment = "Left"
+});
+AutoBuyLegendarySwordToggle = Tabs.ShopTab:Toggle({
+    Title = "Auto Buy Legendary Sword",
+    Value = _G.Settings.Shop["Auto Buy Legendary Sword"],
     Callback = function(state)
         _G.Settings.Shop["Auto Buy Legendary Sword"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Shop["Auto Buy Legendary Sword"] then
             pcall(function()
@@ -7040,202 +7502,305 @@ TeleportSection = Tabs.TeleportTab:AddSection({"Teleport"});TeleportToFirstSeaBu
         end
     end
 end);
-AutoBuyHakiColorToggle = Tabs.ShopTab:AddToggle({
-    Name = "Auto Buy Haki Color",
-    Default = _G.Settings.Shop["Auto Buy Haki Color"],
+AutoBuyHakiColorToggle = Tabs.ShopTab:Toggle({
+    Title = "Auto Buy Haki Color",
+    Value = _G.Settings.Shop["Auto Buy Haki Color"],
     Callback = function(state)
         _G.Settings.Shop["Auto Buy Haki Color"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Shop["Auto Buy Haki Color"] then
             (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("ColorsDealer", "2");
         end
     end
 end);
-AbilitiesShopSection = Tabs.ShopTab:AddSection({"Abilities"});BuyGeppoButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Geppo",
+AbilitiesShopSection = Tabs.ShopTab:Section({
+    Title = "Abilities",
+    TextXAlignment = "Left"
+});
+BuyGeppoButton = Tabs.ShopTab:Button({
+    Title = "Buy Geppo",
+    Desc = "$10,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyHaki", "Geppo");
     end
-});BuyBusoHaki = Tabs.ShopTab:AddButton({
-    Name = "Buy Buso Haki",
+});
+BuyBusoHaki = Tabs.ShopTab:Button({
+    Title = "Buy Buso Haki",
+    Desc = "$25,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyHaki", "Buso");
     end
-});BuySoruButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Soru",
+});
+BuySoruButton = Tabs.ShopTab:Button({
+    Title = "Buy Soru",
+    Desc = "$25,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyHaki", "Soru");
     end
-});BuyObservationHakiButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Observation Haki",
+});
+BuyObservationHakiButton = Tabs.ShopTab:Button({
+    Title = "Buy Observation Haki",
+    Desc = "$750,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("KenTalk", "Buy");
     end
-});FightingStyleShopSection = Tabs.ShopTab:AddSection({"Fighting Style"});BuyBlackLegButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Black Leg",
+});
+FightingStyleShopSection = Tabs.ShopTab:Section({
+    Title = "Fighting Style",
+    TextXAlignment = "Left"
+});
+BuyBlackLegButton = Tabs.ShopTab:Button({
+    Title = "Buy Black Leg",
+    Desc = "$150,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyBlackLeg");
     end
-});BuyElectroButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Electro",
+});
+BuyElectroButton = Tabs.ShopTab:Button({
+    Title = "Buy Electro",
+    Desc = "$550,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyElectro");
     end
-});BuyFishmanKarateButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Fishman Karate",
+});
+BuyFishmanKarateButton = Tabs.ShopTab:Button({
+    Title = "Buy Fishman Karate",
+    Desc = "$750,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyFishmanKarate");
     end
-});BuyDragonClawButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Dragon Claw",
+});
+BuyDragonClawButton = Tabs.ShopTab:Button({
+    Title = "Buy Dragon Claw",
+    Desc = "F’1,500",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BlackbeardReward", "DragonClaw", "1");
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BlackbeardReward", "DragonClaw", "2");
     end
-});BuySuperhumanButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Superhuman",
+});
+BuySuperhumanButton = Tabs.ShopTab:Button({
+    Title = "Buy Superhuman",
+    Desc = "$3,000,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuySuperhuman");
     end
-});BuyDeathStepButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Death Step",
+});
+BuyDeathStepButton = Tabs.ShopTab:Button({
+    Title = "Buy Death Step",
+    Desc = "F’5,000 $5,000,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyDeathStep");
     end
-});BuySharkmanKarateButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Sharkman Karate",
+});
+BuySharkmanKarateButton = Tabs.ShopTab:Button({
+    Title = "Buy Sharkman Karate",
+    Desc = "F’5,000 $2,500,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuySharkmanKarate", true);
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuySharkmanKarate");
     end
-});BuyElectricClawButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Electric Claw",
+});
+BuyElectricClawButton = Tabs.ShopTab:Button({
+    Title = "Buy Electric Claw",
+    Desc = "F’5,000 $3,000,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyElectricClaw");
     end
-});BuyDragonTalonButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Dragon Talon",
+});
+BuyDragonTalonButton = Tabs.ShopTab:Button({
+    Title = "Buy Dragon Talon",
+    Desc = "F’5,000 $3,000,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyDragonTalon");
     end
-});BuyGodHumanButton = Tabs.ShopTab:AddButton({
-    Name = "Buy God Human",
+});
+BuyGodHumanButton = Tabs.ShopTab:Button({
+    Title = "Buy God Human",
+    Desc = "F’5,000 $5,000,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyGodhuman");
     end
-});BuySanguineArtButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Sanguine Art",
+});
+BuySanguineArtButton = Tabs.ShopTab:Button({
+    Title = "Buy Sanguine Art",
+    Desc = "F’5,000 $5,000,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuySanguineArt", true);
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuySanguineArt");
     end
-});SwordShopSection = Tabs.ShopTab:AddSection({"Sword"});BuyCutlassButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Cutlass",
+});
+SwordShopSection = Tabs.ShopTab:Section({
+    Title = "Sword",
+    TextXAlignment = "Left"
+});
+BuyCutlassButton = Tabs.ShopTab:Button({
+    Title = "Buy Cutlass",
+    Desc = "$1,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Cutlass");
     end
-});BuyKatanaButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Katana",
+});
+BuyKatanaButton = Tabs.ShopTab:Button({
+    Title = "Buy Katana",
+    Desc = "$1,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Katana");
     end
-});BuyIronMaceButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Iron Mace",
+});
+BuyIronMaceButton = Tabs.ShopTab:Button({
+    Title = "Buy Iron Mace",
+    Desc = "$25,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Iron Mace");
     end
-});BuyDualKatanaButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Dual Katana",
+});
+BuyDualKatanaButton = Tabs.ShopTab:Button({
+    Title = "Buy Dual Katana",
+    Desc = "$12,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Dual Katana");
     end
-});BuyTripleKatanaButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Triple Katana",
+});
+BuyTripleKatanaButton = Tabs.ShopTab:Button({
+    Title = "Buy Triple Katana",
+    Desc = "$60,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Triple Katana");
     end
-});BuyPipeButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Pipe",
+});
+BuyPipeButton = Tabs.ShopTab:Button({
+    Title = "Buy Pipe",
+    Desc = "$100,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Pipe");
     end
-});BuyDualHeadedBladeButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Dual Headed Blade",
+});
+BuyDualHeadedBladeButton = Tabs.ShopTab:Button({
+    Title = "Buy Dual Headed Blade",
+    Desc = "$400,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Dual-Headed Blade");
     end
-});BuyBisentoButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Bisento",
+});
+BuyBisentoButton = Tabs.ShopTab:Button({
+    Title = "Buy Bisento",
+    Desc = "$1,200,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Bisento");
     end
-});BuySoulCaneButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Soul Cane",
+});
+BuySoulCaneButton = Tabs.ShopTab:Button({
+    Title = "Buy Soul Cane",
+    Desc = "$1,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Soul Cane");
     end
-});GunShopSection = Tabs.ShopTab:AddSection({"Gun"});BuySlingshotButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Slingshot",
+});
+GunShopSection = Tabs.ShopTab:Section({
+    Title = "Gun",
+    TextXAlignment = "Left"
+});
+BuySlingshotButton = Tabs.ShopTab:Button({
+    Title = "Buy Slingshot",
+    Desc = "$5,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Slingshot");
     end
-});BuyMusketButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Musket",
+});
+BuyMusketButton = Tabs.ShopTab:Button({
+    Title = "Buy Musket",
+    Desc = "$8,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Musket");
     end
-});BuyFintlockButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Flintlock",
+});
+BuyFintlockButton = Tabs.ShopTab:Button({
+    Title = "Buy Flintlock",
+    Desc = "$10,500",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Flintlock");
     end
-});BuyRefinedFintlockButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Refined Fintlock",
+});
+BuyRefinedFintlockButton = Tabs.ShopTab:Button({
+    Title = "Buy Refined Fintlock",
+    Desc = "$60,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Refined Fintlock");
     end
-});BuyCanonButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Cannon",
+});
+BuyCanonButton = Tabs.ShopTab:Button({
+    Title = "Buy Cannon",
+    Desc = "$100,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Cannon");
     end
-});BuyKabuchaButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Kabucha",
+});
+BuyKabuchaButton = Tabs.ShopTab:Button({
+    Title = "Buy Kabucha",
+    Desc = "F’1,500",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BlackbeardReward", "Slingshot", "1");
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BlackbeardReward", "Slingshot", "2");
     end
-});StatsShopSection = Tabs.ShopTab:AddSection({"Stats"});ResetStatsShopButton = Tabs.ShopTab:AddButton({
-    Name = "Reset Stats",
+});
+StatsShopSection = Tabs.ShopTab:Section({
+    Title = "Stats",
+    TextXAlignment = "Left"
+});
+ResetStatsShopButton = Tabs.ShopTab:Button({
+    Title = "Reset Stats",
+    Desc = "F’2,500",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BlackbeardReward", "Refund", "1");
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BlackbeardReward", "Refund", "2");
     end
-});RandomRaceShopButton = Tabs.ShopTab:AddButton({
-    Name = "Random Race",
+});
+RandomRaceShopButton = Tabs.ShopTab:Button({
+    Title = "Random Race",
+    Desc = "F’3,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BlackbeardReward", "Reroll", "1");
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BlackbeardReward", "Reroll", "2");
     end
-});AccessoriesShopSection = Tabs.ShopTab:AddSection({"Accessories"});BuyBlackCapeButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Black Cape",
+});
+AccessoriesShopSection = Tabs.ShopTab:Section({
+    Title = "Accessories",
+    TextXAlignment = "Left"
+});
+BuyBlackCapeButton = Tabs.ShopTab:Button({
+    Title = "Buy Black Cape",
+    Desc = "$50,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Black Cape");
     end
-});BuySwordsmanHatButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Swordsman Hat",
+});
+BuySwordsmanHatButton = Tabs.ShopTab:Button({
+    Title = "Buy Swordsman Hat",
+    Desc = "$150,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Swordsman Hat");
     end
-});BuyTomoeRingButton = Tabs.ShopTab:AddButton({
-    Name = "Buy Tomoe Ring",
+});
+BuyTomoeRingButton = Tabs.ShopTab:Button({
+    Title = "Buy Tomoe Ring",
+    Desc = "$500,000",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("BuyItem", "Tomoe Ring");
     end
-});CombatTabSection = Tabs.CombatTab:AddSection({"Combat"});PlayerInServerTotalParagraph = Tabs.CombatTab:AddParagraph({"Players In Server", "0"});spawn(function()
+});
+CombatTabSection = Tabs.CombatTab:Section({
+    Title = "Combat",
+    TextXAlignment = "Left"
+});
+PlayerInServerTotalParagraph = Tabs.CombatTab:Paragraph({
+    Title = "Players In Server",
+    Desc = "0"
+});
+spawn(function()
     while wait(0.2) do
         pcall(function()
             for i, v in pairs((game:GetService("Players")):GetPlayers()) do
@@ -7254,15 +7819,16 @@ local PlayerList = {};
 for i, v in pairs((game:GetService("Players")):GetChildren()) do
     table.insert(PlayerList, v.Name);
 end
-SelectedPlayerDropdown = Tabs.CombatTab:AddDropdown({
-    Name = "Choose Player",
-    Options = PlayerList,
-    Default = tostring(PlayerList[1]),
+SelectedPlayerDropdown = Tabs.CombatTab:Dropdown({
+    Title = "Choose Player",
+    Values = PlayerList,
+    Value = tostring(PlayerList[1]),
     Callback = function(option)
         _G.SelectedPlayer = option;
     end
-});RefreshPlayerButton = Tabs.CombatTab:AddButton({
-    Name = "Refresh Player",
+});
+RefreshPlayerButton = Tabs.CombatTab:Button({
+    Title = "Refresh Player",
     Callback = function()
         PlayerList = {};
         for i, v in pairs((game:GetService("Players")):GetChildren()) do
@@ -7270,9 +7836,10 @@ SelectedPlayerDropdown = Tabs.CombatTab:AddDropdown({
         end
         SelectedPlayerDropdown:Refresh(PlayerList);
     end
-});SpectatePlayerToggle = Tabs.CombatTab:AddToggle({
-    Name = "Spectate Player",
-    Default = false,
+});
+SpectatePlayerToggle = Tabs.CombatTab:Toggle({
+    Title = "Spectate Player",
+    Value = false,
     Callback = function(state)
         SpectatePlys = state;
         repeat
@@ -7283,9 +7850,10 @@ SelectedPlayerDropdown = Tabs.CombatTab:AddDropdown({
         (game:GetService("Workspace")).Camera.CameraSubject =
             (game:GetService("Players")).LocalPlayer.Character.Humanoid;
     end
-});TeleportToPlayerToggle = Tabs.CombatTab:AddToggle({
-    Name = "Teleport To Player",
-    Default = false,
+});
+TeleportToPlayerToggle = Tabs.CombatTab:Toggle({
+    Title = "Teleport To Player",
+    Value = false,
     Callback = function(state)
         _G.TeleportToPlayer = value;
         pcall(function()
@@ -7299,7 +7867,8 @@ SelectedPlayerDropdown = Tabs.CombatTab:AddDropdown({
             StopTween(_G.TeleportToPlayer);
         end);
     end
-});local IslandList = {};
+});
+local IslandList = {};
 if World1 then
     IslandList = {"WindMill", "Marine", "Middle Town", "Jungle", "Pirate Village", "Desert", "Snow Island",
                   "MarineFord", "Colosseum", "Sky Island 1", "Sky Island 2", "Sky Island 3", "Prison", "Magma Village",
@@ -7313,16 +7882,17 @@ elseif World3 then
                   "Floating Turtle", "Haunted Castle", "Ice Cream Island", "Peanut Island", "Cake Island",
                   "Cocoa Island", "Candy Island", "Tiki Outpost", "Dragon Dojo"};
 end
-SelectedTeleportIslandDropdown = Tabs.TeleportTab:AddDropdown({
-    Name = "Choose Island",
-    Options = IslandList,
-    Default = IslandList[1],
+SelectedTeleportIslandDropdown = Tabs.TeleportTab:Dropdown({
+    Title = "Choose Island",
+    Values = IslandList,
+    Value = IslandList[1],
     Callback = function(option)
         _G.SelectIsland = option;
     end
-});AutoTeleportToIslandToggle = Tabs.TeleportTab:AddToggle({
-    Name = "Teleport To Island",
-    Default = false,
+});
+AutoTeleportToIslandToggle = Tabs.TeleportTab:Toggle({
+    Title = "Teleport To Island",
+    Value = false,
     Callback = function(state)
         _G.TeleportIsland = state;
         if _G.TeleportIsland then
@@ -7443,8 +8013,11 @@ SelectedTeleportIslandDropdown = Tabs.TeleportTab:AddDropdown({
         StopTween(_G.TeleportIsland);
     end
 });
-
-});TeleportNpcSection = Tabs.TeleportTab:AddSection({"Npc"});local NpcList = {};
+TeleportNpcSection = Tabs.TeleportTab:Section({
+    Title = "Npc",
+    TextXAlignment = "Left"
+});
+local NpcList = {};
 if World1 then
     NpcList = {"Random Devil Fruit", "Blox Fruits Dealer", "Remove Devil Fruit", "Ability Teacher", "Dark Step",
                "Electro", "Fishman Karate"};
@@ -7456,16 +8029,17 @@ elseif World3 then
     NpcList = {"Blox Fruits Dealer", "Remove Devil Fruit", "Horned Man", "Hungey Man", "Previous Hero", "Butler",
                "Lunoven", "Trevor", "Elite Hunter", "Player Hunter", "Uzoth"};
 end
-SelectedNpcTeleport = Tabs.TeleportTab:AddDropdown({
-    Name = "Choose Npc",
-    Options = NpcList,
-    Default = NpcList[1],
+SelectedNpcTeleport = Tabs.TeleportTab:Dropdown({
+    Title = "Choose Npc",
+    Values = NpcList,
+    Value = NpcList[1],
     Callback = function(option)
         _G.SelectNPC = option;
     end
-});TeleportToNpcToggle = Tabs.TeleportTab:AddToggle({
-    Name = "Teleport To Npc",
-    Default = false,
+});
+TeleportToNpcToggle = Tabs.TeleportTab:Toggle({
+    Title = "Teleport To Npc",
+    Value = false,
     Callback = function(state)
         _G.TeleportNPC = state;
         if _G.TeleportNPC then
@@ -7573,100 +8147,137 @@ SelectedNpcTeleport = Tabs.TeleportTab:AddDropdown({
         StopTween(_G.TeleportNPC);
     end
 });
-
-});EspSection = Tabs.EspTab:AddSection({"Esp"});EspPlayerToggle = Tabs.EspTab:AddToggle({
-    Name = "Esp Player",
-    Default = _G.Settings.Esp["ESP Player"],
+EspSection = Tabs.EspTab:Section({
+    Title = "Esp",
+    TextXAlignment = "Left"
+});
+EspPlayerToggle = Tabs.EspTab:Toggle({
+    Title = "Esp Player",
+    Desc = "Highlight Player",
+    Value = _G.Settings.Esp["ESP Player"],
     Callback = function(state)
         _G.Settings.Esp["ESP Player"] = state;
     end
-});EspChestToggle = Tabs.EspTab:AddToggle({
-    Name = "Esp Chest",
-    Default = _G.Settings.Esp["ESP Chest"],
+});
+EspChestToggle = Tabs.EspTab:Toggle({
+    Title = "Esp Chest",
+    Desc = "Highlight Chest",
+    Value = _G.Settings.Esp["ESP Chest"],
     Callback = function(state)
         _G.Settings.Esp["ESP Chest"] = state;
     end
-});EspDevilFruitToggle = Tabs.EspTab:AddToggle({
-    Name = "Esp DevilFruit",
-    Default = _G.Settings.Esp["ESP DevilFruit"],
+});
+EspDevilFruitToggle = Tabs.EspTab:Toggle({
+    Title = "Esp DevilFruit",
+    Desc = "Highlight DevilFruit",
+    Value = _G.Settings.Esp["ESP DevilFruit"],
     Callback = function(state)
         _G.Settings.Esp["ESP DevilFruit"] = state;
     end
-});EspRealFruitToggle = Tabs.EspTab:AddToggle({
-    Name = "Esp RealFruit",
-    Default = _G.Settings.Esp["ESP RealFruit"],
+});
+EspRealFruitToggle = Tabs.EspTab:Toggle({
+    Title = "Esp RealFruit",
+    Desc = "Highlight RealFruit",
+    Value = _G.Settings.Esp["ESP RealFruit"],
     Callback = function(state)
         _G.Settings.Esp["ESP RealFruit"] = state;
     end
-});EspFlowerToggle = Tabs.EspTab:AddToggle({
-    Name = "Esp Flower",
-    Default = _G.Settings.Esp["ESP Flower"],
+});
+EspFlowerToggle = Tabs.EspTab:Toggle({
+    Title = "Esp Flower",
+    Desc = "Highlight Flower",
+    Value = _G.Settings.Esp["ESP Flower"],
     Callback = function(state)
         _G.Settings.Esp["ESP Flower"] = state;
     end
-});EspIslandToggle = Tabs.EspTab:AddToggle({
-    Name = "Esp Island",
-    Default = _G.Settings.Esp["ESP Island"],
+});
+EspIslandToggle = Tabs.EspTab:Toggle({
+    Title = "Esp Island",
+    Desc = "Highlight Island",
+    Value = _G.Settings.Esp["ESP Island"],
     Callback = function(state)
         _G.Settings.Esp["ESP Island"] = state;
     end
-});EspNpcToggle = Tabs.EspTab:AddToggle({
-    Name = "Esp Npc",
-    Default = _G.Settings.Esp["ESP Npc"],
+});
+EspNpcToggle = Tabs.EspTab:Toggle({
+    Title = "Esp Npc",
+    Desc = "Highlight Npc",
+    Value = _G.Settings.Esp["ESP Npc"],
     Callback = function(state)
         _G.Settings.Esp["ESP Npc"] = state;
     end
-});EspSeaBeastToggle = Tabs.EspTab:AddToggle({
-    Name = "Esp Sea Beast",
-    Default = _G.Settings.Esp["ESP Sea Beast"],
+});
+EspSeaBeastToggle = Tabs.EspTab:Toggle({
+    Title = "Esp Sea Beast",
+    Desc = "Highlight SeaBeast",
+    Value = _G.Settings.Esp["ESP Sea Beast"],
     Callback = function(state)
         _G.Settings.Esp["ESP Sea Beast"] = state;
     end
-});EspMonsterToggle = Tabs.EspTab:AddToggle({
-    Name = "Esp Monster",
-    Default = _G.Settings.Esp["ESP Monster"],
+});
+EspMonsterToggle = Tabs.EspTab:Toggle({
+    Title = "Esp Monster",
+    Desc = "Highlight Monster",
+    Value = _G.Settings.Esp["ESP Monster"],
     Callback = function(state)
         _G.Settings.Esp["ESP Monster"] = state;
     end
-});EspMirageIslandToggle = Tabs.EspTab:AddToggle({
-    Name = "Esp Mirage Island",
-    Default = _G.Settings.Esp["ESP Mirage"],
+});
+EspMirageIslandToggle = Tabs.EspTab:Toggle({
+    Title = "Esp Mirage Island",
+    Desc = "Highlight Mirage Island",
+    Value = _G.Settings.Esp["ESP Mirage"],
     Callback = function(state)
         _G.Settings.Esp["ESP Mirage"] = state;
     end
-});EspKitsuneIslandToggle = Tabs.EspTab:AddToggle({
-    Name = "Esp Kitsune Island",
-    Default = _G.Settings.Esp["ESP Kitsune"],
+});
+EspKitsuneIslandToggle = Tabs.EspTab:Toggle({
+    Title = "Esp Kitsune Island",
+    Desc = "Highlight Kitsune Island",
+    Value = _G.Settings.Esp["ESP Kitsune"],
     Callback = function(state)
         _G.Settings.Esp["ESP Kitsune"] = state;
     end
-});EspFrozenDimensionToggle = Tabs.EspTab:AddToggle({
-    Name = "Esp Frozen Dimension",
-    Default = _G.Settings.Esp["ESP Frozen"],
+});
+EspFrozenDimensionToggle = Tabs.EspTab:Toggle({
+    Title = "Esp Frozen Dimension",
+    Desc = "Highlight Frozen Dimension",
+    Value = _G.Settings.Esp["ESP Frozen"],
     Callback = function(state)
         _G.Settings.Esp["ESP Frozen"] = state;
     end
-});EspPrehistoricIslandToggle = Tabs.EspTab:AddToggle({
-    Name = "Esp Prehistoric Island",
-    Default = _G.Settings.Esp["ESP Prehistoric"],
+});
+EspPrehistoricIslandToggle = Tabs.EspTab:Toggle({
+    Title = "Esp Prehistoric Island",
+    Desc = "Highlight Prehistoric Island",
+    Value = _G.Settings.Esp["ESP Prehistoric"],
     Callback = function(state)
         _G.Settings.Esp["ESP Prehistoric"] = state;
     end
-});EspGearToggle = Tabs.EspTab:AddToggle({
-    Name = "Esp Gear",
-    Default = _G.Settings.Esp["ESP Gear"],
+});
+EspGearToggle = Tabs.EspTab:Toggle({
+    Title = "Esp Gear",
+    Desc = "Highlight Gear",
+    Value = _G.Settings.Esp["ESP Gear"],
     Callback = function(state)
         _G.Settings.Esp["ESP Gear"] = state;
     end
-});DragonDojoSection = Tabs.DragonDojoTab:AddSection({"Dragon Dojo"});AutoFarmBlazeEmberToggle = Tabs.DragonDojoTab:AddToggle({
-    Name = "Auto Farm Blaze Ember",
-    Default = _G.Settings.DragonDojo["Auto Farm Blaze Ember"],
+});
+DragonDojoSection = Tabs.DragonDojoTab:Section({
+    Title = "Dragon Dojo",
+    TextXAlignment = "Left"
+});
+AutoFarmBlazeEmberToggle = Tabs.DragonDojoTab:Toggle({
+    Title = "Auto Farm Blaze Ember",
+    Desc = "Auto Compleate Quest + Collect Blaze Ember [ Sea 3 Only ]",
+    Value = _G.Settings.DragonDojo["Auto Farm Blaze Ember"],
     Callback = function(state)
         _G.Settings.DragonDojo["Auto Farm Blaze Ember"] = state;
         StopTween(_G.Settings.DragonDojo["Auto Farm Blaze Ember"]);
         (getgenv()).SaveSetting();
     end
-});function getBlazeEmberQuest()
+});
+function getBlazeEmberQuest()
     local ResQuest =
         ((((game:GetService("ReplicatedStorage")):WaitForChild("Modules")):WaitForChild("Net")):WaitForChild(
             "RF/DragonHunter")):InvokeServer({
@@ -7951,42 +8562,54 @@ spawn(function()
         end
     end
 end);
-CraftVolcanicMagnetButton = Tabs.DragonDojoTab:AddButton({
-    Name = "Craft Volcanic Magnet",
+CraftVolcanicMagnetButton = Tabs.DragonDojoTab:Button({
+    Title = "Craft Volcanic Magnet",
     Callback = function()
         (((game:GetService("ReplicatedStorage")):WaitForChild("Remotes")):WaitForChild("CommF_")):InvokeServer(
             "CraftItem", "Craft", "Volcanic Magnet");
     end
-});local SeaEventSection = Tabs.SeaEventTab:AddSection({"Sea Event"});local BoatList = {"Guardian", "Beast Hunter", "PirateGrandBrigade", "MarineGrandBrigade", "PirateBrigade",
+});
+local SeaEventSection = Tabs.SeaEventTab:Section({
+    Title = "Sea Event",
+    TextXAlignment = "Left"
+});
+local BoatList = {"Guardian", "Beast Hunter", "PirateGrandBrigade", "MarineGrandBrigade", "PirateBrigade",
                   "MarineBrigade", "PirateSloop", "MarineSloop"};
 local ZoneList = {"Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Infinite"};
-ChooseBoatDropdown = Tabs.SeaEventTab:AddDropdown({
-    Name = "Choose Boat",
-    Options = BoatList,
-    Default = _G.Settings.SeaEvent["Selected Boat"],
+ChooseBoatDropdown = Tabs.SeaEventTab:Dropdown({
+    Title = "Choose Boat",
+    Values = BoatList,
+    Value = _G.Settings.SeaEvent["Selected Boat"],
     Callback = function(option)
         _G.Settings.SeaEvent["Selected Boat"] = option;
         (getgenv()).SaveSetting();
     end
-});ChooseZoneDropdown = Tabs.SeaEventTab:AddDropdown({
-    Name = "Choose Zone",
-    Options = ZoneList,
-    Default = _G.Settings.SeaEvent["Selected Zone"],
+});
+ChooseZoneDropdown = Tabs.SeaEventTab:Dropdown({
+    Title = "Choose Zone",
+    Values = ZoneList,
+    Value = _G.Settings.SeaEvent["Selected Zone"],
     Callback = function(option)
         _G.Settings.SeaEvent["Selected Zone"] = option;
         (getgenv()).SaveSetting();
     end
-});BoatTweenSpeedSlider = Tabs.SeaEventTab:AddSlider({
-    Name = "Boat Tween Speed",
-    Min = 1,
-    Max = 350,
-    Default = _G.Settings.SeaEvent["Boat Tween Speed"],
+});
+BoatTweenSpeedSlider = Tabs.SeaEventTab:Slider({
+    Title = "Boat Tween Speed",
+    Step = 1,
+    Value = {
+        Min = 1,
+        Max = 350,
+        Default = _G.Settings.SeaEvent["Boat Tween Speed"]
+    },
     Callback = function(value)
         _G.Settings.SeaEvent["Boat Tween Speed"] = value;
     end
-});AutoSailBoatToggle = Tabs.SeaEventTab:AddToggle({
-    Name = "Sail Boat",
-    Default = _G.Settings.SeaEvent["Sail Boat"],
+});
+AutoSailBoatToggle = Tabs.SeaEventTab:Toggle({
+    Title = "Sail Boat",
+    Desc = "Auto Sail Boat & Kill Enemies",
+    Value = _G.Settings.SeaEvent["Sail Boat"],
     Callback = function(state)
         _G.Settings.SeaEvent["Sail Boat"] = state;
         StopTween(_G.Settings.SeaEvent["Sail Boat"]);
@@ -7996,7 +8619,8 @@ ChooseBoatDropdown = Tabs.SeaEventTab:AddDropdown({
             Skillaimbot = false;
         end
     end
-});local CFrameSelectedZone;
+});
+local CFrameSelectedZone;
 spawn(function()
     pcall(function()
         while wait(0.2) do
@@ -8449,71 +9073,95 @@ function DodgeSeabeasts()
         end
     end
 end
-SeaEventEnemiesSection = Tabs.SeaEventTab:AddSection({"Enemies"});AutoFarmSharkToggle = Tabs.SeaEventTab:AddToggle({
-    Name = "Auto Farm Shark",
-    Default = _G.Settings.SeaEvent["Auto Farm Shark"],
+SeaEventEnemiesSection = Tabs.SeaEventTab:Section({
+    Title = "Enemies",
+    TextXAlignment = "Left"
+});
+AutoFarmSharkToggle = Tabs.SeaEventTab:Toggle({
+    Title = "Auto Farm Shark",
+    Value = _G.Settings.SeaEvent["Auto Farm Shark"],
     Callback = function(state)
         _G.Settings.SeaEvent["Auto Farm Shark"] = state;
         StopTween(_G.Settings.SeaEvent["Auto Farm Shark"]);
         (getgenv()).SaveSetting();
     end
-});AutoFarmPiranhaToggle = Tabs.SeaEventTab:AddToggle({
-    Name = "Auto Farm Piranha",
-    Default = _G.Settings.SeaEvent["Auto Farm Piranha"],
+});
+AutoFarmPiranhaToggle = Tabs.SeaEventTab:Toggle({
+    Title = "Auto Farm Piranha",
+    Value = _G.Settings.SeaEvent["Auto Farm Piranha"],
     Callback = function(state)
         _G.Settings.SeaEvent["Auto Farm Piranha"] = state;
         StopTween(_G.Settings.SeaEvent["Auto Farm Piranha"]);
         (getgenv()).SaveSetting();
     end
-});AutoFarmFishCrewMemberToggle = Tabs.SeaEventTab:AddToggle({
-    Name = "Auto Farm Fish Crew Member",
-    Default = _G.Settings.SeaEvent["Auto Farm Fish Crew Member"],
+});
+AutoFarmFishCrewMemberToggle = Tabs.SeaEventTab:Toggle({
+    Title = "Auto Farm Fish Crew Member",
+    Value = _G.Settings.SeaEvent["Auto Farm Fish Crew Member"],
     Callback = function(state)
         _G.Settings.SeaEvent["Auto Farm Fish Crew Member"] = state;
         StopTween(_G.Settings.SeaEvent["Auto Farm Fish Crew Member"]);
         (getgenv()).SaveSetting();
     end
-});SeaEventBoatSection = Tabs.SeaEventTab:AddSection({"Boat"});AutoFarmGhostShipToggle = Tabs.SeaEventTab:AddToggle({
-    Name = "Auto Farm Ghost Ship",
-    Default = _G.Settings.SeaEvent["Auto Farm Ghost Ship"],
+});
+SeaEventBoatSection = Tabs.SeaEventTab:Section({
+    Title = "Boat",
+    TextXAlignment = "Left"
+});
+AutoFarmGhostShipToggle = Tabs.SeaEventTab:Toggle({
+    Title = "Auto Farm Ghost Ship",
+    Value = _G.Settings.SeaEvent["Auto Farm Ghost Ship"],
     Callback = function(state)
         _G.Settings.SeaEvent["Auto Farm Ghost Ship"] = state;
         StopTween(_G.Settings.SeaEvent["Auto Farm Ghost Ship"]);
         (getgenv()).SaveSetting();
     end
-});AutoFarmPirateBrigadeToggle = Tabs.SeaEventTab:AddToggle({
-    Name = "Auto Farm Pirate Brigade",
-    Default = _G.Settings.SeaEvent["Auto Farm Pirate Brigade"],
+});
+AutoFarmPirateBrigadeToggle = Tabs.SeaEventTab:Toggle({
+    Title = "Auto Farm Pirate Brigade",
+    Value = _G.Settings.SeaEvent["Auto Farm Pirate Brigade"],
     Callback = function(state)
         _G.Settings.SeaEvent["Auto Farm Pirate Brigade"] = state;
         StopTween(_G.Settings.SeaEvent["Auto Farm Pirate Brigade"]);
         (getgenv()).SaveSetting();
     end
-});AutoFarmPirateGrandBrigadeToggle = Tabs.SeaEventTab:AddToggle({
-    Name = "Auto Farm Pirate Grand Brigade",
-    Default = _G.Settings.SeaEvent["Auto Farm Pirate Grand Brigade"],
+});
+AutoFarmPirateGrandBrigadeToggle = Tabs.SeaEventTab:Toggle({
+    Title = "Auto Farm Pirate Grand Brigade",
+    Value = _G.Settings.SeaEvent["Auto Farm Pirate Grand Brigade"],
     Callback = function(state)
         _G.Settings.SeaEvent["Auto Farm Pirate Grand Brigade"] = state;
         StopTween(_G.Settings.SeaEvent["Auto Farm Pirate Grand Brigade"]);
         (getgenv()).SaveSetting();
     end
-});SeaEventBossSection = Tabs.SeaEventTab:AddSection({"Boss"});AutoFarmTerrorsharkToggle = Tabs.SeaEventTab:AddToggle({
-    Name = "Auto Farm Terrorshark",
-    Default = _G.Settings.SeaEvent["Auto Farm Terrorshark"],
+});
+SeaEventBossSection = Tabs.SeaEventTab:Section({
+    Title = "Boss",
+    TextXAlignment = "Left"
+});
+AutoFarmTerrorsharkToggle = Tabs.SeaEventTab:Toggle({
+    Title = "Auto Farm Terrorshark",
+    Value = _G.Settings.SeaEvent["Auto Farm Terrorshark"],
     Callback = function(state)
         _G.Settings.SeaEvent["Auto Farm Terrorshark"] = state;
         StopTween(_G.Settings.SeaEvent["Auto Farm Terrorshark"]);
         (getgenv()).SaveSetting();
     end
-});AutoFarmSeabeastsToggle = Tabs.SeaEventTab:AddToggle({
-    Name = "Auto Farm Seabeasts",
-    Default = _G.Settings.SeaEvent["Auto Farm Seabeasts"],
+});
+AutoFarmSeabeastsToggle = Tabs.SeaEventTab:Toggle({
+    Title = "Auto Farm Seabeasts",
+    Value = _G.Settings.SeaEvent["Auto Farm Seabeasts"],
     Callback = function(state)
         _G.Settings.SeaEvent["Auto Farm Seabeasts"] = state;
         StopTween(_G.Settings.SeaEvent["Auto Farm Seabeasts"]);
         (getgenv()).SaveSetting();
     end
-});SeaStackSection = Tabs.SeaStackTab:AddSection({"Sea Stack"});spawn(function()
+});
+SeaStackSection = Tabs.SeaStackTab:Section({
+    Title = "Sea Stack",
+    TextXAlignment = "Left"
+});
+spawn(function()
     pcall(function()
         while wait(0.2) do
             if game.Workspace._WorldOrigin.Locations:FindFirstChild("Mirage Island") then
@@ -8539,15 +9187,21 @@ SeaEventEnemiesSection = Tabs.SeaEventTab:AddSection({"Enemies"});AutoFarmSharkT
         end
     end);
 end);
-PrehistoricStatusSeaStackParagraph = Tabs.SeaStackTab:AddParagraph({"Prehistoric Status", "N/A"});AutoSummonPrehistoricIslandToggle = Tabs.SeaStackTab:AddToggle({
-    Name = "Summon Prehistoric Island",
-    Default = _G.Settings.SeaStack["Summon Prehistoric Island"],
+PrehistoricStatusSeaStackParagraph = Tabs.SeaStackTab:Paragraph({
+    Title = "Prehistoric Status",
+    Desc = "N/A"
+});
+AutoSummonPrehistoricIslandToggle = Tabs.SeaStackTab:Toggle({
+    Title = "Summon Prehistoric Island",
+    Desc = "Need Volcanic Magnet",
+    Value = _G.Settings.SeaStack["Summon Prehistoric Island"],
     Callback = function(state)
         _G.Settings.SeaStack["Summon Prehistoric Island"] = state;
         StopTween(_G.Settings.SeaStack["Summon Prehistoric Island"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         pcall(function()
             if _G.Settings.SeaStack["Summon Prehistoric Island"] and World3 then
@@ -8594,15 +9248,17 @@ PrehistoricStatusSeaStackParagraph = Tabs.SeaStackTab:AddParagraph({"Prehistoric
         end);
     end
 end);
-TweenToPrehistoricIslandToggle = Tabs.SeaStackTab:AddToggle({
-    Name = "Tween To Prehistoric Island",
-    Default = _G.Settings.SeaStack["Tween To Prehistoric Island"],
+TweenToPrehistoricIslandToggle = Tabs.SeaStackTab:Toggle({
+    Title = "Tween To Prehistoric Island",
+    Desc = "Need Spawn",
+    Value = _G.Settings.SeaStack["Tween To Prehistoric Island"],
     Callback = function(state)
         _G.Settings.SeaStack["Tween To Prehistoric Island"] = state;
         StopTween(_G.Settings.SeaStack["Tween To Prehistoric Island"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait() do
         if _G.Settings.SeaStack["Tween To Prehistoric Island"] then
             pcall(function()
@@ -8614,15 +9270,16 @@ TweenToPrehistoricIslandToggle = Tabs.SeaStackTab:AddToggle({
         end
     end
 end);
-AutoKillLavaGolemToggle = Tabs.SeaStackTab:AddToggle({
-    Name = "Auto Kill Lava Golem",
-    Default = _G.Settings.SeaStack["Auto Kill Lava Golem"],
+AutoKillLavaGolemToggle = Tabs.SeaStackTab:Toggle({
+    Title = "Auto Kill Lava Golem",
+    Value = _G.Settings.SeaStack["Auto Kill Lava Golem"],
     Callback = function(state)
         _G.Settings.SeaStack["Auto Kill Lava Golem"] = state;
         StopTween(_G.Settings.SeaStack["Auto Kill Lava Golem"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.DragonDojo["Auto Kill Lava Golem"] and World3 then
             pcall(function()
@@ -8651,15 +9308,20 @@ AutoKillLavaGolemToggle = Tabs.SeaStackTab:AddToggle({
         end
     end
 end);
-FrozenStatusSeaStackParagraph = Tabs.SeaStackTab:AddParagraph({"Frozen Status", "N/A"});AutoSummonFrozenDimensionToggle = Tabs.SeaStackTab:AddToggle({
-    Name = "Summon Frozen Dimension",
-    Default = _G.Settings.SeaStack["Summon Frozen Dimension"],
+FrozenStatusSeaStackParagraph = Tabs.SeaStackTab:Paragraph({
+    Title = "Frozen Status",
+    Desc = "N/A"
+});
+AutoSummonFrozenDimensionToggle = Tabs.SeaStackTab:Toggle({
+    Title = "Summon Frozen Dimension",
+    Value = _G.Settings.SeaStack["Summon Frozen Dimension"],
     Callback = function(state)
         _G.Settings.SeaStack["Summon Frozen Dimension"] = state;
         StopTween(_G.Settings.SeaStack["Summon Frozen Dimension"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         pcall(function()
             if _G.Settings.SeaStack["Summon Frozen Dimension"] and World3 then
@@ -8705,15 +9367,16 @@ FrozenStatusSeaStackParagraph = Tabs.SeaStackTab:AddParagraph({"Frozen Status", 
         end);
     end
 end);
-TweenToFrozenDimensionToggle = Tabs.SeaStackTab:AddToggle({
-    Name = "Tween To Frozen Dimension",
-    Default = _G.Settings.SeaStack["Tween To Frozen Dimension"],
+TweenToFrozenDimensionToggle = Tabs.SeaStackTab:Toggle({
+    Title = "Tween To Frozen Dimension",
+    Value = _G.Settings.SeaStack["Tween To Frozen Dimension"],
     Callback = function(state)
         _G.Settings.SeaStack["Tween To Frozen Dimension"] = state;
         StopTween(_G.Settings.SeaStack["Tween To Frozen Dimension"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.SeaStack["Tween To Frozen Dimension"] then
             pcall(function()
@@ -8726,29 +9389,40 @@ TweenToFrozenDimensionToggle = Tabs.SeaStackTab:AddToggle({
         end
     end
 end);
-BribeLeviathanStatusParagraph = Tabs.SeaStackTab:AddParagraph({"Leviathan Status", "0"});BribeLeviathanButton = Tabs.SeaStackTab:AddButton({
-    Name = "Bribe Leviathan",
+BribeLeviathanStatusParagraph = Tabs.SeaStackTab:Paragraph({
+    Title = "Leviathan Status",
+    Desc = "0"
+});
+BribeLeviathanButton = Tabs.SeaStackTab:Button({
+    Title = "Bribe Leviathan",
     Callback = function()
         local Status = (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("InfoLeviathan", "2");
         BribeLeviathanStatusParagraph:SetDesc(Status);
     end
-});KitsuneStatusSeaStackParagraph = Tabs.SeaStackTab:AddParagraph({"Kitsune Status", "N/A"});AutoSummonKitsuneIslandToggle = Tabs.SeaStackTab:AddToggle({
-    Name = "Summon Kitsune Island",
-    Default = _G.Settings.SeaStack["Summon Kitsune Island"],
+});
+KitsuneStatusSeaStackParagraph = Tabs.SeaStackTab:Paragraph({
+    Title = "Kitsune Status",
+    Desc = "N/A"
+});
+AutoSummonKitsuneIslandToggle = Tabs.SeaStackTab:Toggle({
+    Title = "Summon Kitsune Island",
+    Value = _G.Settings.SeaStack["Summon Kitsune Island"],
     Callback = function(state)
         _G.Settings.SeaStack["Summon Kitsune Island"] = state;
         StopTween(_G.Settings.SeaStack["Summon Kitsune Island"]);
         (getgenv()).SaveSetting();
     end
-});TweenToKitsuneIslandToggle = Tabs.SeaStackTab:AddToggle({
-    Name = "Tween To Kitsune Island",
-    Default = _G.Settings.SeaStack["Tween To Kitsune Island"],
+});
+TweenToKitsuneIslandToggle = Tabs.SeaStackTab:Toggle({
+    Title = "Tween To Kitsune Island",
+    Value = _G.Settings.SeaStack["Tween To Kitsune Island"],
     Callback = function(state)
         _G.Settings.SeaStack["Tween To Kitsune Island"] = state;
         StopTween(_G.Settings.SeaStack["Tween To Kitsune Island"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.SeaStack["Tween To Kitsune Island"] and World3 then
             if (game:GetService("Workspace")).Map:FindFirstChild("KitsuneIsland") then
@@ -8803,14 +9477,15 @@ spawn(function()
         end);
     end
 end);
-AutoCollectAzureEmberToggle = Tabs.SeaStackTab:AddToggle({
-    Name = "Auto Collect Azure Ember",
-    Default = _G.Settings.SeaStack["Auto Collect Azure Ember"],
+AutoCollectAzureEmberToggle = Tabs.SeaStackTab:Toggle({
+    Title = "Auto Collect Azure Ember",
+    Value = _G.Settings.SeaStack["Auto Collect Azure Ember"],
     Callback = function(state)
         _G.Settings.SeaStack["Auto Collect Azure Ember"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.SeaStack["Auto Collect Azure Ember"] and World3 then
             pcall(function()
@@ -8822,23 +9497,28 @@ AutoCollectAzureEmberToggle = Tabs.SeaStackTab:AddToggle({
         end
     end
 end);
-SetAzureEmberSlider = Tabs.SeaStackTab:AddSlider({
-    Name = "Set Azure Ember",
-    Min = 1,
-    Max = 25,
-    Default = _G.Settings.SeaStack["Set Azure Ember"],
+SetAzureEmberSlider = Tabs.SeaStackTab:Slider({
+    Title = "Set Azure Ember",
+    Step = 1,
+    Value = {
+        Min = 1,
+        Max = 25,
+        Default = _G.Settings.SeaStack["Set Azure Ember"]
+    },
     Callback = function(value)
         _G.Settings.SeaStack["Set Azure Ember"] = value;
         (getgenv()).SaveSetting();
     end
-});AutoTradeAzureEmberToggle = Tabs.SeaStackTab:AddToggle({
-    Name = "Auto Trade Azure Ember",
-    Default = _G.Settings.SeaStack["Auto Trade Azure Ember"],
+});
+AutoTradeAzureEmberToggle = Tabs.SeaStackTab:Toggle({
+    Title = "Auto Trade Azure Ember",
+    Value = _G.Settings.SeaStack["Auto Trade Azure Ember"],
     Callback = function(state)
         _G.Settings.SeaStack["Auto Trade Azure Ember"] = state;
         (getgenv()).SaveSetting();
     end
-});function GetCountMaterials(MaterialName)
+});
+function GetCountMaterials(MaterialName)
     local Inventory = (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("getInventory");
     for i, v in pairs(Inventory) do
         if v.Name == MaterialName then
@@ -8859,15 +9539,20 @@ spawn(function()
         end
     end
 end);
-MirageStatusSeaStackParagraph = Tabs.SeaStackTab:AddParagraph({"Mirage Status", "N/A"});TweenToMirageIslandToggle = Tabs.SeaStackTab:AddToggle({
-    Name = "Tween To Mirage Island",
-    Default = _G.Settings.SeaStack["Tween To Mirage Island"],
+MirageStatusSeaStackParagraph = Tabs.SeaStackTab:Paragraph({
+    Title = "Mirage Status",
+    Desc = "N/A"
+});
+TweenToMirageIslandToggle = Tabs.SeaStackTab:Toggle({
+    Title = "Tween To Mirage Island",
+    Value = _G.Settings.SeaStack["Tween To Mirage Island"],
     Callback = function(state)
         _G.Settings.SeaStack["Tween To Mirage Island"] = state;
         StopTween(_G.Settings.SeaStack["Tween To Mirage Island"]);
         (getgenv()).SaveSetting();
     end
-});function GetHighestPoint()
+});
+function GetHighestPoint()
     for i, v in pairs((game:GetService("Workspace")).Map.MysticIsland:GetDescendants()) do
         if v:IsA("MeshPart") then
             if v.MeshId == "rbxassetid://6745037796" then
@@ -8898,15 +9583,20 @@ spawn(function()
         end
     end);
 end);
-SeaBeastSeaStackSection = Tabs.SeaStackTab:AddSection({"Sea Beasts"});AutoAttackSeaBeastsToggle = Tabs.SeaStackTab:AddToggle({
-    Name = "Auto Attack Seabeasts",
-    Default = _G.Settings.SeaStack["Auto Attack Seabeasts"],
+SeaBeastSeaStackSection = Tabs.SeaStackTab:Section({
+    Title = "Sea Beasts",
+    TextXAlignment = "Left"
+});
+AutoAttackSeaBeastsToggle = Tabs.SeaStackTab:Toggle({
+    Title = "Auto Attack Seabeasts",
+    Value = _G.Settings.SeaStack["Auto Attack Seabeasts"],
     Callback = function(state)
         _G.Settings.SeaStack["Auto Attack Seabeasts"] = state;
         StopTween(_G.Settings.SeaStack["Auto Attack Seabeasts"]);
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     pcall(function()
         while wait() do
             if _G.Settings.SeaStack["Auto Attack Seabeasts"] and (World2 or World3) then
@@ -8947,26 +9637,32 @@ SeaBeastSeaStackSection = Tabs.SeaStackTab:AddSection({"Sea Beasts"});AutoAttack
         end
     end);
 end);
-SettingSeaSection = Tabs.SeaSettingsTab:AddSection({"Setting Sea"});LightningToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Lightning",
-    Default = _G.Settings.SettingSea.Lightning,
+SettingSeaSection = Tabs.SeaSettingsTab:Section({
+    Title = "Setting Sea",
+    TextXAlignment = "Left"
+});
+LightningToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Lightning",
+    Value = _G.Settings.SettingSea.Lightning,
     Callback = function(state)
         _G.Settings.SettingSea.Lightning = state;
     end
-});local RunService = game:GetService("RunService");
+});
+local RunService = game:GetService("RunService");
 RunService.Heartbeat:Connect(function()
     local Lighting = game:GetService("Lighting");
     if _G.Settings.SettingSea.Lightning then
         Lighting.ClockTime = 12;
     end
 end);
-IncreaseSpeedBoatToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Increase Speed Boat",
-    Default = _G.Settings.SettingSea["Increase Speed Boat"],
+IncreaseSpeedBoatToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Increase Speed Boat",
+    Value = _G.Settings.SettingSea["Increase Speed Boat"],
     Callback = function(state)
         _G.Settings.SettingSea["Increase Speed Boat"] = state;
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         pcall(function()
             local vehicleSeats = {};
@@ -8987,13 +9683,14 @@ IncreaseSpeedBoatToggle = Tabs.SeaSettingsTab:AddToggle({
         end);
     end
 end);
-NoClipRockToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "No Clip Rock",
-    Default = _G.Settings.SettingSea["No Clip Rock"],
+NoClipRockToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "No Clip Rock",
+    Value = _G.Settings.SettingSea["No Clip Rock"],
     Callback = function(state)
         _G.Settings.SettingSea["No Clip Rock"] = state;
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         pcall(function()
             for i, boat in pairs((game:GetService("Workspace")).Boats:GetChildren()) do
@@ -9010,98 +9707,123 @@ NoClipRockToggle = Tabs.SeaSettingsTab:AddToggle({
         end);
     end
 end);
-SettingSeaSection = Tabs.SeaSettingsTab:AddSection({"Tools"});UseDevilFruitSkillToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Use Devil Fruit Skill",
-    Default = true,
+SettingSeaSection = Tabs.SeaSettingsTab:Section({
+    Title = "Tools",
+    TextXAlignment = "Left"
+});
+UseDevilFruitSkillToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Use Devil Fruit Skill",
+    Value = true,
     Callback = function(state)
         _G.Settings.SettingSea["Use Devil Fruit Skill"] = state;
         (getgenv()).SaveSetting();
     end
-});UseMeleeSkillToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Use Melee Skill",
-    Default = true,
+});
+UseMeleeSkillToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Use Melee Skill",
+    Value = true,
     Callback = function(state)
         _G.Settings.SettingSea["Use Melee Skill"] = state;
         (getgenv()).SaveSetting();
     end
-});UseSwordSkillToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Use Sword Skill",
-    Default = true,
+});
+UseSwordSkillToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Use Sword Skill",
+    Value = true,
     Callback = function(state)
         _G.Settings.SettingSea["Use Sword Skill"] = state;
         (getgenv()).SaveSetting();
     end
-});UseGunSkillToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Use Gun Skill",
-    Default = true,
+});
+UseGunSkillToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Use Gun Skill",
+    Value = true,
     Callback = function(state)
         _G.Settings.SettingSea["Use Gun Skill"] = state;
         (getgenv()).SaveSetting();
     end
-});DevilFruitSkillSection = Tabs.SeaSettingsTab:AddSection({"Devil Fruit Skill"});DevilFruitZSkillToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Devil Fruit Z Skill",
-    Default = true,
+});
+DevilFruitSkillSection = Tabs.SeaSettingsTab:Section({
+    Title = "Devil Fruit Skill",
+    TextXAlignment = "Left"
+});
+DevilFruitZSkillToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Devil Fruit Z Skill",
+    Value = true,
     Callback = function(state)
         _G.Settings.SettingSea["Devil Fruit Z Skill"] = state;
         (getgenv()).SaveSetting();
     end
-});DevilFruitXSkillToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Devil Fruit X Skill",
-    Default = true,
+});
+DevilFruitXSkillToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Devil Fruit X Skill",
+    Value = true,
     Callback = function(state)
         _G.Settings.SettingSea["Devil Fruit X Skill"] = state;
         (getgenv()).SaveSetting();
     end
-});DevilFruitCSkillToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Devil Fruit C Skill",
-    Default = true,
+});
+DevilFruitCSkillToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Devil Fruit C Skill",
+    Value = true,
     Callback = function(state)
         _G.Settings.SettingSea["Devil Fruit C Skill"] = state;
         (getgenv()).SaveSetting();
     end
-});DevilFruitVSkillToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Devil Fruit V Skill",
-    Default = _G.Settings.SettingSea["Devil Fruit V Skill"],
+});
+DevilFruitVSkillToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Devil Fruit V Skill",
+    Value = _G.Settings.SettingSea["Devil Fruit V Skill"],
     Callback = function(state)
         _G.Settings.SettingSea["Devil Fruit V Skill"] = state;
         (getgenv()).SaveSetting();
     end
-});DevilFruitFSkillToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Devil Fruit F Skill",
-    Default = _G.Settings.SettingSea["Devil Fruit F Skill"],
+});
+DevilFruitFSkillToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Devil Fruit F Skill",
+    Value = _G.Settings.SettingSea["Devil Fruit F Skill"],
     Callback = function(state)
         _G.Settings.SettingSea["Devil Fruit F Skill"] = state;
         (getgenv()).SaveSetting();
     end
-});MeleeSkillSection = Tabs.SeaSettingsTab:AddSection({"Melee Skill"});MeleeZSkillToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Melee Z Skill",
-    Default = true,
+});
+MeleeSkillSection = Tabs.SeaSettingsTab:Section({
+    Title = "Melee Skill",
+    TextXAlignment = "Left"
+});
+MeleeZSkillToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Melee Z Skill",
+    Value = true,
     Callback = function(state)
         _G.Settings.SettingSea["Melee Z Skill"] = state;
         (getgenv()).SaveSetting();
     end
-});MeleeXSkillToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Melee X Skill",
-    Default = true,
+});
+MeleeXSkillToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Melee X Skill",
+    Value = true,
     Callback = function(state)
         _G.Settings.SettingSea["Melee X Skill"] = state;
         (getgenv()).SaveSetting();
     end
-});MeleeCSkillToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Melee C Skill",
-    Default = true,
+});
+MeleeCSkillToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Melee C Skill",
+    Value = true,
     Callback = function(state)
         _G.Settings.SettingSea["Melee C Skill"] = state;
         (getgenv()).SaveSetting();
     end
-});MeleeVSkillToggle = Tabs.SeaSettingsTab:AddToggle({
-    Name = "Melee V Skill",
-    Default = true,
+});
+MeleeVSkillToggle = Tabs.SeaSettingsTab:Toggle({
+    Title = "Melee V Skill",
+    Value = true,
     Callback = function(state)
         _G.Settings.SettingSea["Melee V Skill"] = state;
         (getgenv()).SaveSetting();
     end
-});DoneSkillGun = false;
+});
+DoneSkillGun = false;
 DoneSkillSword = false;
 DoneSkillFruit = false;
 DoneSkillMelee = false;
@@ -9298,21 +10020,29 @@ spawn(function()
         end);
     end
 end);
-LocalPlayerSection = Tabs.LocalPlayerTab:AddSection({"Local Player"});AutoActiveRaceV3Toggle = Tabs.LocalPlayerTab:AddToggle({
-    Name = "Active Race V3",
-    Default = _G.Settings.LocalPlayer["Active Race V3"],
+LocalPlayerSection = Tabs.LocalPlayerTab:Section({
+    Title = "Local Player",
+    TextXAlignment = "Left"
+});
+AutoActiveRaceV3Toggle = Tabs.LocalPlayerTab:Toggle({
+    Title = "Active Race V3",
+    Desc = "Auto Turn On Tribe V3",
+    Value = _G.Settings.LocalPlayer["Active Race V3"],
     Callback = function(state)
         _G.Settings.LocalPlayer["Active Race V3"] = state;
         (getgenv()).SaveSetting();
     end
-});AutoActiveRaceV4Toggle = Tabs.LocalPlayerTab:AddToggle({
-    Name = "Active Race V4",
-    Default = _G.Settings.LocalPlayer["Active Race V4"],
+});
+AutoActiveRaceV4Toggle = Tabs.LocalPlayerTab:Toggle({
+    Title = "Active Race V4",
+    Desc = "Auto Turn On Tribe V4",
+    Value = _G.Settings.LocalPlayer["Active Race V4"],
     Callback = function(state)
         _G.Settings.LocalPlayer["Active Race V4"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.LocalPlayer["Active Race V4"] then
             if tonumber(((game:GetService("Players")).LocalPlayer.Character:WaitForChild("RaceEnergy")).Value) == 1 then
@@ -9334,14 +10064,16 @@ spawn(function()
         end
     end);
 end);
-WalkOnWaterToggle = Tabs.LocalPlayerTab:AddToggle({
-    Name = "Walk On Water",
-    Default = _G.Settings.LocalPlayer["Walk On Water"],
+WalkOnWaterToggle = Tabs.LocalPlayerTab:Toggle({
+    Title = "Walk On Water",
+    Desc = "Moving on Water Surface (Jesus)",
+    Value = _G.Settings.LocalPlayer["Walk On Water"],
     Callback = function(state)
         _G.Settings.LocalPlayer["Walk On Water"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while task.wait(0.2) do
         pcall(function()
             if _G.Settings.LocalPlayer["Walk On Water"] then
@@ -9352,20 +10084,27 @@ WalkOnWaterToggle = Tabs.LocalPlayerTab:AddToggle({
         end);
     end
 end);
-NoClipPlayerToggle = Tabs.LocalPlayerTab:AddToggle({
-    Name = "No Clip",
-    Default = _G.Settings.LocalPlayer["No Clip"],
+NoClipPlayerToggle = Tabs.LocalPlayerTab:Toggle({
+    Title = "No Clip",
+    Desc = "Travel Through Walls",
+    Value = _G.Settings.LocalPlayer["No Clip"],
     Callback = function(state)
         _G.Settings.LocalPlayer["No Clip"] = state;
         (getgenv()).SaveSetting();
     end
-});FruitSection = Tabs.FruitTab:AddSection({"Fruit"});AutoRandomFruitToggle = Tabs.FruitTab:AddToggle({
-    Name = "Auto Random Fruit",
-    Default = _G.Settings.Fruit["Auto Buy Random Fruit"],
+});
+FruitSection = Tabs.FruitTab:Section({
+    Title = "Fruit",
+    TextXAlignment = "Left"
+});
+AutoRandomFruitToggle = Tabs.FruitTab:Toggle({
+    Title = "Auto Random Fruit",
+    Value = _G.Settings.Fruit["Auto Buy Random Fruit"],
     Callback = function(state)
         _G.Settings.Fruit["Auto Buy Random Fruit"] = state;
     end
-});spawn(function()
+});
+spawn(function()
     pcall(function()
         while wait(0.2) do
             if _G.Settings.Fruit["Auto Buy Random Fruit"] then
@@ -9386,15 +10125,16 @@ local RarityFruits = {
 };
 local SelectRarityFruits = {"Common - Mythical", "Uncommon - Mythical", "Rare - Mythical", "Legendary - Mythical",
                             "Mythical"};
-StoreRarityFruitDropdown = Tabs.FruitTab:AddDropdown({
-    Name = "Store Rarity Fruit",
-    Options = SelectRarityFruits,
-    Default = _G.Settings.Fruit["Store Rarity Fruit"],
+StoreRarityFruitDropdown = Tabs.FruitTab:Dropdown({
+    Title = "Store Rarity Fruit",
+    Values = SelectRarityFruits,
+    Value = _G.Settings.Fruit["Store Rarity Fruit"],
     Callback = function(option)
         _G.Settings.Fruit["Store Rarity Fruit"] = option;
         (getgenv()).SaveSetting();
     end
-});function CheckFruits()
+});
+function CheckFruits()
     for i, v in pairs(RarityFruits) do
         if _G.Settings.Fruit["Store Rarity Fruit"] == "Common - Mythical" then
             if i == "Common" or i == "Uncommon" or i == "Rare" or i == "Legendary" or i == "Mythical" then
@@ -9429,14 +10169,15 @@ StoreRarityFruitDropdown = Tabs.FruitTab:AddDropdown({
         end
     end
 end
-AutoStoreFruitToggle = Tabs.FruitTab:AddToggle({
-    Name = "Auto Store Fruit",
-    Default = _G.Settings.Fruit["Auto Store Fruit"],
+AutoStoreFruitToggle = Tabs.FruitTab:Toggle({
+    Title = "Auto Store Fruit",
+    Value = _G.Settings.Fruit["Auto Store Fruit"],
     Callback = function(state)
         _G.Settings.Fruit["Auto Store Fruit"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         pcall(function()
             if _G.Settings.Fruit["Auto Store Fruit"] then
@@ -9461,36 +10202,39 @@ AutoStoreFruitToggle = Tabs.FruitTab:AddToggle({
         end);
     end
 end);
-FruitNotification = Tabs.FruitTab:AddToggle({
-    Name = "Fruit Notification",
-    Default = _G.Settings.Fruit["Fruit Notification"],
+FruitNotification = Tabs.FruitTab:Toggle({
+    Title = "Fruit Notification",
+    Value = _G.Settings.Fruit["Fruit Notification"],
     Callback = function(state)
         _G.Settings.Fruit["Fruit Notification"] = value;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(2) do
         if _G.Settings.Fruit["Fruit Notification"] then
             for i, v in pairs(game.Workspace:GetChildren()) do
                 if string.find(v.Name, "Fruit") then
-                    game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Fruit found",
-    Text = v.Name,
-    Duration = 3
-});
+                    WindUI:Notify({
+                        Title = "Fruit found",
+                        Content = v.Name,
+                        Icon = "bell",
+                        Duration = 3
+                    });
                 end
             end
         end
     end
 end);
-TeleportToFruitToggle = Tabs.FruitTab:AddToggle({
-    Name = "Teleport To Fruit",
-    Default = _G.Settings.Fruit["Teleport To Fruit"],
+TeleportToFruitToggle = Tabs.FruitTab:Toggle({
+    Title = "Teleport To Fruit",
+    Value = _G.Settings.Fruit["Teleport To Fruit"],
     Callback = function(state)
         _G.Settings.Fruit["Teleport To Fruit"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Fruit["Teleport To Fruit"] then
             for i, v in pairs(game.Workspace:GetChildren()) do
@@ -9501,14 +10245,15 @@ TeleportToFruitToggle = Tabs.FruitTab:AddToggle({
         end
     end
 end);
-TweenToFruitToggle = Tabs.FruitTab:AddToggle({
-    Name = "Tween To Fruit",
-    Default = _G.Settings.Fruit["Tween To Fruit"],
+TweenToFruitToggle = Tabs.FruitTab:Toggle({
+    Title = "Tween To Fruit",
+    Value = _G.Settings.Fruit["Tween To Fruit"],
     Callback = function(state)
         _G.Settings.Fruit["Tween To Fruit"] = state;
         (getgenv()).SaveSetting();
     end
-});spawn(function()
+});
+spawn(function()
     while wait(0.2) do
         if _G.Settings.Fruit["Tween To Fruit"] then
             for i, v in pairs(game.Workspace:GetChildren()) do
@@ -9519,8 +10264,8 @@ TweenToFruitToggle = Tabs.FruitTab:AddToggle({
         end
     end
 end);
-GrabFruitButton = Tabs.FruitTab:AddButton({
-    Name = "Grab Fruit",
+GrabFruitButton = Tabs.FruitTab:Button({
+    Title = "Grab Fruit",
     Callback = function()
         for i, v in pairs(game.Workspace:GetChildren()) do
             if v:IsA("Tool") then
@@ -9528,7 +10273,12 @@ GrabFruitButton = Tabs.FruitTab:AddButton({
             end
         end
     end
-});VisualSection = Tabs.FruitTab:AddSection({"Visual"});function rainFruit()
+});
+VisualSection = Tabs.FruitTab:Section({
+    Title = "Visual",
+    TextXAlignment = "Left"
+});
+function rainFruit()
     for h, i in pairs((game:GetObjects("rbxassetid://14759368201"))[1]:GetChildren()) do
         i.Parent = game.Workspace.Map;
         i:MoveTo(game.Players.LocalPlayer.Character.PrimaryPart.Position +
@@ -9544,22 +10294,33 @@ GrabFruitButton = Tabs.FruitTab:AddButton({
         end);
     end
 end
-RainFruitButton = Tabs.FruitTab:AddButton({
-    Name = "Rain Fruit",
+RainFruitButton = Tabs.FruitTab:Button({
+    Title = "Rain Fruit",
     Callback = function()
         rainFruit();
     end
-});MiscSection = Tabs.MiscTab:AddSection({"Misc"});JoinPiratesTeamButton = Tabs.MiscTab:AddButton({
-    Name = "Join Pirates Team",
+});
+MiscSection = Tabs.MiscTab:Section({
+    Title = "Misc",
+    TextXAlignment = "Left"
+});
+JoinPiratesTeamButton = Tabs.MiscTab:Button({
+    Title = "Join Pirates Team",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("SetTeam", "Pirates");
     end
-});JoinMarinesTeamButton = Tabs.MiscTab:AddButton({
-    Name = "Join Marines Team",
+});
+JoinMarinesTeamButton = Tabs.MiscTab:Button({
+    Title = "Join Marines Team",
     Callback = function()
         (game:GetService("ReplicatedStorage")).Remotes.CommF_:InvokeServer("SetTeam", "Marines");
     end
-});CodeSection = Tabs.MiscTab:AddSection({"Codes"});local codeList = {"ZIOLES", "NOOB2ADMIN", "KITT_RESET", "Sub2CaptainMaui", "SUB2GAMERROBOT_RESET1", "kittgaming",
+});
+CodeSection = Tabs.MiscTab:Section({
+    Title = "Codes",
+    TextXAlignment = "Left"
+});
+local codeList = {"ZIOLES", "NOOB2ADMIN", "KITT_RESET", "Sub2CaptainMaui", "SUB2GAMERROBOT_RESET1", "kittgaming",
                   "Sub2Fer999", "Enyu_is_Pro", "Magicbus", "JCWK", "Starcodeheo", "Bluxxy", "fudd10_v2", "FUDD10",
                   "BIGNEWS", "THEGREATACE", "SUB2GAMERROBOT_EXP1", "Sub2OfficialNoobie", "StrawHatMaine",
                   "SUB2NOOBMASTER123", "Sub2UncleKizaru", "Sub2Daigrock", "Axiore", "TantaiGaming"};
@@ -9567,14 +10328,19 @@ RainFruitButton = Tabs.FruitTab:AddButton({
 function redeemCode(code)
     (game:GetService("ReplicatedStorage")).Remotes.Redeem:InvokeServer(code);
 end
-local RedeemAllCodesButton = Tabs.MiscTab:AddButton({
-    Name = "Redeem All Codes",
+local RedeemAllCodesButton = Tabs.MiscTab:Button({
+    Title = "Redeem All Codes",
     Callback = function()
         for i, v in pairs(codeList) do
             redeemCode(v);
         end
     end
-});GraphicMiscSection = Tabs.MiscTab:AddSection({"Graphic"});function boostFps()
+});
+GraphicMiscSection = Tabs.MiscTab:Section({
+    Title = "Graphic",
+    TextXAlignment = "Left"
+});
+function boostFps()
     local decalsyeeted = true;
     local g = game;
     local w = g.Workspace;
@@ -9597,25 +10363,28 @@ local RedeemAllCodesButton = Tabs.MiscTab:AddButton({
         end
     end
 end
-FpsBoostButton = Tabs.MiscTab:AddButton({
-    Name = "Fps Boost (Roblox)",
+FpsBoostButton = Tabs.MiscTab:Button({
+    Title = "Fps Boost (Roblox)",
     Callback = function()
         boostFps();
     end
-});FpsBoostButton = Tabs.MiscTab:AddButton({
-    Name = "Fps Boost (Vylera Hub)",
+});
+FpsBoostButton = Tabs.MiscTab:Button({
+    Title = "Fps Boost (Vylera Hub)",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/dyumra/DYHUB-Universal-Game/refs/heads/main/Nigga.lua"))()
     end
-});RemoveFogButton = Tabs.MiscTab:AddButton({
-    Name = "Remove Fog",
+});
+RemoveFogButton = Tabs.MiscTab:Button({
+    Title = "Remove Fog",
     Callback = function()
         (game:GetService("Lighting")).LightingLayers:Destroy();
         (game:GetService("Lighting")).Sky:Destroy();
         game.Lighting.FogEnd = 9000000000;
     end
-});RemoveLavaButton = Tabs.MiscTab:AddButton({
-    Name = "Remove Lava",
+});
+RemoveLavaButton = Tabs.MiscTab:Button({
+    Title = "Remove Lava",
     Callback = function()
         for i, v in pairs(game.Workspace:GetDescendants()) do
             if v.Name == "Lava" then
@@ -9628,29 +10397,76 @@ FpsBoostButton = Tabs.MiscTab:AddButton({
             end
         end
     end
-});ServerTabSection = Tabs.ServerTab:AddSection({"Server"});RejoinServerButton = Tabs.ServerTab:AddButton({
-    Name = "Rejoin Server",
+});
+ServerTabSection = Tabs.ServerTab:Section({
+    Title = "Server",
+    TextXAlignment = "Left"
+});
+RejoinServerButton = Tabs.ServerTab:Button({
+    Title = "Rejoin Server",
     Callback = function()
         (game:GetService("TeleportService")):Teleport(game.PlaceId);
     end
-});ServerHopButton = Tabs.ServerTab:AddButton({
-    Name = "Server Hop",
+});
+ServerHopButton = Tabs.ServerTab:Button({
+    Title = "Server Hop",
     Callback = function()
         local module = (loadstring(game:HttpGet(
             "https://raw.githubusercontent.com/raw-scriptpastebin/FE/main/Server_Hop_Settings")))();
         module:Teleport(game.PlaceId);
     end
-});JobIdParagraph = Tabs.ServerTab:AddParagraph({"Job ID", game.JobId});EnterJobIdInput = Tabs.ServerTab:AddInput({
-    Name = "Enter Job ID",
+});
+JobIdParagraph = Tabs.ServerTab:Paragraph({
+    Title = "Job ID",
+    Desc = game.JobId,
+    Buttons = {{
+        Title = "Copy",
+        Callback = function()
+            setclipboard(game.JobId);
+        end
+    }}
+});
+EnterJobIdInput = Tabs.ServerTab:Input({
+    Title = "Enter Job ID",
     Callback = function(value)
         _G.JobId = value;
     end
-});JoinJobIdButton = Tabs.ServerTab:AddButton({
-    Name = "Join Job ID",
+});
+JoinJobIdButton = Tabs.ServerTab:Button({
+    Title = "Join Job ID",
     Callback = function()
         (game:GetService("TeleportService")):TeleportToPlaceInstance(game.PlaceId, _G.JobId);
     end
-});StatusServerSection = Tabs.ServerTab:AddSection({"Status"});MoonServerParagraph = Tabs.ServerTab:AddParagraph({"Moon Server", "N/A"});KitsuneStatusParagraph = Tabs.ServerTab:AddParagraph({"Kitsune Status", "N/A"});FrozenStatusParagraph = Tabs.ServerTab:AddParagraph({"Frozen Status", "N/A"});MirageStatusParagraph = Tabs.ServerTab:AddParagraph({"Mirage Status", "N/A"});HakiDealerStatusParagraph = Tabs.ServerTab:AddParagraph({"Haki Dealer Status", "N/A"});PrehistoricStatusParagraph = Tabs.ServerTab:AddParagraph({"Prehistoric Status", "N/A"});spawn(function()
+});
+StatusServerSection = Tabs.ServerTab:Section({
+    Title = "Status",
+    TextXAlignment = "Left"
+});
+MoonServerParagraph = Tabs.ServerTab:Paragraph({
+    Title = "Moon Server",
+    Desc = "N/A"
+});
+KitsuneStatusParagraph = Tabs.ServerTab:Paragraph({
+    Title = "Kitsune Status",
+    Desc = "N/A"
+});
+FrozenStatusParagraph = Tabs.ServerTab:Paragraph({
+    Title = "Frozen Status",
+    Desc = "N/A"
+});
+MirageStatusParagraph = Tabs.ServerTab:Paragraph({
+    Title = "Mirage Status",
+    Desc = "N/A"
+});
+HakiDealerStatusParagraph = Tabs.ServerTab:Paragraph({
+    Title = "Haki Dealer Status",
+    Desc = "N/A"
+});
+PrehistoricStatusParagraph = Tabs.ServerTab:Paragraph({
+    Title = "Prehistoric Status",
+    Desc = "N/A"
+});
+spawn(function()
     while task.wait() do
         pcall(function()
             if (game:GetService("Lighting")).Sky.MoonTextureId == "http://www.roblox.com/asset/?id=9709149431" then
